@@ -78,5 +78,12 @@
             </Setter>
         </Style>
 
+        <!-- Images -->
+        <Style x:Key="SongCover" TargetType="Image">
+            <Setter Property="Stretch" Value="UniformToFill"/>
+            <Setter Property="Width" Value="45"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="LowQuality"/>
+        </Style>
     </Application.Resources>
 </Application>

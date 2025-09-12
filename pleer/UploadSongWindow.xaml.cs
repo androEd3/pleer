@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using pleer.Models;
+using pleer.Models.CONTEXT;
+using pleer.Models.Media;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -91,20 +92,27 @@ namespace pleer
 
         private void UploadSongButton_Click(object sender, RoutedEventArgs e)
         {
-            var newMedia = new Media()
+            var newAlbumCover = new AlbumCover()
             {
-                Name = SongName.Text,
-                Creator = CreatorName.Text,
-                AlbumCoverPath = _albumCoverPath,
+                AlbumCoverPath = _albumCoverPath
+            };
+
+            var newSong = new Song()
+            {
+                Title = SongName.Text,
+                Artist = CreatorName.Text,
+                AlbumCoverId = newAlbumCover.Id,
                 SongPath = _songPath
             };
 
             try
             {
-                _context.Media.Add(newMedia);
+                _context.AlbumCovers.Add(newAlbumCover);
+                _context.Songs.Add(newSong);
+
                 _context.SaveChanges();
 
-                MessageBox.Show("Песня успешно добавлена на площадку pleer");
+                MessageBox.Show("Песня и обложка успешно добавлена на площадку pleer");
                 this.Close();
             }
             catch (Exception ex)

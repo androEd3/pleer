@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using pleer.Models;
+using pleer.Models.CONTEXT;
+using pleer.Models.Media;
+using System.Collections;
+using System.Configuration;
 using System.Diagnostics;
 using System.Numerics;
 using System.Text;
@@ -9,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -24,16 +28,21 @@ namespace pleer
         dbContext _context = new dbContext();
 
         MediaPlayer _mediaPlayer = new MediaPlayer();
-        Media _selectedMedia;
+        Song _selectedSong;
 
-        private bool _isSliding = false;
+        List<Song> _listeningHistory = new List<Song>();
+        int _songSerialNumber;
+
+        private bool _isDraggingMediaSlider = false;
+        private bool _isDraggingVolumeSlider = false;
+
+        private bool _isUnpressedMediaSlider = true;
 
         private DispatcherTimer _progressTimer;
 
-        private PlayerState _playerState = PlayerState.Stopped;
+        private PlayerState _playerState = PlayerState.Paused;
         private enum PlayerState
         {
-            Stopped,    // Воспроизведение остановлено
             Playing,    // Идет воспроизведение
             Paused      // На паузе
         }
@@ -42,7 +51,9 @@ namespace pleer
         {
             InitializeComponent();
 
-            LoadMediaList();
+            //InitilizeData.SeedData();
+
+            LoadSongsList();
         }
 
         async void InitilizeTimer()
@@ -54,52 +65,56 @@ namespace pleer
         }
 
         //Create media card
-        async void LoadMediaList()
+        async public void LoadSongsList()
         {
-            var medias = await _context.Media.ToArrayAsync();
+            SongsList.Children.Clear();
 
-            if (medias.Count() == 0)
+            var songs = await _context.Songs.ToArrayAsync();
+
+            if (songs.Count() == 0)
                 return;
 
-            foreach (var media in medias)
+            foreach (var song in songs)
             {
-                var card = CreateMediaCard(media);
-                MediaList.Children.Add(card);
+                var card = CreateMediaCard(song);
+                SongsList.Children.Add(card);
             }
         }
 
-        private UIElement CreateMediaCard(Media media)
+        private string LoadAlbumCover(int Id)
+        {
+            return _context.AlbumCovers.FirstOrDefault(d => d.Id == Id).AlbumCoverPath;
+        }
+
+        private UIElement CreateMediaCard(Song song)
         {
             Grid grid = new Grid
             {
                 Height = 55,
             };
 
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(65) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(60) });
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
             var bitmap = new BitmapImage();
 
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri(media.AlbumCoverPath);
+            bitmap.UriSource = new Uri(LoadAlbumCover(song.Id));
             bitmap.DecodePixelWidth = 90; 
             bitmap.EndInit();
 
             var image = new Image
             {
                 Source = bitmap,
-                Stretch = Stretch.UniformToFill,
-                Width = 45,
-                Height = 45,
+                Style = Application.Current.TryFindResource("SongCover") as Style
             };
-            RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.LowQuality);
 
             var imageBorder = new Border
             {
                 Width = 45,
                 Height = 45,
                 CornerRadius = new CornerRadius(10),
-                Margin = new Thickness(20, 5, 5, 5),
+                Margin = new Thickness(15, 5, 5, 5),
                 Child = image,
             };
 
@@ -114,14 +129,14 @@ namespace pleer
 
             var mediaName = new TextBlock
             {
-                Text = media.Name,
+                Text = song.Title,
                 FontWeight = FontWeights.Bold,
                 FontSize = 16
             };
 
             var mediaCreator = new TextBlock
             {
-                Text = media.Creator,
+                Text = song.Artist,
                 Foreground = Brushes.Gray,
                 FontSize = 14
             };
@@ -141,7 +156,7 @@ namespace pleer
                 Cursor = Cursors.Hand,
 
                 Child = grid,
-                Tag = media,
+                Tag = song,
             };
 
             border.MouseLeftButtonUp += MediaCard_Click;
@@ -151,7 +166,7 @@ namespace pleer
 
         private void MediaCard_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Border border && border.Tag is Media media)
+            if (sender is Border border && border.Tag is Song media)
             {
                 SelectMedia(media);
             }
@@ -161,7 +176,7 @@ namespace pleer
         //Media manage
         void TimerTick(object sender, EventArgs e)
         {
-            if (!_isSliding && _mediaPlayer.Position.TotalSeconds >= 0)
+            if (!_isDraggingMediaSlider && _mediaPlayer.Position.TotalSeconds >= 0)
             {
                 currentMediaTime.Text = _mediaPlayer.Position.ToString(@"mm\:ss");
                 progressSlider.Value = _mediaPlayer.Position.TotalSeconds;
@@ -184,15 +199,33 @@ namespace pleer
             LoadSongMetadata();
         }
 
-        void SelectMedia(Media media)
+        void AddSongToHistory(Song song)
+        {
+            _listeningHistory.Add(song);
+
+            _songSerialNumber = _listeningHistory.Count();
+
+            ListeningHistoryList.Text += song.Id.ToString() + " ";
+        }
+
+        void SelectMedia(Song song)
         {
             _mediaPlayer.Close();
-            _selectedMedia = media;
+            _selectedSong = song;
 
-            _mediaPlayer.Open(new Uri(_selectedMedia.SongPath));
+            _mediaPlayer.Open(new Uri(_selectedSong.SongPath));
 
             _mediaPlayer.Play();
             _playerState = PlayerState.Playing;
+
+            if (_listeningHistory.Count() == 0)
+            {
+                AddSongToHistory(song);
+            }
+            if (_listeningHistory[_songSerialNumber - 1].Id != song.Id)
+            {
+                AddSongToHistory(song);
+            }
 
             _mediaPlayer.Volume = VolumeSlider.Value;
 
@@ -205,27 +238,27 @@ namespace pleer
         {
             PlayMediaButton.Content = "II";
 
-            SongName.Text = _selectedMedia.Name;
-            SingerName.Text = _selectedMedia.Creator;
+            SongName.Text = _selectedSong.Title;
+            SingerName.Text = _selectedSong.Artist;
 
             var bitmap = new BitmapImage();
 
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri(_selectedMedia.AlbumCoverPath);
+            bitmap.UriSource = new Uri(LoadAlbumCover(_selectedSong.Id));
             bitmap.DecodePixelWidth = 90;
             bitmap.EndInit();
 
-            if (string.IsNullOrEmpty(_selectedMedia.AlbumCoverPath))
+            if (string.IsNullOrEmpty(LoadAlbumCover(_selectedSong.Id)))
             {
                 AlbumCover.Source = new BitmapImage(new Uri("..\\Resources\\ServiceImages\\NoMediaImage.png"));
             }
-            else 
+            else
                 AlbumCover.Source = bitmap;
         }
 
         private void PlayMedia_Click(object sender, RoutedEventArgs e)
         {
-            if (_selectedMedia == null)
+            if (_mediaPlayer == default)
                 return;
 
             switch (_playerState)
@@ -244,46 +277,84 @@ namespace pleer
             }
         }
 
+        //СКИП
         private void PreviousMedia_Click(object sender, RoutedEventArgs e)
         {
+            if (_mediaPlayer == default)
+                return;
 
+            if (_mediaPlayer.Position < TimeSpan.FromSeconds(3) && _songSerialNumber - 1 > 0)
+            {
+                _songSerialNumber -= 1;
+                _selectedSong = _listeningHistory[_songSerialNumber - 1];
+                SelectMedia(_selectedSong);
+            }
+            else
+                ProgressSlider_ChangeValue(0);
         }
 
         private void NextMedia_Click(object sender, RoutedEventArgs e)
         {
+            if (_mediaPlayer == default)
+                return;
 
+            if (_songSerialNumber < _listeningHistory.Count())
+            {
+                ProgressSlider_ChangeValue(0);
+
+                _songSerialNumber += 1;
+
+                _selectedSong = _listeningHistory[_songSerialNumber - 1];
+                SelectMedia(_selectedSong);
+            }
+            // тут можно сделать скип на другие плейлисты потому что текущий все гг закончился
         }
 
-        // Для перемотки
+        // Для перемотки песни
+        void ProgressSlider_ChangeValue(double value)
+        {
+            _mediaPlayer.Position = TimeSpan.FromSeconds(value);
+            currentMediaTime.Text = _mediaPlayer.Position.ToString(@"mm\:ss");
+        }
+
         private void ProgressSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Если пользователь перемещает слайдер (а не программа)
-            if (_isSliding && _mediaPlayer != null)
+            if (_isDraggingMediaSlider && _isUnpressedMediaSlider && _mediaPlayer != null)
             {
-                // Устанавливаем новую позицию для медиаплеера
-                _mediaPlayer.Position = TimeSpan.FromSeconds(e.NewValue);
-
-                // Обновляем отображение текущего времени
-                currentMediaTime.Text = _mediaPlayer.Position.ToString(@"mm\:ss");
+                ProgressSlider_ChangeValue(e.NewValue);
             }
         }
 
-        // Обработчики для определения, когда пользователь начинает и заканчивает перемещение слайдера
         private void ProgressSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _isSliding = true;
+            _isDraggingMediaSlider = true;
+            _isUnpressedMediaSlider = false;
         }
 
         private void ProgressSlider_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _isSliding = false;
+            _isDraggingMediaSlider = false;
+            _isUnpressedMediaSlider = true;
             _mediaPlayer.Position = TimeSpan.FromSeconds(progressSlider.Value);
         }
 
         //Изменение громкости
+        private void VolumeSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _isDraggingVolumeSlider = true;
+        }
+
+        private void VolumeSlider_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (_isDraggingVolumeSlider)
+            {
+                _isDraggingVolumeSlider = false;
+            }
+        }
+
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (_mediaPlayer != null)
+            if (_mediaPlayer != null && _isDraggingVolumeSlider)
             {
                 _mediaPlayer.Volume = VolumeSlider.Value;
             }
@@ -294,6 +365,7 @@ namespace pleer
         {
             var uploadSongWindow = new UploadSongWindow();
             uploadSongWindow.ShowDialog();
+            LoadSongsList();
         }
 
         //Site Opening

@@ -28,9 +28,17 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <ScrollViewer VerticalAlignment="Top" 
-                            Margin="150 0" VerticalScrollBarVisibility="Auto">
-                    <StackPanel Name="MediaList"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Name="ListeningHistoryList" FontSize="20" TextWrapping="Wrap"/>
+
+            <ScrollViewer Grid.Column="1" VerticalAlignment="Top" 
+                            Margin="5 0" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Name="SongsList"/>
             </ScrollViewer>
         </Grid>
 
@@ -44,7 +52,7 @@
             <!-- Song Info -->
             <StackPanel Orientation="Horizontal" Margin="15 10"
                         VerticalAlignment="Center" HorizontalAlignment="Left">
-                <Image Name="AlbumCover" />
+                <Image Name="AlbumCover" Style="{StaticResource SongCover}"/>
 
                 <StackPanel Margin="5">
                     <TextBlock Name="SongName" Style="{StaticResource SongName}"/>
@@ -85,6 +93,7 @@
                             Minimum="0" Margin="10,0"
                             Maximum="{Binding Duration.TotalSeconds}"
                             Value="{Binding CurrentPosition.TotalSeconds, Mode=OneWay}"
+                            IsMoveToPointEnabled="True"
                             ValueChanged="ProgressSlider_ValueChanged"
                             PreviewMouseLeftButtonDown="ProgressSlider_PreviewMouseLeftButtonDown"
                             PreviewMouseLeftButtonUp="ProgressSlider_PreviewMouseLeftButtonUp"
@@ -100,11 +109,13 @@
                 <TextBlock Style="{StaticResource SmallMainInfoPanel}" Text="🔉"/>
 
                 <Slider x:Name="VolumeSlider"
-                    Minimum="0" Maximum="0.1"
-                    Value="0.05"
-                    ValueChanged="VolumeSlider_ValueChanged"
-                    Width="100"
-                    VerticalAlignment="Center"/>
+                        Minimum="0" Maximum="0.1"
+                        Value="0.05"
+                        IsMoveToPointEnabled="True"
+                        ValueChanged="VolumeSlider_ValueChanged"
+                        PreviewMouseLeftButtonDown="VolumeSlider_PreviewMouseLeftButtonDown"
+                        PreviewMouseLeftButtonUp="VolumeSlider_PreviewMouseLeftButtonUp"
+                        Width="100" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </Grid>

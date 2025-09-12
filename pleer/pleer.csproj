@@ -23,7 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\ServiceImages\NoMediaImage.png" />
+    <Resource Include="Resources\ServiceImages\NoMediaImage.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Functions\" />
   </ItemGroup>
 
 </Project>

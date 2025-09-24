@@ -2,10 +2,25 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="UploadSongWindow.xaml.cs">
+    <Compile Update="Resources\Pages\ArtistPages\AddSongsToAlbum.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WindowAR.xaml.cs">
+    <Compile Update="Resources\Pages\ArtistPages\CreateAlbum.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\UserPages\CenterField\OpenAlbum.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\UserPages\LeftField\SimplePlaylistsList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\UserPages\CenterField\SimpleSongList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Windows\ArtistMainWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Windows\UserMainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

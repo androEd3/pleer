@@ -1,51 +1,73 @@
 ﻿<Application x:Class="pleer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:pleer"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Resources/Windows/UserMainWindow.xaml">
     <Application.Resources>
             
         <!-- SongLowerPanel -->
-        <Style x:Key="SongName" TargetType="TextBlock">
+        <Style x:Key="SongNameLowerPanel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#eee"/>
         </Style>
 
-        <Style x:Key="SingerName" TargetType="TextBlock">
+        <Style x:Key="ArtistNameLowerPanel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="#bbb"/>
         </Style>
-        
+
+        <!-- AlbumCenterPanel -->
+        <Style x:Key="AlbumNameCenterPanel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#eee"/>
+        </Style>
+
+        <Style x:Key="ArtistNameCenterPanel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="#bbb"/>
+        </Style>
+
         <!-- InfoPanels -->
         <Style x:Key="BigMainInfoPanel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="26"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#eee"/>
         </Style>
 
         <Style x:Key="SmallMainInfoPanel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#bbb"/>
         </Style>
 
         <Style x:Key="SmallInfoPanel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Foreground" Value="#555"/>
+            <Setter Property="Foreground" Value="#bbb"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
         
         <!-- Input Fields -->
         <Style x:Key="MainIngutField" TargetType="TextBox">
             <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="#eee"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#333"/>
+            <Setter Property="BorderThickness" Value="2"/>
         </Style>
         
         <!-- Button Styles -->
         <Style x:Key="SimpleSubmitButton" TargetType="Button">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" Value="#FFE0E0E0"/>
-            <Setter Property="Foreground" Value="#FF333333"/>
-            <Setter Property="BorderBrush" Value="#FF606060"/>
+            <Setter Property="Background" Value="#333"/>
+            <Setter Property="Foreground" Value="#ccc"/>
+            <Setter Property="BorderBrush" Value="#666"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -60,17 +82,91 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFD0D0D0"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#FF505050"/>
+                                <Setter TargetName="border" Property="Background" Value="#444"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#444"/>
                             </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFC0C0C0"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#FF404040"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BaseFunctionButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#aaa"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#eee"/>
                             </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="#FFF0F0F0"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#FFCCCCCC"/>
-                                <Setter Property="Foreground" Value="#FF999999"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+
+        <Style x:Key="AddSongButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#aaa"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#eee"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RemoveSongButton" TargetType="Button">
+            <Setter Property="Background" Value="#3b3"/>
+            <Setter Property="Foreground" Value="#eee"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="BaseFunctionButtonWithBorder" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#aaa"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#444"/>
+                                <Setter Property="Foreground" Value="#eee"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -79,11 +175,29 @@
         </Style>
 
         <!-- Images -->
-        <Style x:Key="SongCover" TargetType="Image">
-            <Setter Property="Stretch" Value="UniformToFill"/>
-            <Setter Property="Width" Value="45"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="RenderOptions.BitmapScalingMode" Value="LowQuality"/>
+        <Style x:Key="AlbumCoverLowerPanel" TargetType="Image">
+            <Setter Property="Width" Value="55"/>
+            <Setter Property="Height" Value="55"/>
+        </Style>
+        
+        <!-- Card -->
+        <Style x:Key="SimpleFunctionalCard" TargetType="Border">
+            <Setter Property="Background" Value="#444"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#555"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="NonFunctionalField" TargetType="Border">
+            <Setter Property="Background" Value="#333"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+
+        <Style x:Key="AlbumCover" TargetType="Border">
+            <Setter Property="CornerRadius" Value="5"/>
         </Style>
     </Application.Resources>
 </Application>

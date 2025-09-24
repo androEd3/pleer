@@ -1,0 +1,27 @@
+﻿<Page x:Class="pleer.Resources.Pages.OpenAlbum"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:pleer.Resources.Pages"
+      mc:Ignorable="d" >
+
+    <StackPanel>
+        <Border Style="{StaticResource NonFunctionalField}"
+                Margin="5" Padding="5">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <Border Style="{StaticResource AlbumCover}">
+                <Image Name="AlbumCoverCenterField"
+                       Width="100" Height="100"/>
+            </Border>
+
+            <StackPanel Margin="5" VerticalAlignment="Bottom">
+                <TextBlock Name="AlbumName" Style="{StaticResource AlbumNameCenterPanel}"/>
+                <TextBlock Name="ArtistName" Style="{StaticResource ArtistNameCenterPanel}"/>
+            </StackPanel>
+        </StackPanel>
+        </Border>
+
+        <StackPanel Name="SongsList"/>
+    </StackPanel>
+</Page>

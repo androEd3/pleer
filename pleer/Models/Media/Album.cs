@@ -1,10 +1,5 @@
 ﻿using pleer.Models.Users;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pleer.Models.Media
 {
@@ -25,7 +20,7 @@ namespace pleer.Models.Media
         [Required]
         public int AlbumCoverId { get; set; }
 
-        public List<int> SongsId { get; set; } = new List<int>();
-        public virtual ICollection<Song> Songs { get; set; } = new List<Song>();
+        public List<int> SongsId { get; set; } = [];
+        public virtual ICollection<Song> Songs { get; set; } = [];
     }
 }

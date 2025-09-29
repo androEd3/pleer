@@ -27,16 +27,15 @@ namespace pleer.Models.ModelsUI
         public static UIElement CreateSongCard(UserMainWindow main, User user, Song song, 
             CardSize cardSize = CardSize.Small)
         {
-            dbContext context = new dbContext();
+            DBContext context = new();
 
             var album = context.Albums.Find(song.AlbumId);
             var artist = context.Artists.Find(album.ArtistId);
             var cover = context.AlbumCovers.Find(album.AlbumCoverId);
-            var playlist = context.Playlists.First(p => p.CreatorId == user.Id);
 
             var settings = GetCardSettings(cardSize);
 
-            Grid grid = new Grid
+            Grid grid = new()
             {
                 Height = settings.Height,
             };
@@ -89,55 +88,64 @@ namespace pleer.Models.ModelsUI
             grid.Children.Add(infoPanel);
 
             var icon = new MaterialDesignThemes.Wpf.PackIcon();
-            icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus;
+            icon.Width = icon.Height = 25;
 
-            var addButton = new Button
-            {
-                Height = 25,
-                Width = 25,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 0),
-                Content = icon,
-            };
+            var addButton = new Button();
+            bool isSongInPlaylist = false;
 
-            bool isSongInPlaylist = playlist.SongsId.Contains(song.Id);
-            if (isSongInPlaylist)
+            if (user != null)
             {
-                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Minus; // Иконка минуса для удаления
-                addButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus; // Иконка плюса для добавления
-                addButton.Visibility = Visibility.Collapsed;
-            }
-
-            addButton.Click += (s, e) =>
-            {
-                if (!playlist.SongsId.Contains(song.Id))
+                addButton = new Button
                 {
-                    AddSongToPlaylist(playlist, song, context);
-                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Minus;
+                    Height = 25,
+                    Width = 25,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(0, 0, 10, 0),
+                    Content = icon,
+                };
+
+                var playlist = context.Playlists.First(p => p.CreatorId == user.Id);
+
+                isSongInPlaylist = playlist.SongsId.Contains(song.Id);
+
+                if (isSongInPlaylist)
+                {
+                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Minus; // Иконка минуса для удаления
+                    addButton.Style = Application.Current.TryFindResource("RemoveSongButton") as Style;
+                    addButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    DeleteSongFromPlaylist(playlist, song, context);
-                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus;
+                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus; // Иконка плюса для добавления
+                    addButton.Style = Application.Current.TryFindResource("AddSongButton") as Style;
+                    addButton.Visibility = Visibility.Collapsed;
                 }
 
-                // Обновляем контекст чтобы проверить актуальное состояние
-                context = new dbContext();
-                playlist = context.Playlists.First(p => p.CreatorId == user.Id);
-            };
+                addButton.Click += (s, e) =>
+                {
+                    if (!playlist.SongsId.Contains(song.Id))
+                    {
+                        AddSongToPlaylist(playlist, song, context);
+                        icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Minus;
+                        addButton.Style = Application.Current.TryFindResource("RemoveSongButton") as Style;
+                    }
+                    else
+                    {
+                        DeleteSongFromPlaylist(playlist, song, context);
+                        icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Plus;
+                        addButton.Style = Application.Current.TryFindResource("AddSongButton") as Style;
+                    }
+                };
 
-            Grid.SetColumn(addButton, 2);
-            grid.Children.Add(addButton);
+                Grid.SetColumn(addButton, 2);
+                grid.Children.Add(addButton);
+            }
 
-            Border border = new Border
+            Border border = new()
             {
                 Style = Application.Current.TryFindResource("SimpleFunctionalCard") as Style,
 
-                Margin = new Thickness(5),
+                Margin = new Thickness(5, 0, 5, 5),
                 Cursor = Cursors.Hand,
 
                 Child = grid,
@@ -168,13 +176,13 @@ namespace pleer.Models.ModelsUI
             return border;
         }
 
-        static void AddSongToPlaylist(Playlist playlist, Song song, dbContext context)
+        static void AddSongToPlaylist(Playlist playlist, Song song, DBContext context)
         {
             playlist.SongsId.Add(song.Id);
             context.SaveChanges();
         }
 
-        static void DeleteSongFromPlaylist(Playlist playlist, Song song, dbContext context)
+        static void DeleteSongFromPlaylist(Playlist playlist, Song song, DBContext context)
         {
             playlist.SongsId.Remove(song.Id);
             context.SaveChanges();
@@ -183,14 +191,14 @@ namespace pleer.Models.ModelsUI
         public static UIElement CreatePlaylistCard(SimplePlaylistsList main, Playlist playlist,
             CardSize cardSize = CardSize.Large)
         {
-            dbContext context = new dbContext();
+            DBContext context = new();
 
             var creator = context.Users.Find(playlist.CreatorId);
             var cover = context.AlbumCovers.Find(playlist.AlbumCoverId);
 
             var settings = GetCardSettings(cardSize);
 
-            Grid grid = new Grid
+            Grid grid = new()
             {
                 Height = settings.Height,
             };
@@ -201,7 +209,6 @@ namespace pleer.Models.ModelsUI
             var albumCover = new Image
             {
                 Source = DecodePhoto(cover.FilePath, 160),
-                Style = Application.Current.TryFindResource("SongCover") as Style
             };
 
             var coverBorder = new Border
@@ -242,7 +249,7 @@ namespace pleer.Models.ModelsUI
             Grid.SetColumn(infoPanel, 1);
             grid.Children.Add(infoPanel);
 
-            Border border = new Border
+            Border border = new()
             {
                 Style = Application.Current.TryFindResource("SimpleFunctionalCard") as Style,
 
@@ -260,7 +267,7 @@ namespace pleer.Models.ModelsUI
 
         public static void CreateSongUri(AddSongsToAlbum addSongs, string path)
         {
-            TextBlock songPathTextBlock = new TextBlock
+            TextBlock songPathTextBlock = new()
             {
                 Name = "SongPath",
                 Text = path,
@@ -269,14 +276,14 @@ namespace pleer.Models.ModelsUI
                 TextWrapping = TextWrapping.NoWrap
             };
 
-            ToolTip toolTip = new ToolTip();
-            TextBlock toolTipTextBlock = new TextBlock
+            ToolTip toolTip = new();
+            TextBlock toolTipTextBlock = new()
             {
                 TextWrapping = TextWrapping.Wrap,
                 MaxWidth = 400
             };
 
-            Binding binding = new Binding("Text")
+            Binding binding = new("Text")
             {
                 Source = songPathTextBlock
             };
@@ -288,13 +295,13 @@ namespace pleer.Models.ModelsUI
             addSongs.songList.Children.Add(songPathTextBlock);
         }
 
-        public static BitmapImage DecodePhoto(string AlbumCoverPath, int DecodePixelWidth)
+        public static BitmapImage DecodePhoto(string resourcePath, int decodePixelWidth)
         {
             var bitmap = new BitmapImage();
 
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri(AlbumCoverPath);
-            bitmap.DecodePixelWidth = DecodePixelWidth;
+            bitmap.UriSource = new Uri(resourcePath, UriKind.Relative);
+            bitmap.DecodePixelWidth = decodePixelWidth;
             bitmap.EndInit();
 
             return bitmap;

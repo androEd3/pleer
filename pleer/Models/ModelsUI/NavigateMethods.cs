@@ -1,7 +1,9 @@
-﻿using pleer.Models.Media;
+﻿using pleer.Models.CONTEXT;
+using pleer.Models.Media;
 using pleer.Models.Users;
 using pleer.Resources.Pages;
 using pleer.Resources.Pages.ArtistPages;
+using pleer.Resources.Pages.UserPages.FullWindow;
 using pleer.Resources.Windows;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,25 @@ namespace pleer.Models.ModelsUI
         public static void AddSongsToAlbum(ArtistMainWindow main, Album album, AlbumCover cover)
         {
             main.OperationField.Navigate(new AddSongsToAlbum(main, album, cover));
+        }
+
+        //Login window
+        public static void OpenUserLoginPage(UserMainWindow main)
+        {
+            main.FullWindow.Navigate(new LoginPage(main));
+        }
+        public static void OpenArtistLoginPage(ArtistMainWindow main)
+        {
+            main.FullWindow.Navigate(new LoginPage(main));
+        }
+
+        public static void OpenUserRegistrationPage(UserMainWindow main)
+        {
+            main.FullWindow.Navigate(new RegistrationPage(main));
+        }
+        public static void OpenArtistRegistrationPage(ArtistMainWindow main)
+        {
+            main.FullWindow.Navigate(new RegistrationPage(main));
         }
     }
 }

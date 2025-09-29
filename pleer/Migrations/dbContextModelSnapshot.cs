@@ -10,7 +10,7 @@ using pleer.Models.CONTEXT;
 
 namespace pleer.Migrations
 {
-    [DbContext(typeof(dbContext))]
+    [DbContext(typeof(DBContext))]
     partial class dbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -116,9 +116,6 @@ namespace pleer.Migrations
                     b.Property<int>("AlbumId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DurationSeconds")
-                        .HasColumnType("int");
-
                     b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -127,6 +124,9 @@ namespace pleer.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<TimeSpan>("TotalDuration")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 

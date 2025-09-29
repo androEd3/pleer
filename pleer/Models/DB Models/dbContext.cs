@@ -1,17 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using pleer.Models.Users;
 using pleer.Models.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace pleer.Models.CONTEXT
 {
-    public class dbContext : DbContext
+    public class DBContext : DbContext
     {
-        public dbContext() : base()
+        public DBContext() : base()
         { }
 
         //Users

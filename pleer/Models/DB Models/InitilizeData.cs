@@ -11,61 +11,21 @@ namespace pleer.Models.CONTEXT
 {
     public static class InitilizeData
     {
-        public static void SeedData()
+        public static async void SeedData()
         {
-            dbContext context = new dbContext();
-
-            //Seed songs
-
-
-            //Seed albums
-
-
-            //Seed artist
-            if (!context.Artists.Any())
-            {
-                var artist = new Artist()
-                {
-                    Name = "темны принц",
-                    Email = "maloy@a.a",
-                    PasswordHash = "zxc228",
-                    CreatedAt = DateOnly.FromDateTime(DateTime.Now)
-                };
-                context.Artists.Add(artist);
-                context.SaveChanges();
-            }
-
-            //Seed users
-            if (!context.Users.Any())
-            {
-                var user = new User()
-                {
-                    Name = "хейтер",
-                    Email = "bolshoy@a.a",
-                    PasswordHash = "zxc1337",
-                    CreatedAt = DateOnly.FromDateTime(DateTime.Now),
-                };
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                CreatePlaylist(user);
-            }
+            DBContext context = new();
 
             //Seed covers
             if (!context.AlbumCovers.Any())
             {
-                var cover = new AlbumCover()
+                var covers = new List<AlbumCover>()
                 {
-                    FilePath = "D:\\pleerMusicAlbumCovers\\inRaingows.png"
+                    { new() { FilePath = "/Resources/ServiceImages/Favorites.png"} },
+                    { new() { FilePath = "/Resources/ServiceImages/NoMediaImage.png"} },
                 };
-                context.AlbumCovers.Add(cover);
-                context.SaveChanges();
+                await context.AddRangeAsync(covers);
+                await context.SaveChangesAsync();
             }
-        }
-
-        static void CreatePlaylist(User user)
-        {
-            DBServiceMethods.AddPlaylistWithLink(user);
         }
     }
 }

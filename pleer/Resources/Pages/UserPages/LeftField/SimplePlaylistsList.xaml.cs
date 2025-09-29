@@ -1,24 +1,13 @@
-﻿using pleer.Models.CONTEXT;
+﻿using Microsoft.EntityFrameworkCore;
+using pleer.Models.CONTEXT;
 using pleer.Models.DB_Models;
 using pleer.Models.Media;
 using pleer.Models.ModelsUI;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace pleer.Resources.Pages
 {
@@ -27,7 +16,7 @@ namespace pleer.Resources.Pages
     /// </summary>
     public partial class SimplePlaylistsList : Page
     {
-        dbContext _context = new dbContext();
+        DBContext _context = new();
 
         UserMainWindow _mainWindow;
 
@@ -37,8 +26,8 @@ namespace pleer.Resources.Pages
         {
             InitializeComponent();
 
-            _user = user;
             _mainWindow = main;
+            _user = user;
 
             LoadPlaylistsList();
         }
@@ -50,13 +39,15 @@ namespace pleer.Resources.Pages
             if (_user == null)
                 return;
 
-            var playlists = _context.UserPlaylistsLinks
+            var links = _context.UserPlaylistsLinks
                 .Where(u => u.UserId == _user.Id)
-                .Select(u => u.Playlist)
+                .Select(u => u.PlaylistId)
                 .ToArray();
 
-            foreach (var playlist in playlists)
+            foreach (var id in links)
             {
+                var playlist = _context.Playlists.Find(id);
+
                 var card = UIServiceMethods.CreatePlaylistCard(this, playlist);
                 PlaylistsList.Children.Add(card);
             }
@@ -78,7 +69,7 @@ namespace pleer.Resources.Pages
                 return;
             }
 
-            DBServiceMethods.AddPlaylistWithLink(_user);
+            ServiceMethods.AddPlaylistWithLink(_user, _context, false);
 
             LoadPlaylistsList();
         }

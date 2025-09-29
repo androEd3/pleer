@@ -1,11 +1,4 @@
-﻿using pleer.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace pleer.Models.Media
 {
@@ -24,7 +17,7 @@ namespace pleer.Models.Media
         [Required]
         public string FilePath { get; set; }
 
-        [Range(1, int.MaxValue)]
-        public int? DurationSeconds { get; set; }
+        [Required]
+        public TimeSpan TotalDuration { get; set; }
     }
 }

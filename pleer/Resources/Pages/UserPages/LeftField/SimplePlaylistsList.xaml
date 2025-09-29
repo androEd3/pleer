@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:pleer.Resources.Pages"
       mc:Ignorable="d">
 
-    <Border Margin="5 5 5 0" Padding="5"
+    <Border Margin="5 0" Padding="5"
             Style="{StaticResource NonFunctionalField}">
     <StackPanel>
         <Grid Margin="10 0">

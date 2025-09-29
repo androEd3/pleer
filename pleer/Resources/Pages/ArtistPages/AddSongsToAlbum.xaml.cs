@@ -1,22 +1,11 @@
-﻿using pleer.Models.CONTEXT;
+﻿using NAudio.Wave;
+using pleer.Models.CONTEXT;
 using pleer.Models.Media;
 using pleer.Models.ModelsUI;
 using pleer.Resources.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace pleer.Resources.Pages.ArtistPages
 {
@@ -25,14 +14,14 @@ namespace pleer.Resources.Pages.ArtistPages
     /// </summary>
     public partial class AddSongsToAlbum : Page
     {
-        dbContext _context = new dbContext();
+        DBContext _context = new();
 
         ArtistMainWindow _mainWindow;
 
         Album _album;
         AlbumCover _cover;
 
-        List<Song> _songRange = new List<Song>();
+        List<Song> _songRange = [];
 
         public AddSongsToAlbum(ArtistMainWindow main, Album album, AlbumCover cover)
         {
@@ -63,6 +52,10 @@ namespace pleer.Resources.Pages.ArtistPages
                         Title = System.IO.Path.GetFileNameWithoutExtension(songPath),
                         FilePath = songPath,
                     };
+                    using (var audioFile = new AudioFileReader(songPath))
+                    {
+                        song.TotalDuration = audioFile.TotalTime;
+                    }
 
                     _songRange.Add(song);
 
@@ -77,7 +70,7 @@ namespace pleer.Resources.Pages.ArtistPages
 
         private async void UploadAlbumButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!_songRange.Any())
+            if (_songRange.Count == 0)
             {
                 MessageBox.Show("Добавьте в альбом хотя бы одну песню");
                 return;

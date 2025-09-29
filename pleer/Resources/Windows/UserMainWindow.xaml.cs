@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.VisualBasic.ApplicationServices;
 using pleer.Models.CONTEXT;
 using pleer.Models.Media;
 using pleer.Models.ModelsUI;
@@ -17,13 +16,13 @@ namespace pleer.Resources.Windows
 {
     public partial class UserMainWindow : Window
     {
-        dbContext _context = new dbContext();
-        User _user;
+        DBContext _context = new();
+        Models.Users.User _user;
 
-        MediaPlayer _mediaPlayer = new MediaPlayer();
+        MediaPlayer _mediaPlayer = new();
         Song _selectedSong;
 
-        List<Song> _listeningHistory = new List<Song>();
+        List<Song> _listeningHistory = [];
         int _songSerialNumber;
 
         private bool _isDraggingMediaSlider = false;
@@ -43,34 +42,60 @@ namespace pleer.Resources.Windows
         {
             InitializeComponent();
 
-            _user = _context.Users.Find(1);
-
-            InitilizeData. SeedData();
-            PlaylistList.Navigate(new SimplePlaylistsList(this, _user));
+            LoadUserData(_user);
         }
 
-        async void InitilizeTimer()
+        public UserMainWindow(Models.Users.User user)
+        {
+            InitializeComponent();
+
+            _user = user;
+
+            LoadUserData(_user);
+        }
+
+        void LoadUserData(Models.Users.User user)
+        {
+            InitilizeData.SeedData();
+
+            if (user != null)
+            {
+                PlaylistList.Navigate(new SimplePlaylistsList(this, user));
+                NoticePanel.Visibility = Visibility.Collapsed;
+            }
+            else
+                NoticePanel.Visibility = Visibility.Visible;
+        }
+
+        void InitilizeTimer()
         {
             _progressTimer = new DispatcherTimer();
-            _progressTimer.Tick += new EventHandler(TimerTick);
-            _progressTimer.Interval = TimeSpan.FromMilliseconds(150);
+            _progressTimer.Tick += OnCompositionRendering;
+            _progressTimer.Interval = TimeSpan.FromMilliseconds(33);
             _progressTimer.Start();
         }
 
-
         //Media manage
-        void TimerTick(object sender, EventArgs e)
+        void InitializeProgressUpdates()
+        {
+            CompositionTarget.Rendering += OnCompositionRendering;
+        }
+
+        void OnCompositionRendering(object sender, EventArgs e)
         {
             if (!_isDraggingMediaSlider && _mediaPlayer.Position.TotalSeconds >= 0)
             {
-                currentMediaTime.Text = _mediaPlayer.Position.ToString(@"mm\:ss");
-                progressSlider.Value = _mediaPlayer.Position.TotalSeconds;
+                var position = _mediaPlayer.Position;
+                currentMediaTime.Text = position.ToString(@"mm\:ss");
+                progressSlider.Value = position.TotalSeconds;
             }
+            else
+                StopProgressUpdates();
+        }
 
-            _mediaPlayer.MediaEnded += (s, e) =>
-            {
-                _progressTimer.Stop();
-            };
+        void StopProgressUpdates()
+        {
+            CompositionTarget.Rendering -= OnCompositionRendering;
         }
 
         void MediaPlayer_MediaOpened(object sender, EventArgs e)
@@ -87,31 +112,27 @@ namespace pleer.Resources.Windows
         void AddSongToHistory(Song song)
         {
             _listeningHistory.Add(song);
-            _songSerialNumber = _listeningHistory.Count();
+            _songSerialNumber = _listeningHistory.Count;
         }
 
-        public void SelectSong(Song song)
+        void SelectSong(Song song)
         {
             _mediaPlayer.Close();
             _selectedSong = song;
 
             _mediaPlayer.Open(new Uri(_selectedSong.FilePath));
+            _mediaPlayer.Volume = VolumeSlider.Value;
 
             _mediaPlayer.Play();
             _playerState = PlayerState.Playing;
 
-            if (_listeningHistory.Count() == 0)
-            {
-                AddSongToHistory(song);
-            }
-            if (_listeningHistory[_songSerialNumber - 1].Id != song.Id)
-            {
-                AddSongToHistory(song);
-            }
-
-            _mediaPlayer.Volume = VolumeSlider.Value;
-
             InitilizeTimer();
+            InitializeProgressUpdates();
+
+            if (_listeningHistory.Count == 0)
+                AddSongToHistory(song);
+            if (_listeningHistory[_songSerialNumber - 1].Id != song.Id)
+                AddSongToHistory(song);
 
             _mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
         }
@@ -119,9 +140,7 @@ namespace pleer.Resources.Windows
         public void SongCard_Click(object sender, MouseButtonEventArgs e)
         {
             if (sender is Border border && border.Tag is Song song)
-            {
                 SelectSong(song);
-            }
         }
 
         async void LoadSongMetadata()
@@ -130,16 +149,13 @@ namespace pleer.Resources.Windows
 
             var album = await _context.Albums.FindAsync(_selectedSong.AlbumId);
             var artist = await _context.Artists.FindAsync(album.ArtistId);
+            var cover = await _context.AlbumCovers.FindAsync(album.AlbumCoverId);
 
             SongName.Text = _selectedSong.Title;
             SingerName.Text = artist.Name;
 
-            var cover = await _context.AlbumCovers.FindAsync(album.AlbumCoverId);
-
             if (string.IsNullOrEmpty(cover.FilePath))
-            {
                 AlbumCover.Source = new BitmapImage(new Uri("..\\Resources\\ServiceImages\\NoMediaImage.png"));
-            }
             else
                 AlbumCover.Source = UIServiceMethods.DecodePhoto(cover.FilePath, 90);
         }
@@ -152,15 +168,15 @@ namespace pleer.Resources.Windows
             switch (_playerState)
             {
                 case PlayerState.Paused:
-                    PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
                     _mediaPlayer.Play();
                     _playerState = PlayerState.Playing;
+                    PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
                     break;
 
                 case PlayerState.Playing:
-                    PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
                     _mediaPlayer.Pause();
                     _playerState = PlayerState.Paused;
+                    PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
                     break;
             }
         }
@@ -186,7 +202,7 @@ namespace pleer.Resources.Windows
             if (_mediaPlayer == default)
                 return;
 
-            if (_songSerialNumber < _listeningHistory.Count())
+            if (_songSerialNumber < _listeningHistory.Count)
             {
                 ProgressSlider_ChangeValue(0);
 
@@ -267,9 +283,8 @@ namespace pleer.Resources.Windows
         //Добавление песни
         private void LoginAsArtistButton_Click(object sender, RoutedEventArgs e)
         {
-            var artistMainWindow = new ArtistMainWindow();
             _mediaPlayer.Close();
-            artistMainWindow.Show(); this.Close();
+            new ArtistMainWindow().Show(); this.Close();
         }
 
         //Navigate
@@ -278,26 +293,16 @@ namespace pleer.Resources.Windows
             NavigateMethods.OpenSongsSimpleList(this, _user);
         }
 
-        //Site Opening
+        //Login
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             _mediaPlayer.Close();
-            OpenLoginBrowser();
+            NavigateMethods.OpenUserLoginPage(this);
         }
+
+        //Site Opening
         void OpenLoginBrowser()
         {
-            _context = new dbContext();
-
-            try
-            {
-                _context.Database.EnsureCreated();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return;
-            }
-
             var authUrl = "https://localhost:7021/Home/Index";
             Process.Start(new ProcessStartInfo
             {

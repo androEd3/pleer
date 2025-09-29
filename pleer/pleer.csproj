@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ServiceImages\Favorites.png" />
     <None Remove="Resources\ServiceImages\NoMediaImage.png" />
   </ItemGroup>
 
@@ -20,9 +21,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\ServiceImages\Favorites.png" />
     <Resource Include="Resources\ServiceImages\NoMediaImage.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>

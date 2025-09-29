@@ -40,7 +40,7 @@
         <Style x:Key="SmallMainInfoPanel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="#bbb"/>
+            <Setter Property="Foreground" Value="#eee"/>
         </Style>
 
         <Style x:Key="SmallInfoPanel" TargetType="TextBlock">
@@ -48,7 +48,24 @@
             <Setter Property="Foreground" Value="#bbb"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
-        
+
+        <Style x:Key="SmallErrorPanel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#f55"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="FunctionalSmallInfoPanel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#bbb"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#eee"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!-- Input Fields -->
         <Style x:Key="MainIngutField" TargetType="TextBox">
             <Setter Property="FontSize" Value="18"/>
@@ -57,7 +74,7 @@
             <Setter Property="Padding" Value="5"/>
 
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="#333"/>
+            <Setter Property="BorderBrush" Value="#bbb"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
         
@@ -143,9 +160,29 @@
         </Style>
 
         <Style x:Key="RemoveSongButton" TargetType="Button">
-            <Setter Property="Background" Value="#3b3"/>
+            <Setter Property="Background" Value="#1b1"/>
             <Setter Property="Foreground" Value="#eee"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1d1"/>
+                                <Setter Property="Foreground" Value="#aaa"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="BaseFunctionButtonWithBorder" TargetType="Button">
@@ -179,7 +216,7 @@
             <Setter Property="Width" Value="55"/>
             <Setter Property="Height" Value="55"/>
         </Style>
-        
+
         <!-- Card -->
         <Style x:Key="SimpleFunctionalCard" TargetType="Border">
             <Setter Property="Background" Value="#444"/>
@@ -198,6 +235,53 @@
 
         <Style x:Key="AlbumCover" TargetType="Border">
             <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        
+        <!-- ScrollViewer -->
+        <Style x:Key="SimpleDarkScrollViewer" TargetType="ScrollViewer">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollViewer">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ScrollContentPresenter Grid.Column="0"/>
+
+                            <ScrollBar x:Name="PART_VerticalScrollBar"
+                              Grid.Column="1"
+                              Orientation="Vertical"
+                              Value="{TemplateBinding VerticalOffset}"
+                              Maximum="{TemplateBinding ScrollableHeight}"
+                              ViewportSize="{TemplateBinding ViewportHeight}"
+                              Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                              Width="6"
+                              Background="Transparent">
+                                <ScrollBar.Template>
+                                    <ControlTemplate TargetType="ScrollBar">
+                                        <Grid>
+                                            <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                                <Track.Thumb>
+                                                    <Thumb Background="#444" BorderThickness="0">
+                                                        <Thumb.Template>
+                                                            <ControlTemplate>
+                                                                <Rectangle Fill="{TemplateBinding Background}" RadiusX="3" RadiusY="3"/>
+                                                            </ControlTemplate>
+                                                        </Thumb.Template>
+                                                    </Thumb>
+                                                </Track.Thumb>
+                                            </Track>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollBar.Template>
+                            </ScrollBar>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>

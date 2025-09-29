@@ -5,59 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pleer.Resources.Windows"
         mc:Ignorable="d"
-            Height="600" Width="1050"
-            WindowStartupLocation="CenterScreen">
-    <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+            Height="700" Width="1150"
+            MinWidth="917.5" MinHeight="550"
+            WindowStartupLocation="CenterScreen"
+            Background="#222">
 
-        <!-- Main Panel -->
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Content="Войти" Click="LoginButton_Click" Margin="10 0"
-                    Style="{StaticResource SimpleSubmitButton}"/>
+    <Grid>
+        <Frame Grid.RowSpan="3"
+       NavigationUIVisibility="Hidden"
+       VerticalAlignment="Center" HorizontalAlignment="Center"
+       Name="FullWindow"/>
 
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Content="Войти как слушатель" Click="LoginAsListinerButton_Click"
-                    Style="{StaticResource SimpleSubmitButton}"/>
-        </StackPanel>
+        <Grid Name="MainGrid">
+            <UIElement.Effect>
+                <BlurEffect x:Name="WindowBlurEffect" Radius="0" KernelType="Gaussian"/>
+            </UIElement.Effect>
 
-        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                
+            <StackPanel Grid.Row="0" Margin="10 0"
+                        Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="Войти как слушатель" Click="LoginAsListinerButton_Click"
+                        Style="{StaticResource SimpleSubmitButton}"/>
+            </StackPanel>
 
-            <Button Grid.ColumnSpan="2" Content="Показать"
-                    Style="{StaticResource SimpleSubmitButton}"/>
+            <StackPanel Grid.Row="0" Margin="10 0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
 
-            <Grid Grid.Row="1" Grid.ColumnSpan="2"
-                  Margin="5" Visibility="Collapsed">
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Margin="10 0"
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Content="Войти" Click="LoginButton_Click"
+                        Style="{StaticResource SimpleSubmitButton}"/>
+            </StackPanel>
+
+            <!-- Main Panel -->
+            <Grid Grid.Row="1" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Имя исполнителя:" Style="{StaticResource SmallMainInfoPanel}"/>
-                <TextBox Grid.Column="1" Name="ArtistNameTB"
-                         Style="{StaticResource MainIngutField}"/>
+                <StackPanel >
+                    <Button Content="Загрузить альбом" Click="LoadAlbumButton_Click"
+                            Style="{StaticResource SimpleSubmitButton}"/>
+                </StackPanel>
+
+                <Frame Grid.Row="2" Grid.Column="1"
+                       Name="OperationField" NavigationUIVisibility="Hidden"/>
             </Grid>
-
-            <StackPanel Grid.Row="2" Margin="5">
-                <Button Content="Загрузить альбом" Click="LoadAlbumButton_Click"
-                        Style="{StaticResource SimpleSubmitButton}"/>
-            </StackPanel>
-
-            <Frame Grid.Row="2" Grid.Column="1"
-                   Name="OperationField" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>

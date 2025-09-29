@@ -1,22 +1,10 @@
-﻿using pleer.Models.CONTEXT;
-using pleer.Models.Media;
+﻿using pleer.Models.Media;
 using pleer.Models.ModelsUI;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace pleer.Resources.Pages.ArtistPages
 {
@@ -27,8 +15,8 @@ namespace pleer.Resources.Pages.ArtistPages
     {
         ArtistMainWindow _mainWindow;
 
-        AlbumCover _cover = new AlbumCover();
-        Album _album = new Album();
+        AlbumCover _cover = new();
+        Album _album = new();
 
         Artist _artist;
 

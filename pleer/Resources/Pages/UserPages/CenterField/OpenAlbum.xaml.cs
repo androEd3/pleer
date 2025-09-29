@@ -3,21 +3,8 @@ using pleer.Models.Media;
 using pleer.Models.ModelsUI;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace pleer.Resources.Pages
 {
@@ -26,7 +13,7 @@ namespace pleer.Resources.Pages
     /// </summary>
     public partial class OpenAlbum : Page
     {
-        dbContext _context = new dbContext();
+        DBContext _context = new();
 
         UserMainWindow _userMainWindow;
 
@@ -50,25 +37,36 @@ namespace pleer.Resources.Pages
             AlbumName.Text = playlist.Title;
             ArtistName.Text = user.Name;
 
+            TracksCount.Text = $"Треков: {playlist.SongsId.Count()}";
+
+            //TimeSpan summaryDuration = TimeSpan.Zero;
+            //foreach (var song in playlist.Songs)
+            //{
+            //    summaryDuration += song.DurationSeconds;
+            //}
+            //SummaryDuration.Text = $"| Длительность: {summaryDuration.ToString(@"mm\:ss")}";
+
+            CreatonDate.Text = playlist.CreationDate.ToString("d MMM yyyy");
+
             var cover = _context.AlbumCovers.Find(playlist.AlbumCoverId);
 
             if (string.IsNullOrEmpty(cover.FilePath))
-            {
                 AlbumCoverCenterField.Source = new BitmapImage(new Uri("..\\Resources\\ServiceImages\\NoMediaImage.png"));
-            }
             else
                 AlbumCoverCenterField.Source = UIServiceMethods.DecodePhoto(cover.FilePath, 90);
         }
 
         //Create lists
-        public void LoadSongsList(Playlist playlist)
+        void LoadSongsList(Playlist playlist)
         {
             SongsList.Children.Clear();
 
             LoadPlaylistMetadata(playlist);
 
-            var songs = playlist.SongsId
-                .ToArray();
+            var refreshedPlaylist = _context.Playlists.Find(playlist.Id);
+
+            var songs = refreshedPlaylist.SongsId
+                .ToList();
 
             foreach (var id in songs)
             {

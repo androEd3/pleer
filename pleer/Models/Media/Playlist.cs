@@ -1,11 +1,5 @@
-﻿using pleer.Models.CONTEXT;
-using pleer.Models.Users;
-using System;
-using System.Collections.Generic;
+﻿using pleer.Models.Users;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pleer.Models.Media
 {

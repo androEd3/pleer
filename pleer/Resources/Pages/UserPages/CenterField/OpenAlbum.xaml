@@ -8,7 +8,7 @@
 
     <StackPanel>
         <Border Style="{StaticResource NonFunctionalField}"
-                Margin="5" Padding="5">
+                Margin="5 0 5 5" Padding="5">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
             <Border Style="{StaticResource AlbumCover}">
                 <Image Name="AlbumCoverCenterField"
@@ -23,5 +23,14 @@
         </Border>
 
         <StackPanel Name="SongsList"/>
+
+        <StackPanel Margin="5 15">
+            <TextBlock Style="{StaticResource SmallInfoPanel}">
+                <Run Name="TracksCount"/>
+                <Run Name="SummaryDuration"/>
+            </TextBlock>
+            <TextBlock Name="CreatonDate"
+                       Style="{StaticResource SmallInfoPanel}"/>
+        </StackPanel>
     </StackPanel>
 </Page>

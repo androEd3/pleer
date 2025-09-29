@@ -1,14 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using pleer.Models.CONTEXT;
-using pleer.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
+﻿using pleer.Models.Users;
 
 namespace pleer.Models.Media
 {

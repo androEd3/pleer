@@ -11,7 +11,7 @@ using pleer.Models.CONTEXT;
 
 namespace pleer.Migrations
 {
-    [DbContext(typeof(dbContext))]
+    [DbContext(typeof(DBContext))]
     [Migration("20250923184346_ver33")]
     partial class ver33
     {

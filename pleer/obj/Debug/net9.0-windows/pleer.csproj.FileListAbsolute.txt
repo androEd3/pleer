@@ -155,3 +155,14 @@ C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\MaterialDesignColors.dll
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\MaterialDesignThemes.Wpf.dll
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\NAudio.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\NAudio.Asio.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\NAudio.Core.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\NAudio.Midi.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\NAudio.Wasapi.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\NAudio.WinForms.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\bin\Debug\net9.0-windows\NAudio.WinMM.dll
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\LoginPage.g.cs
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\LoginPage.baml
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\RegistrationPage.g.cs
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\RegistrationPage.baml

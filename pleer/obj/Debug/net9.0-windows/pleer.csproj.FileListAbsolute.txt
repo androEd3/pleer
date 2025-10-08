@@ -139,9 +139,7 @@ C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\pleer.genruntimeconfig.cache
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\ref\pleer.dll
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Windows\ArtistMainWindow.g.cs
-C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Windows\UserMainWindow.g.cs
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Windows\ArtistMainWindow.baml
-C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Windows\UserMainWindow.baml
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\CenterField\OpenAlbum.g.cs
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\CenterField\SimpleSongList.g.cs
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\LeftField\SimplePlaylistsList.g.cs
@@ -166,3 +164,9 @@ C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\LoginPage.baml
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\RegistrationPage.g.cs
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\RegistrationPage.baml
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\ProfilePage.g.cs
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\ProfilePage.baml
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\ChangePasswordPage.g.cs
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\UserPages\FullWindow\ChangePasswordPage.baml
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Windows\ListenerMainWindow.g.cs
+C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\obj\Debug\net9.0-windows\Resources\Windows\ListenerMainWindow.baml

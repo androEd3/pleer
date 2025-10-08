@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\ServiceImages\Favorites.png" />
-    <None Remove="Resources\ServiceImages\NoMediaImage.png" />
+    <None Remove="Resources\ServiceImages\DefaultCover.png" />
+    <None Remove="Resources\ServiceImages\ProfileImage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,14 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\ServiceImages\Favorites.png" />
-    <Resource Include="Resources\ServiceImages\NoMediaImage.png">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Styles\" />
+    <Resource Include="Resources\ServiceImages\DefaultCover.png" />
+    <Resource Include="Resources\ServiceImages\FavoritesCover.png" />
+    <Resource Include="Resources\ServiceImages\DefaultPicture.png" />
   </ItemGroup>
 
   <ItemGroup>

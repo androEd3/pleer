@@ -3,7 +3,6 @@ using pleer.Models.CONTEXT;
 using pleer.Models.Media;
 using pleer.Models.ModelsUI;
 using pleer.Resources.Windows;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,7 +15,7 @@ namespace pleer.Resources.Pages.ArtistPages
     {
         DBContext _context = new();
 
-        ArtistMainWindow _mainWindow;
+        ArtistMainWindow _artistMain;
 
         Album _album;
         AlbumCover _cover;
@@ -27,7 +26,7 @@ namespace pleer.Resources.Pages.ArtistPages
         {
             InitializeComponent();
 
-            _mainWindow = main;
+            _artistMain = main;
 
             _album = album;
             _cover = cover;
@@ -84,7 +83,6 @@ namespace pleer.Resources.Pages.ArtistPages
                 _context.AlbumCovers.Add(_cover);
                 await _context.SaveChangesAsync();
 
-                _album.AlbumCoverId = _cover.Id;
                 _album.ReleaseDate = DateOnly.FromDateTime(DateTime.UtcNow);
 
                 _context.Albums.Add(_album);
@@ -112,7 +110,7 @@ namespace pleer.Resources.Pages.ArtistPages
 
         private void ReturnToAlbumButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigateMethods.CreateAlbum(_mainWindow, _album.Artist);
+            NavigateMethods.CreateAlbum(_artistMain, _album.Artist);
         }
     }
 }

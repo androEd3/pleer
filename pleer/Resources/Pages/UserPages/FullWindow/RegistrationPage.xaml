@@ -53,14 +53,14 @@
                     </StackPanel>
 
                     <TextBlock MouseLeftButtonUp="TurnToPassword_Click"
-                                   VerticalAlignment="Bottom"
-                                   Style="{StaticResource FunctionalSmallInfoPanel}">
-                            <InlineUIContainer BaselineAlignment="Center">
-                                <materialDesign:PackIcon Kind="ArrowRightBottom"
-                                                         Width="25" Height="25"/>
-                            </InlineUIContainer>
-                            <Run Text="Далее"/>
-                        </TextBlock>
+                               VerticalAlignment="Bottom"
+                               Style="{StaticResource FunctionalSmallInfoPanel}">
+                        <InlineUIContainer BaselineAlignment="Center">
+                            <materialDesign:PackIcon Kind="ArrowRightBottom"
+                                                     Width="25" Height="25"/>
+                        </InlineUIContainer>
+                        <Run Text="Далее"/>
+                    </TextBlock>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Name="PasswordPanel"
@@ -91,7 +91,6 @@
                 </StackPanel>
 
                 <TextBlock Grid.Row="2" Grid.ColumnSpan="2"
-                           Margin="0 10 0 0"
                            Name="ErrorNoticePanel" TextWrapping="Wrap"
                            Style="{StaticResource SmallErrorPanel}"/>
                 <Button Grid.Row="2" Grid.ColumnSpan="2"

@@ -16,6 +16,8 @@ namespace pleer.Models.Users
         [MaxLength(255)]
         public string Email { get; set; }
 
+        public int ProfilePictureId { get; set; }
+
         [Required]
         [MaxLength(64)] // Для хэша пароля (например, SHA256)
         public string PasswordHash { get; set; }

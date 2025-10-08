@@ -48,16 +48,14 @@
                              Style="{StaticResource MainIngutField}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Grid.ColumnSpan="2"
-                            Margin="0 10 0 0">
-                    <TextBlock Name="ErrorNoticePanel" TextWrapping="Wrap"
-                               Style="{StaticResource SmallErrorPanel}"/>
-                    <Button Grid.Row="2" Grid.ColumnSpan="2"
-                            Content="Войти" Margin="0 30 0 0"
-                            HorizontalAlignment="Center"
-                            Click="LoginButton_Click"
-                            Style="{StaticResource SimpleSubmitButton}"/>
-                </StackPanel>
+                <TextBlock Name="ErrorNoticePanel" TextWrapping="Wrap"
+                           Grid.Row="2" Grid.ColumnSpan="2"
+                           Style="{StaticResource SmallErrorPanel}"/>
+                <Button Grid.Row="2" Grid.ColumnSpan="2"
+                        Content="Войти" Margin="0 60 0 10"
+                        HorizontalAlignment="Center"
+                        Click="LoginButton_Click"
+                        Style="{StaticResource SimpleSubmitButton}"/>
             </Grid>
         </Border>
 

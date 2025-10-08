@@ -14,17 +14,17 @@ namespace pleer.Resources.Pages
     {
         DBContext _context = new();
 
-        UserMainWindow _userMainWindow;
+        ListenerMainWindow _listenerMain;
 
-        User _user;
+        Listener _listener;
 
-        public SimpleSongList(UserMainWindow main, User user)
+        public SimpleSongList(ListenerMainWindow main, Listener listener)
         {
             InitializeComponent();
 
-            _userMainWindow = main;
+            _listenerMain = main;
 
-            _user = user;
+            _listener = listener;
 
             LoadSongsList();
         }
@@ -38,7 +38,7 @@ namespace pleer.Resources.Pages
 
             foreach (var song in songs)
             {
-                var card = UIServiceMethods.CreateSongCard(_userMainWindow, _user, song);
+                var card = UIServiceMethods.CreateSongCard(_listenerMain, _listener, song);
                 SongsList.Children.Add(card);
             }
         }

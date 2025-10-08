@@ -1,8 +1,11 @@
-﻿using pleer.Models.CONTEXT;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using pleer.Models.CONTEXT;
 using pleer.Models.Media;
 using pleer.Models.ModelsUI;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -15,55 +18,61 @@ namespace pleer.Resources.Pages
     {
         DBContext _context = new();
 
-        UserMainWindow _userMainWindow;
+        ListenerMainWindow _listenerMain;
 
-        User _user;
+        Listener _listener;
 
-        public OpenAlbum(UserMainWindow main, Playlist playlist, User user)
+        public OpenAlbum(ListenerMainWindow main, Playlist playlist, Listener listener)
         {
             InitializeComponent();
 
-            _userMainWindow = main;
+            _listenerMain = main;
 
-            _user = user;
+            _listener = listener;
 
             LoadSongsList(playlist);
         }
 
-        void LoadPlaylistMetadata(Playlist playlist)
+        async Task LoadPlaylistMetadata(Playlist playlist)
         {
-            var user = _context.Users.Find(playlist.CreatorId);
+            var listener = _context.Listeners.Find(playlist.CreatorId);
 
             AlbumName.Text = playlist.Title;
-            ArtistName.Text = user.Name;
+            ArtistName.Text = listener.Name;
 
             TracksCount.Text = $"Треков: {playlist.SongsId.Count()}";
 
-            //TimeSpan summaryDuration = TimeSpan.Zero;
-            //foreach (var song in playlist.Songs)
-            //{
-            //    summaryDuration += song.DurationSeconds;
-            //}
-            //SummaryDuration.Text = $"| Длительность: {summaryDuration.ToString(@"mm\:ss")}";
+            //totaliti time
+            TimeSpan summaryDuration = TimeSpan.Zero;
+            foreach (var song in playlist.Songs)
+            {
+                summaryDuration += song.TotalDuration;
+            }
+            SummaryDuration.Text = $"| Длительность: {summaryDuration.ToString(@"mm\:ss")}";
 
+            //creation date
             CreatonDate.Text = playlist.CreationDate.ToString("d MMM yyyy");
 
-            var cover = _context.AlbumCovers.Find(playlist.AlbumCoverId);
+            var cover = await _context.AlbumCovers
+                .FindAsync(playlist.Id);
 
-            if (string.IsNullOrEmpty(cover.FilePath))
-                AlbumCoverCenterField.Source = new BitmapImage(new Uri("..\\Resources\\ServiceImages\\NoMediaImage.png"));
+            if (cover != null)
+                AlbumCoverCenterField.Source = UIServiceMethods.DecodePhoto(cover.FilePath, 200);
             else
-                AlbumCoverCenterField.Source = UIServiceMethods.DecodePhoto(cover.FilePath, 90);
+            {
+                AlbumCoverCenterField.Source = UIServiceMethods.DecodePhoto(InitilizeData.GetDefaultCoverPath(), 200);
+            }
         }
 
         //Create lists
-        void LoadSongsList(Playlist playlist)
+        async Task LoadSongsList(Playlist playlist)
         {
             SongsList.Children.Clear();
 
-            LoadPlaylistMetadata(playlist);
+            await LoadPlaylistMetadata(playlist);
 
-            var refreshedPlaylist = _context.Playlists.Find(playlist.Id);
+            var refreshedPlaylist = await _context.Playlists
+                .FindAsync(playlist.Id);
 
             var songs = refreshedPlaylist.SongsId
                 .ToList();
@@ -72,7 +81,7 @@ namespace pleer.Resources.Pages
             {
                 var song = _context.Songs.Find(id);
 
-                var card = UIServiceMethods.CreateSongCard(_userMainWindow, _user, song);
+                var card = UIServiceMethods.CreateSongCard(_listenerMain, _listener, song);
                 SongsList.Children.Add(card);
             }
         }

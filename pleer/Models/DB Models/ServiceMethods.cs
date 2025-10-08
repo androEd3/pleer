@@ -1,80 +1,78 @@
-﻿using pleer.Models.CONTEXT;
+﻿using Microsoft.EntityFrameworkCore;
+using pleer.Models.CONTEXT;
 using pleer.Models.Media;
 using pleer.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace pleer.Models.DB_Models
 {
     // Сервисный класс для работы с плейлистами
     public class ServiceMethods
     {
-        public static void AddPlaylistWithLink(User user, DBContext context, bool isDefaultPlaylist)
+        public static void AddPlaylistWithLink(Listener listener)
         {
-            if (isDefaultPlaylist)
+            var context = new DBContext();
+
+            try
             {
-                try
+                var playlistsCount = context.Playlists
+                    .Where(p => p.CreatorId == listener.Id)
+                    .Count();
+
+                PlaylistCover cover;
+
+                string playlistTitle = "";
+
+                if (playlistsCount == 0)
                 {
-                    var playlist = new Playlist()
-                    {
-                        Title = "Избранное",
-                        CreationDate = DateOnly.FromDateTime(DateTime.Now),
-                        AlbumCoverId = 1, //favorite
-                        CreatorId = user.Id
-                    };
-                    context.Playlists.Add(playlist);
-                    context.SaveChanges();
-
-                    var link = new UserPlaylistsLink()
-                    {
-                        UserId = user.Id,
-                        PlaylistId = playlist.Id
-                    };
-                    context.UserPlaylistsLinks.Add(link);
-                    context.SaveChanges();
-
-                    return;
+                    cover = context.PlaylistCovers
+                        .First(pc => pc.FilePath == InitilizeData.GetFavoritesCoverPath());
+                    playlistTitle = "Избранное";
                 }
-                catch { }
-            }
-            else
-            {
-                try
+                else
                 {
-                    var playlistCount = context.Playlists.Count(p => p.CreatorId == user.Id);
-
-                    var playlist = new Playlist()
-                    {
-                        Title = $"Плейлист {playlistCount}",
-                        CreatorId = user.Id,
-                        AlbumCoverId = 2, // nomedia
-                        CreationDate = DateOnly.FromDateTime(DateTime.UtcNow),
-                    };
-                    context.Playlists.Add(playlist);
-                    context.SaveChanges();
-
-                    var link = new UserPlaylistsLink()
-                    {
-                        UserId = user.Id,
-                        PlaylistId = playlist.Id
-                    };
-                    context.UserPlaylistsLinks.Add(link);
-                    context.SaveChanges();
-
-                    return;
+                    cover = context.PlaylistCovers
+                        .First(pc => pc.FilePath == InitilizeData.GetDefaultCoverPath());
+                    playlistTitle = $"Плейлист {playlistsCount + 1}";
                 }
-                catch (Exception ex)
+
+                if (cover == null)
                 {
-                    MessageBox.Show($"Ошибка при создании плейлиста: {ex.Message}", "Медиатека",
+                    MessageBox.Show("Обложка для плейлиста не найдена", "Медиатека",
                                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
+
+                var playlist = new Playlist()
+                {
+                    Title = playlistTitle,
+                    CreationDate = DateOnly.FromDateTime(DateTime.Now),
+                    CoverId = cover.Id,
+                    CreatorId = listener.Id
+                };
+
+                context.Playlists.Add(playlist);
+                context.SaveChanges();
+
+                var link = new ListenerPlaylistsLink()
+                {
+                    ListenerId = listener.Id,
+                    PlaylistId = playlist.Id
+                };
+
+                context.ListenerPlaylistsLinks.Add(link);
+                context.SaveChangesAsync();
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при создании плейлиста: {ex.Message}", "Медиатека",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -92,13 +90,17 @@ namespace pleer.Models.DB_Models
             return sBuilder.ToString();
         }
 
-
         //Input fields proverochki
-        public static string IsPasswordsValidOutput(string password, string repeatedPassword)
+        public static string IsPasswordsSame(string password, string repeatedPassword)
         {
             if (password != repeatedPassword)
                 return "Пароли не совпадают";
 
+            return password;
+        }
+
+        public static string IsPasswordsValidOutput(string password)
+        {
             if (password.Length < 6)
                 return "Пароль должен содержать минимум 6 символов";
 
@@ -114,22 +116,40 @@ namespace pleer.Models.DB_Models
             if (!hasLetter)
                 return "Пароль должен содержать хотя бы одну букву";
 
-            return "";
+            return password;
         }
 
         public static string IsValidEmailOutput(string email)
         {
             var trimmedEmail = email.Trim();
 
-            if (!trimmedEmail.EndsWith("."))
+            try
             {
-                string address = new MailAddress(email).Address;
+                var mailAddress = new MailAddress(trimmedEmail);
 
-                if (address == trimmedEmail)
-                    return address;
+                if (mailAddress.Address == trimmedEmail &&
+                    !trimmedEmail.EndsWith(".") &&
+                    trimmedEmail.Contains("@") &&
+                    trimmedEmail.IndexOf('@') > 0 &&
+                    trimmedEmail.IndexOf('@') < trimmedEmail.Length - 1)
+                {
+                    return mailAddress.Address;
+                }
             }
+            catch { }
 
-            return "";
+            return "Неверный формат почты";
+        }
+
+        //Site
+        public static void OpenLoginBrowser()
+        {
+            var authUrl = "https://localhost:7021/Home/Index";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = authUrl,
+                UseShellExecute = true
+            });
         }
     }
 }

@@ -1,29 +1,33 @@
-﻿using pleer.Models.CONTEXT;
-using pleer.Models.Media;
+﻿using pleer.Models.Media;
 using pleer.Models.Users;
 using pleer.Resources.Pages;
 using pleer.Resources.Pages.ArtistPages;
 using pleer.Resources.Pages.UserPages.FullWindow;
 using pleer.Resources.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pleer.Models.ModelsUI
 {
     public class NavigateMethods
     {
         //User window
-        public static void OpenPlaylist(UserMainWindow main, Playlist playlist, User user)
+        public static void OpenPlaylist(ListenerMainWindow main, Playlist playlist, Listener listener)
         {
-            main.CenterField.Navigate(new OpenAlbum(main, playlist, user));
+            main.CenterField.Navigate(new OpenAlbum(main, playlist, listener));
         }
 
-        public static void OpenSongsSimpleList(UserMainWindow main, User user)
+        public static void OpenSongsSimpleList(ListenerMainWindow main, Listener listener)
         {
-            main.CenterField.Navigate(new SimpleSongList(main, user));
+            main.CenterField.Navigate(new SimpleSongList(main, listener));
+        }
+
+        public static void OpenListenerProfile(ListenerMainWindow main, Listener listener)
+        {
+            main.FullWindow.Navigate(new ProfilePage(main, listener));
+        }
+
+        public static void OpenListenerChangePasswordPage(ListenerMainWindow main, Listener listener)
+        {
+            main.FullWindow.Navigate(new ChangePasswordPage(main, listener));
         }
 
         //Artist window
@@ -37,8 +41,18 @@ namespace pleer.Models.ModelsUI
             main.OperationField.Navigate(new AddSongsToAlbum(main, album, cover));
         }
 
+        public static void OpenArtistProfile(ArtistMainWindow main, Artist artist)
+        {
+            main.FullWindow.Navigate(new ProfilePage(main, artist));
+        }
+
+        public static void OpenArtistChangePasswordPage(ArtistMainWindow main, Artist artist)
+        {
+            main.FullWindow.Navigate(new ChangePasswordPage(main, artist));
+        }
+
         //Login window
-        public static void OpenUserLoginPage(UserMainWindow main)
+        public static void OpenListenerLoginPage(ListenerMainWindow main)
         {
             main.FullWindow.Navigate(new LoginPage(main));
         }
@@ -47,7 +61,7 @@ namespace pleer.Models.ModelsUI
             main.FullWindow.Navigate(new LoginPage(main));
         }
 
-        public static void OpenUserRegistrationPage(UserMainWindow main)
+        public static void OpenListenerRegistrationPage(ListenerMainWindow main)
         {
             main.FullWindow.Navigate(new RegistrationPage(main));
         }

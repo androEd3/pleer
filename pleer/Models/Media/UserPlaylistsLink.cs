@@ -2,10 +2,10 @@
 
 namespace pleer.Models.Media
 {
-    public class UserPlaylistsLink
+    public class ListenerPlaylistsLink
     {
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public int ListenerId { get; set; }
+        public virtual Listener Listener { get; set; }
 
         public int PlaylistId { get; set; }
         public virtual Playlist Playlist { get; set; }

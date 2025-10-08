@@ -13,7 +13,7 @@ namespace pleer.Resources.Pages.ArtistPages
     /// </summary>
     public partial class CreateAlbum : Page
     {
-        ArtistMainWindow _mainWindow;
+        ArtistMainWindow _artistMain;
 
         AlbumCover _cover = new();
         Album _album = new();
@@ -24,7 +24,7 @@ namespace pleer.Resources.Pages.ArtistPages
         {
             InitializeComponent();
 
-            _mainWindow = main;
+            _artistMain = main;
             _artist = artist;
         }
 
@@ -65,7 +65,7 @@ namespace pleer.Resources.Pages.ArtistPages
 
         private void AddSongButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigateMethods.AddSongsToAlbum(_mainWindow, _album, _cover);
+            NavigateMethods.AddSongsToAlbum(_artistMain, _album, _cover);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using pleer.Models.CONTEXT;
 using pleer.Models.ModelsUI;
 using pleer.Models.Users;
-using pleer.Resources.Pages;
-using System.Diagnostics;
 using System.Windows;
 
 namespace pleer.Resources.Windows
@@ -20,7 +18,7 @@ namespace pleer.Resources.Windows
         {
             InitializeComponent();
 
-            LoadArtistData(_artist);
+            LoadArtistData();
         }
 
         public ArtistMainWindow(Artist artist)
@@ -29,16 +27,29 @@ namespace pleer.Resources.Windows
 
             _artist = artist;
 
-            LoadArtistData(_artist);
+            LoadArtistData();
         }
 
-        void LoadArtistData(Artist artist)
+        async Task LoadArtistData()
         {
-            InitilizeData.SeedData();
+            InitilizeData.SeedData(_context);
 
-            if (artist != null)
+            if (_artist != null)
             {
-                MessageBox.Show(artist.Name);
+                LoginButton.Visibility = Visibility.Collapsed;
+                ProfilePictureEllipse.Visibility = Visibility.Visible;
+
+                var picture = await _context.ProfilePictures
+                    .FindAsync(_artist.ProfilePictureId);
+
+                if (picture != null)
+                    ProfilePictureImage.ImageSource = UIServiceMethods
+                        .DecodePhoto(picture.FilePath, 100);
+                else
+                {
+                    ProfilePictureImage.ImageSource = UIServiceMethods
+                        .DecodePhoto(InitilizeData.GetDefaultProfilePicturePath(), 100);
+                }
             }
         }
 
@@ -49,7 +60,7 @@ namespace pleer.Resources.Windows
 
         private void LoginAsListinerButton_Click(object sender, RoutedEventArgs e)
         {
-            new UserMainWindow().Show(); this.Close();
+            new ListenerMainWindow().Show(); this.Close();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -57,14 +68,9 @@ namespace pleer.Resources.Windows
             NavigateMethods.OpenArtistLoginPage(this);
         }
 
-        void OpenLoginBrowser()
+        private void ProfileImage_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var authUrl = "https://localhost:7021/Home/Index";
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = authUrl,
-                UseShellExecute = true
-            });
+            NavigateMethods.OpenArtistProfile(this, _artist);
         }
     }
 }

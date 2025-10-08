@@ -11,20 +11,18 @@ namespace pleer.Models.Media
         [MaxLength(100)]
         public string Title { get; set; }
 
-        [Required]
+        public int CoverId { get; set; }
+
         public int CreatorId { get; set; }
-        public User Creator { get; set; }
+        public Listener Creator { get; set; }
 
         [Required]
         public DateOnly CreationDate { get; set; }
-
-        [Required]
-        public int AlbumCoverId { get; set; }
 
         public List<int> SongsId { get; set; } = new List<int>();
         public virtual ICollection<Song> Songs { get; set; } = new List<Song>();
 
         //навигация
-        public virtual ICollection<UserPlaylistsLink> UserPlaylists { get; set; } = new List<UserPlaylistsLink>();
+        public virtual ICollection<ListenerPlaylistsLink> ListenerPlaylists { get; set; } = new List<ListenerPlaylistsLink>();
     }
 }

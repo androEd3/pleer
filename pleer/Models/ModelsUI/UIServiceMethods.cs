@@ -5,18 +5,12 @@ using pleer.Models.Users;
 using pleer.Resources.Pages;
 using pleer.Resources.Pages.ArtistPages;
 using pleer.Resources.Windows;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace pleer.Models.ModelsUI
@@ -24,14 +18,17 @@ namespace pleer.Models.ModelsUI
     public class UIServiceMethods()
     {
         //songs
-        public static UIElement CreateSongCard(UserMainWindow main, User user, Song song, 
+        public static UIElement CreateSongCard(ListenerMainWindow main, Listener listener, Song song, 
             CardSize cardSize = CardSize.Small)
         {
             DBContext context = new();
 
-            var album = context.Albums.Find(song.AlbumId);
-            var artist = context.Artists.Find(album.ArtistId);
-            var cover = context.AlbumCovers.Find(album.AlbumCoverId);
+            var album = context.Albums
+                .Find(song.AlbumId);
+            var artist = context.Artists
+                .Find(album.ArtistId);
+            var cover = context.AlbumCovers
+                .Find(album.CoverId);
 
             var settings = GetCardSettings(cardSize);
 
@@ -93,7 +90,7 @@ namespace pleer.Models.ModelsUI
             var addButton = new Button();
             bool isSongInPlaylist = false;
 
-            if (user != null)
+            if (listener != null)
             {
                 addButton = new Button
                 {
@@ -104,7 +101,8 @@ namespace pleer.Models.ModelsUI
                     Content = icon,
                 };
 
-                var playlist = context.Playlists.First(p => p.CreatorId == user.Id);
+                var playlist = context.Playlists
+                    .First(p => p.CreatorId == listener.Id);
 
                 isSongInPlaylist = playlist.SongsId.Contains(song.Id);
 
@@ -193,8 +191,10 @@ namespace pleer.Models.ModelsUI
         {
             DBContext context = new();
 
-            var creator = context.Users.Find(playlist.CreatorId);
-            var cover = context.AlbumCovers.Find(playlist.AlbumCoverId);
+            var creator = context.Listeners
+                .Find(playlist.CreatorId);
+            var cover = context.PlaylistCovers
+                .Find(playlist.CoverId);
 
             var settings = GetCardSettings(cardSize);
 
@@ -211,17 +211,25 @@ namespace pleer.Models.ModelsUI
                 Source = DecodePhoto(cover.FilePath, 160),
             };
 
-            var coverBorder = new Border
+            var clip = new RectangleGeometry()
+            {
+                Rect = new Rect(0, 0, 40, 40),
+                RadiusX = 20,
+                RadiusY = 20,
+            };
+
+            var imageGrid = new Grid
             {
                 Width = settings.ImageSize,
                 Height = settings.ImageSize,
-                CornerRadius = new CornerRadius(10),
                 Margin = new Thickness(15, 5, 5, 5),
-                Child = albumCover,
+                Clip = clip,
             };
 
-            Grid.SetColumn(coverBorder, 0);
-            grid.Children.Add(coverBorder);
+            grid.Children.Add(albumCover);
+
+            Grid.SetColumn(imageGrid, 0);
+            grid.Children.Add(imageGrid);
 
             //metadata
             var infoPanel = new StackPanel
@@ -300,7 +308,7 @@ namespace pleer.Models.ModelsUI
             var bitmap = new BitmapImage();
 
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri(resourcePath, UriKind.Relative);
+            bitmap.UriSource = new Uri(resourcePath);
             bitmap.DecodePixelWidth = decodePixelWidth;
             bitmap.EndInit();
 

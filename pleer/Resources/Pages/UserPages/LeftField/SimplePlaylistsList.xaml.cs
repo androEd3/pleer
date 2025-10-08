@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using pleer.Models.CONTEXT;
+﻿using pleer.Models.CONTEXT;
 using pleer.Models.DB_Models;
 using pleer.Models.Media;
 using pleer.Models.ModelsUI;
@@ -18,16 +17,16 @@ namespace pleer.Resources.Pages
     {
         DBContext _context = new();
 
-        UserMainWindow _mainWindow;
+        ListenerMainWindow _listenerMain;
 
-        User _user;
+        Listener _listener;
 
-        public SimplePlaylistsList(UserMainWindow main, User user)
+        public SimplePlaylistsList(ListenerMainWindow main, Listener listener)
         {
             InitializeComponent();
 
-            _mainWindow = main;
-            _user = user;
+            _listenerMain = main;
+            _listener = listener;
 
             LoadPlaylistsList();
         }
@@ -36,11 +35,11 @@ namespace pleer.Resources.Pages
         {
             PlaylistsList.Children.Clear();
 
-            if (_user == null)
+            if (_listener == null)
                 return;
 
-            var links = _context.UserPlaylistsLinks
-                .Where(u => u.UserId == _user.Id)
+            var links = _context.ListenerPlaylistsLinks
+                .Where(u => u.ListenerId == _listener.Id)
                 .Select(u => u.PlaylistId)
                 .ToArray();
 
@@ -57,19 +56,19 @@ namespace pleer.Resources.Pages
         {
             if (sender is Border border && border.Tag is Playlist playlist)
             {
-                NavigateMethods.OpenPlaylist(_mainWindow, playlist, _user);
+                NavigateMethods.OpenPlaylist(_listenerMain, playlist, _listener);
             }
         }
 
         private void CreatePlaylictButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_user == null)
+            if (_listener == null)
             {
                 MessageBox.Show("Зайдите в аккаунт чтобы воспользоваться данной функцией");
                 return;
             }
 
-            ServiceMethods.AddPlaylistWithLink(_user, _context, false);
+            ServiceMethods.AddPlaylistWithLink(_listener);
 
             LoadPlaylistsList();
         }

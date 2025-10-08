@@ -1,9 +1,8 @@
 ﻿<Window x:Class="pleer.Resources.Windows.ArtistMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:pleer.Resources.Windows"
         mc:Ignorable="d"
             Height="700" Width="1150"
             MinWidth="917.5" MinHeight="550"
@@ -12,9 +11,9 @@
 
     <Grid>
         <Frame Grid.RowSpan="3"
-       NavigationUIVisibility="Hidden"
-       VerticalAlignment="Center" HorizontalAlignment="Center"
-       Name="FullWindow"/>
+               NavigationUIVisibility="Hidden"
+               VerticalAlignment="Center" HorizontalAlignment="Center"
+               Name="FullWindow"/>
 
         <Grid Name="MainGrid">
             <UIElement.Effect>
@@ -41,9 +40,24 @@
             <StackPanel Grid.Row="0" Margin="10 0"
                         Orientation="Horizontal" 
                         VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button Content="Войти" Click="LoginButton_Click"
-                        Style="{StaticResource SimpleSubmitButton}"/>
+
+                
             </StackPanel>
+
+            <Ellipse HorizontalAlignment="Right" Visibility="Collapsed"
+                     Margin="15 0" Width="45" Height="45"
+                     Name="ProfilePictureEllipse" 
+                     Cursor="Hand" MouseLeftButtonUp="ProfileImage_Click">
+                <Ellipse.Fill>
+                    <ImageBrush x:Name="ProfilePictureImage"/>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <Button Margin="15 0"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Content="Войти" Name="LoginButton"
+                    Click="LoginButton_Click"
+                    Style="{StaticResource SimpleSubmitButton}"/>
 
             <!-- Main Panel -->
             <Grid Grid.Row="1" Margin="10">

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using pleer.Models.Users;
 using pleer.Models.Media;
-using System.ComponentModel;
 
 namespace pleer.Models.CONTEXT
 {
@@ -11,14 +10,16 @@ namespace pleer.Models.CONTEXT
         { }
 
         //Users
-        public DbSet<User> Users { get; set; }
+        public DbSet<Listener> Listeners { get; set; }
         public DbSet<Artist> Artists { get; set; }
+        public DbSet<ProfilePicture> ProfilePictures { get; set; }
 
         //Media
         public DbSet<Song> Songs { get; set; }
         public DbSet<AlbumCover> AlbumCovers { get; set; }
+        public DbSet<PlaylistCover> PlaylistCovers { get; set; }
 
-        public DbSet<UserPlaylistsLink> UserPlaylistsLinks { get; set; }
+        public DbSet<ListenerPlaylistsLink> ListenerPlaylistsLinks { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<Album> Albums { get; set; }
 
@@ -37,20 +38,29 @@ namespace pleer.Models.CONTEXT
             modelBuilder.Entity<Playlist>()
                 .Ignore(p => p.Songs);
 
-            modelBuilder.Entity<UserPlaylistsLink>(entity =>
+            //modelBuilder.Entity<AlbumCover>()
+            //    .Ignore(a => a.Album);
+
+            //modelBuilder.Entity<PlaylistCover>()
+            //    .Ignore(p => p.Playlist);
+
+            //modelBuilder.Entity<ProfilePicture>()
+            //    .Ignore(p => p.User);
+
+            modelBuilder.Entity<ListenerPlaylistsLink>(entity =>
             {
                 // Установка составного ключа
-                entity.HasKey(upl => new { upl.UserId, upl.PlaylistId });
+                entity.HasKey(upl => new { upl.ListenerId, upl.PlaylistId });
 
                 // Настройка отношения с User
-                entity.HasOne(upl => upl.User)
-                      .WithMany(u => u.UserPlaylists)
-                      .HasForeignKey(upl => upl.UserId)
+                entity.HasOne(upl => upl.Listener)
+                      .WithMany(u => u.ListenerPlaylists)
+                      .HasForeignKey(upl => upl.ListenerId)
                       .OnDelete(DeleteBehavior.NoAction);
 
                 // Настройка отношения с Playlist
                 entity.HasOne(upl => upl.Playlist)
-                      .WithMany(p => p.UserPlaylists)
+                      .WithMany(p => p.ListenerPlaylists)
                       .HasForeignKey(upl => upl.PlaylistId)
                       .OnDelete(DeleteBehavior.NoAction);
             });

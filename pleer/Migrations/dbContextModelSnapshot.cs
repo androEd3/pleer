@@ -11,7 +11,7 @@ using pleer.Models.CONTEXT;
 namespace pleer.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    partial class DBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -30,10 +30,10 @@ namespace pleer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AlbumCoverId")
+                    b.Property<int>("ArtistId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ArtistId")
+                    b.Property<int>("CoverId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("ReleaseDate")
@@ -72,6 +72,21 @@ namespace pleer.Migrations
                     b.ToTable("AlbumCovers");
                 });
 
+            modelBuilder.Entity("pleer.Models.Media.ListenerPlaylistsLink", b =>
+                {
+                    b.Property<int>("ListenerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaylistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ListenerId", "PlaylistId");
+
+                    b.HasIndex("PlaylistId");
+
+                    b.ToTable("ListenerPlaylistsLinks");
+                });
+
             modelBuilder.Entity("pleer.Models.Media.Playlist", b =>
                 {
                     b.Property<int>("Id")
@@ -80,7 +95,7 @@ namespace pleer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AlbumCoverId")
+                    b.Property<int>("CoverId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("CreationDate")
@@ -103,6 +118,23 @@ namespace pleer.Migrations
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Playlists");
+                });
+
+            modelBuilder.Entity("pleer.Models.Media.PlaylistCover", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlaylistCovers");
                 });
 
             modelBuilder.Entity("pleer.Models.Media.Song", b =>
@@ -135,21 +167,6 @@ namespace pleer.Migrations
                     b.ToTable("Songs");
                 });
 
-            modelBuilder.Entity("pleer.Models.Media.UserPlaylistsLink", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlaylistId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "PlaylistId");
-
-                    b.HasIndex("PlaylistId");
-
-                    b.ToTable("UserPlaylistsLinks");
-                });
-
             modelBuilder.Entity("pleer.Models.Users.Artist", b =>
                 {
                     b.Property<int>("Id")
@@ -176,12 +193,15 @@ namespace pleer.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<int>("ProfilePictureId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Artists");
                 });
 
-            modelBuilder.Entity("pleer.Models.Users.User", b =>
+            modelBuilder.Entity("pleer.Models.Users.Listener", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -207,9 +227,29 @@ namespace pleer.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<int>("ProfilePictureId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Listeners");
+                });
+
+            modelBuilder.Entity("pleer.Models.Users.ProfilePicture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfilePictures");
                 });
 
             modelBuilder.Entity("pleer.Models.Media.Album", b =>
@@ -223,9 +263,28 @@ namespace pleer.Migrations
                     b.Navigation("Artist");
                 });
 
+            modelBuilder.Entity("pleer.Models.Media.ListenerPlaylistsLink", b =>
+                {
+                    b.HasOne("pleer.Models.Users.Listener", "Listener")
+                        .WithMany("ListenerPlaylists")
+                        .HasForeignKey("ListenerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("pleer.Models.Media.Playlist", "Playlist")
+                        .WithMany("ListenerPlaylists")
+                        .HasForeignKey("PlaylistId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Listener");
+
+                    b.Navigation("Playlist");
+                });
+
             modelBuilder.Entity("pleer.Models.Media.Playlist", b =>
                 {
-                    b.HasOne("pleer.Models.Users.User", "Creator")
+                    b.HasOne("pleer.Models.Users.Listener", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -245,25 +304,6 @@ namespace pleer.Migrations
                     b.Navigation("Album");
                 });
 
-            modelBuilder.Entity("pleer.Models.Media.UserPlaylistsLink", b =>
-                {
-                    b.HasOne("pleer.Models.Media.Playlist", "Playlist")
-                        .WithMany("UserPlaylists")
-                        .HasForeignKey("PlaylistId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("pleer.Models.Users.User", "User")
-                        .WithMany("UserPlaylists")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Playlist");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("pleer.Models.Media.Album", b =>
                 {
                     b.Navigation("Songs");
@@ -271,7 +311,7 @@ namespace pleer.Migrations
 
             modelBuilder.Entity("pleer.Models.Media.Playlist", b =>
                 {
-                    b.Navigation("UserPlaylists");
+                    b.Navigation("ListenerPlaylists");
                 });
 
             modelBuilder.Entity("pleer.Models.Users.Artist", b =>
@@ -279,9 +319,9 @@ namespace pleer.Migrations
                     b.Navigation("ArtistsAlbums");
                 });
 
-            modelBuilder.Entity("pleer.Models.Users.User", b =>
+            modelBuilder.Entity("pleer.Models.Users.Listener", b =>
                 {
-                    b.Navigation("UserPlaylists");
+                    b.Navigation("ListenerPlaylists");
                 });
 #pragma warning restore 612, 618
         }

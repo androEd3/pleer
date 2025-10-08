@@ -10,7 +10,6 @@ namespace pleer.Models.Media
         [MaxLength(100)]
         public string Title { get; set; }
 
-        [Required]
         public int AlbumId { get; set; }
         public virtual Album Album { get; set; }
 

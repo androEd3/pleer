@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\App.xaml
-9-1044238897
+11-2085457965
 
-34-2038619814
+362096127261
 248-1450474860
-Resources\Pages\ArtistPages\AddSongsToAlbum.xaml;Resources\Pages\ArtistPages\CreateAlbum.xaml;Resources\Pages\UserPages\CenterField\OpenAlbum.xaml;Resources\Pages\UserPages\CenterField\SimpleSongList.xaml;Resources\Pages\UserPages\FullWindow\LoginPage.xaml;Resources\Pages\UserPages\FullWindow\RegistrationPage.xaml;Resources\Pages\UserPages\LeftField\SimplePlaylistsList.xaml;Resources\Windows\ArtistMainWindow.xaml;Resources\Windows\UserMainWindow.xaml;
+Resources\Pages\ArtistPages\AddSongsToAlbum.xaml;Resources\Pages\ArtistPages\CreateAlbum.xaml;Resources\Pages\UserPages\CenterField\OpenAlbum.xaml;Resources\Pages\UserPages\CenterField\SimpleSongList.xaml;Resources\Pages\UserPages\FullWindow\ChangePasswordPage.xaml;Resources\Pages\UserPages\FullWindow\LoginPage.xaml;Resources\Pages\UserPages\FullWindow\ProfilePage.xaml;Resources\Pages\UserPages\FullWindow\RegistrationPage.xaml;Resources\Pages\UserPages\LeftField\SimplePlaylistsList.xaml;Resources\Windows\ArtistMainWindow.xaml;Resources\Windows\ListenerMainWindow.xaml;
 
 True
 

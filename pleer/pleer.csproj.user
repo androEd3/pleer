@@ -11,7 +11,13 @@
     <Compile Update="Resources\Pages\UserPages\CenterField\OpenAlbum.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Resources\Pages\UserPages\FullWindow\ChangePasswordPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Resources\Pages\UserPages\FullWindow\LoginPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\UserPages\FullWindow\ProfilePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Resources\Pages\UserPages\FullWindow\RegistrationPage.xaml.cs">
@@ -26,7 +32,7 @@
     <Compile Update="Resources\Windows\ArtistMainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Windows\UserMainWindow.xaml.cs">
+    <Compile Update="Resources\Windows\ListenerMainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

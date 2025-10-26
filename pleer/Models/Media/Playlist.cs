@@ -12,6 +12,7 @@ namespace pleer.Models.Media
         public string Title { get; set; }
 
         public int CoverId { get; set; }
+        public PlaylistCover Cover { get; set; }
 
         public int CreatorId { get; set; }
         public Listener Creator { get; set; }

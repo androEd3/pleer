@@ -9,12 +9,22 @@
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="#eee"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#aaa"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="ArtistNameLowerPanel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Foreground" Value="#bbb"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#888"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!-- AlbumCenterPanel -->
@@ -53,6 +63,7 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Foreground" Value="#f55"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
 
         <Style x:Key="SmallErrorFunctionalPanel" TargetType="TextBlock">
@@ -122,7 +133,7 @@
             </Setter>
         </Style>
         
-        <Style x:Key="SimpleSubmitButton" TargetType="Button">
+        <Style x:Key="SimpleButton" TargetType="Button">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" Value="#333"/>
@@ -133,17 +144,52 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="5" Padding="5">
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5" Padding="5">
                             <ContentPresenter HorizontalAlignment="Center" 
-                                      VerticalAlignment="Center"/>
+                                              VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="Background" Value="#444"/>
                                 <Setter TargetName="border" Property="BorderBrush" Value="#444"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#444"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#444"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SimpleButtonV2" TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#2a2a2a"/>
+            <Setter Property="Foreground" Value="#ccc"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#333"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5" Padding="10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#333"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#333"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -262,69 +308,38 @@
 
         <!-- Card -->
         <Style x:Key="SimpleFunctionalCard" TargetType="Border">
-            <Setter Property="Background" Value="#444"/>
+            <Setter Property="Background" Value="#333"/>
             <Setter Property="CornerRadius" Value="5"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#555"/>
+                    <Setter Property="Background" Value="#444"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="NonFunctionalField" TargetType="Border">
-            <Setter Property="Background" Value="#333"/>
+        <Style x:Key="NonFunctionalField22" TargetType="Border">
+            <Setter Property="Background" Value="#222222"/>
             <Setter Property="CornerRadius" Value="5"/>
         </Style>
 
-        <Style x:Key="AlbumCover" TargetType="Border">
+        <Style x:Key="NonFunctionalField2c" TargetType="Border">
+            <Setter Property="Background" Value="#2c2c2c"/>
             <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+
+        <!-- Window -->
+        <Style x:Key="MainWindow" TargetType="Window">
+            <Setter Property="Background" Value="#1e1e1e"/>
+            <Setter Property="MinHeight" Value="550"/>
+            <Setter Property="MinWidth" Value="917.5"/>
+            <Setter Property="Width" Value="1150"/>
+            <Setter Property="Height" Value="700"/>
         </Style>
         
         <!-- ScrollViewer -->
-        <Style x:Key="SimpleDarkScrollViewer" TargetType="ScrollViewer">
+        <Style x:Key="DarkScrollViewer" TargetType="ScrollViewer">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ScrollViewer">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <ScrollContentPresenter Grid.Column="0"/>
-
-                            <ScrollBar x:Name="PART_VerticalScrollBar"
-                              Grid.Column="1"
-                              Orientation="Vertical"
-                              Value="{TemplateBinding VerticalOffset}"
-                              Maximum="{TemplateBinding ScrollableHeight}"
-                              ViewportSize="{TemplateBinding ViewportHeight}"
-                              Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                              Width="6"
-                              Background="Transparent">
-                                <ScrollBar.Template>
-                                    <ControlTemplate TargetType="ScrollBar">
-                                        <Grid>
-                                            <Track x:Name="PART_Track" IsDirectionReversed="true">
-                                                <Track.Thumb>
-                                                    <Thumb Background="#444" BorderThickness="0">
-                                                        <Thumb.Template>
-                                                            <ControlTemplate>
-                                                                <Rectangle Fill="{TemplateBinding Background}" RadiusX="3" RadiusY="3"/>
-                                                            </ControlTemplate>
-                                                        </Thumb.Template>
-                                                    </Thumb>
-                                                </Track.Thumb>
-                                            </Track>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ScrollBar.Template>
-                            </ScrollBar>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
     </Application.Resources>
 </Application>

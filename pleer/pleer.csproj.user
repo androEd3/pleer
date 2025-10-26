@@ -2,31 +2,34 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Resources\Pages\ArtistPages\AddSongsToAlbum.xaml.cs">
+    <Compile Update="Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\ArtistPages\CreateAlbum.xaml.cs">
+    <Compile Update="Resources\Pages\AlbumsAndPlaylists\CreateAlbum.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\UserPages\CenterField\OpenAlbum.xaml.cs">
+    <Compile Update="Resources\Pages\AlbumsAndPlaylists\OpenAlbum.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\UserPages\FullWindow\ChangePasswordPage.xaml.cs">
+    <Compile Update="Resources\Pages\GeneralPages\ChangePasswordPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\UserPages\FullWindow\LoginPage.xaml.cs">
+    <Compile Update="Resources\Pages\GeneralPages\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\UserPages\FullWindow\ProfilePage.xaml.cs">
+    <Compile Update="Resources\Pages\GeneralPages\ProfilePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\UserPages\FullWindow\RegistrationPage.xaml.cs">
+    <Compile Update="Resources\Pages\GeneralPages\RegistrationPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\UserPages\LeftField\SimplePlaylistsList.xaml.cs">
+    <Compile Update="Resources\Pages\AlbumsAndPlaylists\AlbumsList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\UserPages\CenterField\SimpleSongList.xaml.cs">
+    <Compile Update="Resources\Pages\UserPages\MediaLibrary.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\Songs\SongList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Resources\Windows\ArtistMainWindow.xaml.cs">

@@ -8,16 +8,19 @@ namespace pleer.Models.Users
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(50)]
-        public required string Name { get; set; }
+        public string Name { get; set; }
 
+        [Required]
         [MaxLength(255)]
-        public required string Email { get; set; }
+        public string Email { get; set; }
 
         public int ProfilePictureId { get; set; }
 
+        [Required]
         [MaxLength(64)]
-        public required string PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
 
         [Column(TypeName = "date")]
         public DateOnly CreatedAt { get; set; } = DateOnly.FromDateTime(DateTime.Now);

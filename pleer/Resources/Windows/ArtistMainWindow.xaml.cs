@@ -1,13 +1,13 @@
 ﻿using pleer.Models.CONTEXT;
+using pleer.Models.DB_Models;
 using pleer.Models.ModelsUI;
 using pleer.Models.Users;
+using pleer.Resources.Pages.AlbumsAndPlaylists;
+using pleer.Resources.Pages.GeneralPages;
 using System.Windows;
 
 namespace pleer.Resources.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для ArtistMainWindow.xaml
-    /// </summary>
     public partial class ArtistMainWindow : Window
     {
         DBContext _context = new();
@@ -30,32 +30,37 @@ namespace pleer.Resources.Windows
             LoadArtistData();
         }
 
-        async Task LoadArtistData()
+        void LoadArtistData()
         {
-            InitilizeData.SeedData(_context);
+            InitializeData.SeedData(_context);
 
             if (_artist != null)
             {
                 LoginButton.Visibility = Visibility.Collapsed;
                 ProfilePictureEllipse.Visibility = Visibility.Visible;
 
-                var picture = await _context.ProfilePictures
-                    .FindAsync(_artist.ProfilePictureId);
+                ArtistName.Text = _artist.Name;
+
+                var picture = _context.ProfilePictures
+                    .Find(_artist.ProfilePictureId);
 
                 if (picture != null)
-                    ProfilePictureImage.ImageSource = UIServiceMethods
+                    ProfilePictureImage.ImageSource = UIElementsFactory
                         .DecodePhoto(picture.FilePath, 100);
                 else
-                {
-                    ProfilePictureImage.ImageSource = UIServiceMethods
-                        .DecodePhoto(InitilizeData.GetDefaultProfilePicturePath(), 100);
-                }
+                    ProfilePictureImage.ImageSource = UIElementsFactory
+                        .DecodePhoto(InitializeData.GetDefaultProfilePicturePath(), 100);
+            }
+            else
+            {
+                ArtistFunctionsList.IsEnabled = false;
+                OperationField.Navigate(new UnauthorizedNoticePage(this));
             }
         }
 
-        private void LoadAlbumButton_Click(object sender, RoutedEventArgs e)
+        private void ArtistReleasesButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigateMethods.CreateAlbum(this, _artist);
+            OperationField.Navigate(new AlbumsList(this, _artist));
         }
 
         private void LoginAsListinerButton_Click(object sender, RoutedEventArgs e)
@@ -71,6 +76,26 @@ namespace pleer.Resources.Windows
         private void ProfileImage_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             NavigateMethods.OpenArtistProfile(this, _artist);
+        }
+
+        private void LoadAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ArtistProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StatisticsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CooperationButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

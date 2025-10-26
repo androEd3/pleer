@@ -3,6 +3,7 @@ using pleer.Models.CONTEXT;
 using pleer.Models.Media;
 using pleer.Models.Users;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,18 +26,18 @@ namespace pleer.Models.DB_Models
 
                 PlaylistCover cover;
 
-                string playlistTitle = "";
+                string playlistTitle = string.Empty;
 
                 if (playlistsCount == 0)
                 {
                     cover = context.PlaylistCovers
-                        .First(pc => pc.FilePath == InitilizeData.GetFavoritesCoverPath());
+                        .First(pc => pc.FilePath == InitializeData.GetFavoritesCoverPath());
                     playlistTitle = "Избранное";
                 }
                 else
                 {
                     cover = context.PlaylistCovers
-                        .First(pc => pc.FilePath == InitilizeData.GetDefaultCoverPath());
+                        .First(pc => pc.FilePath == InitializeData.GetDefaultCoverPath());
                     playlistTitle = $"Плейлист {playlistsCount + 1}";
                 }
 
@@ -61,7 +62,7 @@ namespace pleer.Models.DB_Models
                 var link = new ListenerPlaylistsLink()
                 {
                     ListenerId = listener.Id,
-                    PlaylistId = playlist.Id
+                    PlaylistId = playlist.Id,
                 };
 
                 context.ListenerPlaylistsLinks.Add(link);
@@ -150,6 +151,194 @@ namespace pleer.Models.DB_Models
                 FileName = authUrl,
                 UseShellExecute = true
             });
+        }
+    }
+
+    public class InitializeData
+    {
+        public static void SeedData(DBContext context)
+        {
+            //Seed covers
+            if (!context.AlbumCovers.Any())
+            {
+                var covers = new List<AlbumCover>()
+                {
+                    { new() { FilePath = GetDefaultCoverPath() } },
+                };
+                context.AddRange(covers);
+                context.SaveChanges();
+            }
+
+            if (!context.PlaylistCovers.Any())
+            {
+                var pCovers = new List<PlaylistCover>()
+                {
+                    { new() { FilePath = GetDefaultCoverPath() } },
+                    { new() { FilePath = GetFavoritesCoverPath() } },
+                };
+                context.AddRange(pCovers);
+                context.SaveChanges();
+            }
+
+            if (!context.ProfilePictures.Any())
+            {
+                var pPictures = new List<ProfilePicture>()
+                {
+                    { new() { FilePath = GetDefaultProfilePicturePath() } },
+                };
+                context.AddRange(pPictures);
+                context.SaveChanges();
+            }
+        }
+
+        public static string GetDefaultCoverPath()
+        {
+            return "pack://application:,,,/Resources/ServiceImages/DefaultCover.png";
+        }
+
+        public static string GetDefaultProfilePicturePath()
+        {
+            return "pack://application:,,,/Resources/ServiceImages/DefaultPicture.png";
+        }
+
+        public static string GetFavoritesCoverPath()
+        {
+            return "pack://application:,,,/Resources/ServiceImages/FavoritesCover.png";
+        }
+    }
+
+    public class PictureService
+    {
+        private string _projectAlbumCoversPath;
+        private string _projectPlaylistCoversPath;
+
+        public PictureService()
+        {
+            
+
+            _projectPlaylistCoversPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                "pleer",
+                "ServiceImages",
+                "PlaylistCovers");
+
+            Directory.CreateDirectory(_projectPlaylistCoversPath);
+        }
+
+        public ProfilePicture SaveProfilePicture(string sourceImagePath, Artist artist, Listener listener)
+        {
+            try
+            {
+                DBContext context = new();
+
+                if (Uri.TryCreate(sourceImagePath, UriKind.Absolute, out var uri))
+                {
+                    sourceImagePath = uri.LocalPath;
+                }
+
+                string extension = Path.GetExtension(sourceImagePath);
+                string fileName = string.Empty;
+                string destinationPath = string.Empty;
+
+                if (listener != null)
+                {
+                    var listenerProfilePicturePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                        "pleer",
+                        "ServiceImages",
+                        "ProfilePictures",
+                        $"Listener_{listener.Id}");
+                    Directory.CreateDirectory(listenerProfilePicturePath);
+
+                    int fileCount = Directory.GetFiles(listenerProfilePicturePath).Length;
+
+                    fileName = $"ProfilePicture_{fileCount}{extension}";
+                    destinationPath = Path.Combine(listenerProfilePicturePath, fileName);
+                }
+
+                if (artist != null)
+                {
+                    var artistProfilePicturePath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                        "pleer",
+                        "ServiceImages",
+                        "ProfilePictures",
+                        $"Artist_{artist.Id}");
+                    Directory.CreateDirectory(artistProfilePicturePath);
+
+                    int fileCount = Directory.GetFiles(artistProfilePicturePath).Length;
+
+                    fileName = $"ProfilePicture_{fileCount}{extension}";
+                    destinationPath = Path.Combine(artistProfilePicturePath, fileName);
+                }
+
+                File.Copy(sourceImagePath, destinationPath, overwrite: true);
+
+                var profilePicture = new ProfilePicture
+                {
+                    FilePath = destinationPath,
+                };
+
+                return profilePicture;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при сохранении изображения: {ex.Message}");
+            }
+        }
+
+        public static AlbumCover SaveAlbumCover(string sourceImagePath, int albumId)
+        {
+            try
+            {
+                var projectAlbumCoversPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                    "pleer",
+                    "ServiceImages",
+                    "AlbumCovers");
+
+                Directory.CreateDirectory(projectAlbumCoversPath);
+
+                string extension = Path.GetExtension(sourceImagePath);
+                string fileName = $"album_{albumId}{extension}";
+                string destinationPath = Path.Combine(projectAlbumCoversPath, fileName);
+
+                File.Copy(sourceImagePath, destinationPath, overwrite: true);
+
+                var albumCover = new AlbumCover
+                {
+                    FilePath = destinationPath,
+                };
+
+                return albumCover;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при сохранении изображения: {ex.Message}");
+            }
+        }
+
+        public PlaylistCover SavePlaylistCover(string sourceImagePath, int playlistId)
+        {
+            try
+            {
+                string extension = Path.GetExtension(sourceImagePath);
+                string fileName = $"playlist_{playlistId}{extension}";
+                string destinationPath = Path.Combine(_projectPlaylistCoversPath, fileName);
+
+                File.Copy(sourceImagePath, destinationPath, overwrite: true);
+
+                var playlistCover = new PlaylistCover
+                {
+                    FilePath = destinationPath,
+                };
+
+                return playlistCover;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при сохранении изображения: {ex.Message}");
+            }
         }
     }
 }

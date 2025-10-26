@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using pleer.Models.CONTEXT;
+﻿using pleer.Models.CONTEXT;
+using pleer.Models.DB_Models;
 using pleer.Models.Media;
 using pleer.Models.ModelsUI;
 using pleer.Models.Users;
-using pleer.Resources.Pages;
+using pleer.Resources.Pages.GeneralPages;
+using pleer.Resources.Pages.Songs;
+using pleer.Resources.Pages.UserPages;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -40,7 +42,7 @@ namespace pleer.Resources.Windows
         {
             InitializeComponent();
 
-            LoadUserData(_listener);
+            LoadNonUserWindow();
         }
 
         public ListenerMainWindow(Listener listener)
@@ -49,21 +51,39 @@ namespace pleer.Resources.Windows
 
             _listener = listener;
 
-            LoadUserData(_listener);
+            LoadListenerData();
         }
 
-        void LoadUserData(Listener listener)
+        void LoadNonUserWindow()
         {
-            InitilizeData.SeedData(_context);
+            InitializeData.SeedData(_context);
 
-            if (listener != null)
+            MediaLibrary.Navigate(new UnauthorizedNoticePage(this));
+        }
+
+        void LoadListenerData()
+        {
+
+            if (_listener != null)
             {
+                LoginButton.Visibility = Visibility.Collapsed;
+                ProfilePictureEllipse.Visibility = Visibility.Visible;
 
-                PlaylistList.Navigate(new SimplePlaylistsList(this, listener));
-                NoticePanel.Visibility = Visibility.Collapsed;
+                ListenerName.Text = _listener.Name;
+
+                var picture = _context.ProfilePictures
+                    .Find(_listener.ProfilePictureId);
+
+                if (picture != null)
+                    ProfilePictureImage.ImageSource = UIElementsFactory
+                        .DecodePhoto(picture.FilePath, 100);
+                else
+                    ProfilePictureImage.ImageSource = UIElementsFactory
+                        .DecodePhoto(InitializeData.GetDefaultProfilePicturePath(), 100);
+
+                MediaLibrary.Content = null;
+                MediaLibrary.Navigate(new MediaLibrary(this, _listener));
             }
-            else
-                NoticePanel.Visibility = Visibility.Visible;
         }
 
         void InitilizeTimer()
@@ -157,11 +177,11 @@ namespace pleer.Resources.Windows
             SingerName.Text = artist.Name;
 
             if (cover != null)
-                AlbumCover.Source = UIServiceMethods.DecodePhoto(cover.FilePath, 90);
+                AlbumCover.Source = UIElementsFactory.DecodePhoto(cover.FilePath, 90);
             else
             {
                 var defaultCover = await _context.AlbumCovers.FindAsync(1);
-                AlbumCover.Source = UIServiceMethods.DecodePhoto(defaultCover.FilePath, 90);
+                AlbumCover.Source = UIElementsFactory.DecodePhoto(defaultCover.FilePath, 90);
             }
         }
 
@@ -295,7 +315,12 @@ namespace pleer.Resources.Windows
         //Navigate
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigateMethods.OpenSongsSimpleList(this, _listener);
+            CenterField.Navigate(new SongList(this, _listener));
+        }
+
+        private void ProfileImage_Click(object sender, MouseButtonEventArgs e)
+        {
+            NavigateMethods.OpenListenerProfile(this, _listener);
         }
 
         //Login

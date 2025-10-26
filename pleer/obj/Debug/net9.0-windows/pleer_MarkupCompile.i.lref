@@ -1,13 +1,14 @@
 ﻿
 
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\ArtistPages\AddSongsToAlbum.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\ArtistPages\CreateAlbum.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\CenterField\OpenAlbum.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\CenterField\SimpleSongList.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\FullWindow\ChangePasswordPage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\FullWindow\LoginPage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\FullWindow\ProfilePage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\FullWindow\RegistrationPage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\LeftField\SimplePlaylistsList.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\AlbumsAndPlaylists\AlbumsList.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\AlbumsAndPlaylists\CreateAlbum.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\AlbumsAndPlaylists\OpenAlbum.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\ChangePasswordPage.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\LoginPage.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\ProfilePage.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\RegistrationPage.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\Songs\SongList.xaml;;
+FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\MediaLibrary.xaml;;
 FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Windows\ListenerMainWindow.xaml;;
 

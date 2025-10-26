@@ -5,18 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pleer.Resources.Windows"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            mc:Ignorable="d"
-            Height="700" Width="1150"
-            MinWidth="917.5" MinHeight="550"
-            WindowStartupLocation="CenterScreen"
-            Background="#222">
+            mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+            Style="{StaticResource MainWindow}">
 
     <Grid>
-        <Frame Grid.RowSpan="3"
-               NavigationUIVisibility="Hidden"
-               VerticalAlignment="Center" HorizontalAlignment="Center"
-               Name="FullWindow"/>
-
         <Grid Name="MainGrid">
             <UIElement.Effect>
                 <BlurEffect x:Name="WindowBlurEffect" Radius="0" KernelType="Gaussian"/>
@@ -40,7 +32,7 @@
                     <StackPanel Orientation="Horizontal" Margin="10 0"
                                 VerticalAlignment="Center">
                         <Button Content="Войти как исполнитель" Click="LoginAsArtistButton_Click"
-                                Style="{StaticResource SimpleSubmitButton}"/>
+                                Style="{StaticResource SimpleButton}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="10 0"
@@ -49,16 +41,30 @@
                         <TextBox Name="SearchBar" Width="300" Style="{StaticResource MainIngutField}"/>
 
                         <Button Content="Поиск" Click="SearchButton_Click"
-                                Margin="10 0 0 0" Style="{StaticResource SimpleSubmitButton}"/>
+                                Margin="10 0 0 0" Style="{StaticResource SimpleButton}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2"
                                 Orientation="Horizontal" Margin="10 0"
                                 VerticalAlignment="Center" HorizontalAlignment="Right">
-                        <Button HorizontalAlignment="Right" VerticalAlignment="Top"
+                        <TextBlock Name="ListenerName" Margin="10 0"
+                                   VerticalAlignment="Center"
+                                   Cursor="Hand" MouseLeftButtonUp="ProfileImage_Click"
+                                   Style="{StaticResource SongNameLowerPanel}"/>
+                        
+                        <Ellipse HorizontalAlignment="Right" Visibility="Collapsed"
+                                 Width="45" Height="45"
+                                 Name="ProfilePictureEllipse" 
+                                 Cursor="Hand" MouseLeftButtonUp="ProfileImage_Click">
+                            <Ellipse.Fill>
+                                <ImageBrush x:Name="ProfilePictureImage"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Center"
                                 Content="Войти" Name="LoginButton"
                                 Click="LoginButton_Click"
-                                Style="{StaticResource SimpleSubmitButton}"/>
+                                Style="{StaticResource SimpleButton}"/>
                     </StackPanel>
                 </Grid>
 
@@ -69,22 +75,18 @@
                         <ColumnDefinition MinWidth="250" MaxWidth="400" Width="1.25*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Frame Name="PlaylistList"/>
-                    <TextBlock Name="NoticePanel" TextWrapping="Wrap" Visibility="Collapsed"
-                               Text="Войдите чтобы открыть больше возможностей" 
-                               VerticalAlignment="Center" HorizontalAlignment="Center"
-                               Style="{StaticResource SmallMainInfoPanel}"/>
+                    <Frame Name="MediaLibrary"/>
 
                     <ScrollViewer Grid.Column="1" VerticalAlignment="Top"
                                   VerticalScrollBarVisibility="Auto"
-                                  Style="{StaticResource SimpleDarkScrollViewer}">
+                                  Style="{StaticResource DarkScrollViewer}">
                         <Frame Name="CenterField" NavigationUIVisibility="Hidden"/>
                     </ScrollViewer>
                 </Grid>
 
                 <Border Grid.Row="2"
                         Margin="5"
-                        Style="{StaticResource NonFunctionalField}">
+                        Style="{StaticResource NonFunctionalField22}">
                     <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -175,5 +177,10 @@
                 </Border>
             </Grid>
         </Grid>
+
+        <Frame Grid.RowSpan="3"
+               NavigationUIVisibility="Hidden"
+               VerticalAlignment="Center" HorizontalAlignment="Center"
+               Name="FullWindow"/>
     </Grid>
 </Window>

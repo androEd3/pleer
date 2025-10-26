@@ -3,18 +3,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-            Height="700" Width="1150"
-            MinWidth="917.5" MinHeight="550"
-            WindowStartupLocation="CenterScreen"
-            Background="#222">
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+            Style="{StaticResource MainWindow}">
 
     <Grid>
-        <Frame Grid.RowSpan="3"
-               NavigationUIVisibility="Hidden"
-               VerticalAlignment="Center" HorizontalAlignment="Center"
-               Name="FullWindow"/>
-
         <Grid Name="MainGrid">
             <UIElement.Effect>
                 <BlurEffect x:Name="WindowBlurEffect" Radius="0" KernelType="Gaussian"/>
@@ -28,7 +21,7 @@
             <StackPanel Grid.Row="0" Margin="10 0"
                         Orientation="Horizontal" VerticalAlignment="Center">
                 <Button Content="Войти как слушатель" Click="LoginAsListinerButton_Click"
-                        Style="{StaticResource SimpleSubmitButton}"/>
+                        Style="{StaticResource SimpleButton}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="0" Margin="10 0"
@@ -44,36 +37,64 @@
                 
             </StackPanel>
 
-            <Ellipse HorizontalAlignment="Right" Visibility="Collapsed"
-                     Margin="15 0" Width="45" Height="45"
-                     Name="ProfilePictureEllipse" 
-                     Cursor="Hand" MouseLeftButtonUp="ProfileImage_Click">
-                <Ellipse.Fill>
-                    <ImageBrush x:Name="ProfilePictureImage"/>
-                </Ellipse.Fill>
-            </Ellipse>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"
+                        Visibility="Visible" Margin="10 0">
+                <TextBlock Name="ArtistName" Margin="10 0"
+                           VerticalAlignment="Center"
+                           Cursor="Hand" MouseLeftButtonUp="ProfileImage_Click"
+                           Style="{StaticResource SongNameLowerPanel}"/>
 
-            <Button Margin="15 0"
-                    HorizontalAlignment="Right" VerticalAlignment="Center"
-                    Content="Войти" Name="LoginButton"
-                    Click="LoginButton_Click"
-                    Style="{StaticResource SimpleSubmitButton}"/>
+                <Ellipse Width="45" Height="45"
+                         Name="ProfilePictureEllipse" 
+                         Cursor="Hand" MouseLeftButtonUp="ProfileImage_Click"
+                         Visibility="Collapsed">
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="ProfilePictureImage"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+                <Button VerticalAlignment="Center"
+                        Content="Войти" Name="LoginButton"
+                        Click="LoginButton_Click"
+                        Style="{StaticResource SimpleButton}"/>
+            </StackPanel>
 
             <!-- Main Panel -->
-            <Grid Grid.Row="1" Margin="10">
+            <Grid Grid.Row="1" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.8*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel >
-                    <Button Content="Загрузить альбом" Click="LoadAlbumButton_Click"
-                            Style="{StaticResource SimpleSubmitButton}"/>
-                </StackPanel>
+                <Border Style="{StaticResource NonFunctionalField22}">
+                    <StackPanel Name="ArtistFunctionsList"
+                                Margin="5 0">
+                        <Button Margin="0 5"
+                                Content="Выпуски" Click="ArtistReleasesButton_Click"
+                                Style="{StaticResource SimpleButtonV2}"/>
 
-                <Frame Grid.Row="2" Grid.Column="1"
+                        <Button Margin="0 5"
+                                Content="Профиль исполнителя" Click="ArtistProfileButton_Click"
+                                Style="{StaticResource SimpleButtonV2}"/>
+
+                        <Button Margin="0 5"
+                                Content="Статистика" Click="StatisticsButton_Click"
+                                Style="{StaticResource SimpleButtonV2}"/>
+
+                        <Button Margin="0 5"
+                                Content="Сотрудничество" Click="CooperationButton_Click"
+                        Style="{StaticResource SimpleButtonV2}"/>
+                    </StackPanel>
+                </Border>
+
+                <Frame Grid.Column="1"
                        Name="OperationField" NavigationUIVisibility="Hidden"/>
             </Grid>
         </Grid>
+
+        <Frame 
+               NavigationUIVisibility="Hidden"
+               VerticalAlignment="Center" HorizontalAlignment="Center"
+               Name="FullWindow"/>
     </Grid>
 </Window>

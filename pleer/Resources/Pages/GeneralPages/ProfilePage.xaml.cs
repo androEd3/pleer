@@ -1,6 +1,5 @@
-﻿using pleer.Models.CONTEXT;
-using pleer.Models.DB_Models;
-using pleer.Models.ModelsUI;
+﻿using pleer.Models.DatabaseContext;
+using pleer.Models.Service;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
 using System.Windows;
@@ -66,9 +65,9 @@ namespace pleer.Resources.Pages.GeneralPages
                 if (picture != null)
                 {
                     UserPicture.ImageSource = UIElementsFactory
-                        .DecodePhoto(picture.FilePath, 80);
+                        .DecodePhoto(picture.FilePath, (int)UserPicture.ImageSource.Width);
                     _listenerMain.ProfilePictureImage.ImageSource = UIElementsFactory
-                        .DecodePhoto(picture.FilePath, 80);
+                        .DecodePhoto(picture.FilePath, (int)UserPicture.ImageSource.Width);
                 }
             }
         }
@@ -89,9 +88,9 @@ namespace pleer.Resources.Pages.GeneralPages
                 if (picture != null)
                 {
                     UserPicture.ImageSource = UIElementsFactory
-                        .DecodePhoto(picture.FilePath, 175);
+                        .DecodePhoto(picture.FilePath, (int)UserPicture.ImageSource.Width);
                     _artistMain.ProfilePictureImage.ImageSource = UIElementsFactory
-                        .DecodePhoto(picture.FilePath, 175);
+                        .DecodePhoto(picture.FilePath, (int)UserPicture.ImageSource.Width);
                 }
             }
         }
@@ -134,24 +133,6 @@ namespace pleer.Resources.Pages.GeneralPages
             _artistMain.MainGrid.IsEnabled = true;
         }
 
-        bool IsValidCheck()
-        {
-            _email = ServiceMethods.IsValidEmailOutput(UserEmail.Text);
-
-            if (_email != UserEmail.Text)
-            {
-                ErrorPanelContent(_email);
-                return false;
-            }
-            if (string.IsNullOrEmpty(UserName.Text))
-            {
-                ErrorPanelContent("Имя пользователя не может быть пустым");
-                return false;
-            }
-
-            return true;
-        }
-
         async Task UpdateUserData()
         {
             try
@@ -169,8 +150,14 @@ namespace pleer.Resources.Pages.GeneralPages
 
         private async void SaveUserDataButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsValidCheck())
+            var email = ServiceMethods.IsValidEmail(UserEmail.Text);
+            if (!email)
+            {
+                ErrorNoticePanel.Text = "Неверный формат почты";
                 return;
+            }
+
+            _email = UserEmail.Text;
 
             await UpdateUserData();
         }
@@ -292,7 +279,7 @@ namespace pleer.Resources.Pages.GeneralPages
                 try
                 {
                     _picturePath = UIElementsFactory
-                        .DecodePhoto(openFileDialog.FileName, 200);
+                        .DecodePhoto(openFileDialog.FileName, (int)UserPicture.ImageSource.Width);
 
                     UserPicture.ImageSource = _picturePath;
                 }

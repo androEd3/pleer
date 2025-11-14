@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:pleer.Resources.Windows"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-            Style="{StaticResource MainWindow}">
+            Style="{StaticResource MainWindow}" Closing="Window_Closing">
 
     <Grid>
         <Grid Name="MainGrid">
@@ -31,18 +31,62 @@
 
                     <StackPanel Orientation="Horizontal" Margin="10 0"
                                 VerticalAlignment="Center">
-                        <Button Content="Войти как исполнитель" Click="LoginAsArtistButton_Click"
-                                Style="{StaticResource SimpleButton}"/>
+                        <Grid>
+                            <ToggleButton Name="MenuToggleButton"
+                                          ClickMode="Press"
+                                          Style="{StaticResource MenuToggleButton}">
+                                <materialDesign:PackIcon Kind="Menu" Width="50" Height="50"/>
+                            </ToggleButton>
+
+                            <Popup Name="MenuPopup"
+                                   PlacementTarget="{Binding ElementName=MenuToggleButton}"
+                                   Placement="Bottom"
+                                   StaysOpen="False"
+                                   IsOpen="{Binding IsChecked, ElementName=MenuToggleButton, Mode=TwoWay}">
+
+                                <Border CornerRadius="5" Padding="0 5"
+                                        BorderThickness="1" BorderBrush="#333"
+                                        Style="{StaticResource NonFunctionalField2c}">
+                                    <StackPanel>
+                                        <Button Content="Войти как исполнитель" 
+                                                Click="LoginAsArtistButton_Click"
+                                                Style="{StaticResource MenuButon}"/>
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
+                        <Button Click="BackPageButton_Click" Name="BackButton"
+                                Margin="15 0 0 0"
+                                Style="{StaticResource BaseFunctionButton}">
+                            <materialDesign:PackIcon Kind="ChevronLeft"
+                                                     Width="50" Height="50"/>
+                        </Button>
+                        <Button Click="ForwardPageButton_Click" Name="ForwardButton"
+                                Style="{StaticResource BaseFunctionButton}">
+                            <materialDesign:PackIcon Kind="ChevronRight" 
+                                                     Width="50" Height="50"/>
+                        </Button>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" Margin="10 0"
-                                Orientation="Horizontal"
-                                VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBox Name="SearchBar" Width="300" Style="{StaticResource MainIngutField}"/>
+                    <Grid Grid.Column="1" Margin="10 0"
+                          VerticalAlignment="Center" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                        <Button Content="Поиск" Click="SearchButton_Click"
-                                Margin="10 0 0 0" Style="{StaticResource SimpleButton}"/>
-                    </StackPanel>
+                        <Button Click="HomeButton_Click" Margin="5 0"
+                                Style="{StaticResource BaseFunctionButton}">
+                            <materialDesign:PackIcon Kind="HomeCircle" 
+                                                     Width="50" Height="50"/>
+                        </Button>
+                        
+                        <TextBox Grid.Column="1"
+                                 Name="SearchBar"
+                                 TextChanged="SearchBar_TextChanged"
+                                 Style="{StaticResource MainIngutField}"/>
+                    </Grid>
 
                     <StackPanel Grid.Column="2"
                                 Orientation="Horizontal" Margin="10 0"
@@ -72,16 +116,14 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition MinWidth="250" MaxWidth="400"/>
                         <ColumnDefinition MinWidth="375" Width="1.75*"/>
-                        <ColumnDefinition MinWidth="250" MaxWidth="400" Width="1.25*"/>
+                        <ColumnDefinition MinWidth="250" MaxWidth="400" Width="1.1 *"/>
                     </Grid.ColumnDefinitions>
 
-                    <Frame Name="MediaLibrary"/>
+                    <Frame Name="MediaLibrary" NavigationUIVisibility="Hidden"/>
 
-                    <ScrollViewer Grid.Column="1" VerticalAlignment="Top"
-                                  VerticalScrollBarVisibility="Auto"
-                                  Style="{StaticResource DarkScrollViewer}">
-                        <Frame Name="CenterField" NavigationUIVisibility="Hidden"/>
-                    </ScrollViewer>
+                    <Frame Grid.Column="1"
+                           Name="CenterField" NavigationUIVisibility="Hidden"
+                           Navigated="CenterField_Navigated"/>
                 </Grid>
 
                 <Border Grid.Row="2"
@@ -97,7 +139,8 @@
                         <!-- Song Info -->
                         <StackPanel Orientation="Horizontal" Margin="15 0"
                                     VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <Image Name="AlbumCover" Style="{StaticResource AlbumCoverLowerPanel}"/>
+                            <Image Name="AlbumCover" Height="55" Width="55"
+                                   Style="{StaticResource AlbumCoverLowerPanel}"/>
 
                             <StackPanel Margin="5">
                                 <TextBlock Name="SongName" Style="{StaticResource SongNameLowerPanel}"/>
@@ -161,7 +204,8 @@
                                     VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Button Click="MutePlayerButton_Click" 
                                     Style="{StaticResource BaseFunctionButton}">
-                                <materialDesign:PackIcon Name="VolumeIcon" Kind="VolumeHigh" Width="30" Height="30"/>
+                                <materialDesign:PackIcon Name="VolumeIcon" Kind="VolumeHigh" 
+                                                         Width="30" Height="30"/>
                             </Button>
 
                             <Slider x:Name="VolumeSlider"

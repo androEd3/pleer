@@ -88,7 +88,7 @@ namespace pleer.Resources.Pages.AlbumsAndPlaylists {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/pleer;V1.0.0.0;component/resources/pages/albumsandplaylists/albumslist.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/pleer;component/resources/pages/albumsandplaylists/albumslist.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Resources\Pages\AlbumsAndPlaylists\AlbumsList.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

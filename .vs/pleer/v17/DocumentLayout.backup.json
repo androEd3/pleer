@@ -1,196 +1,212 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\",
+  "WorkspaceRootPath": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\models\\modelsui\\uielementsfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\models\\modelsui\\uielementsfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\albumsandplaylists\\albumslist.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\albumsandplaylists\\albumslist.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\userpages\\medialibrary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\userpages\\medialibrary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\userpages\\medialibrary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\userpages\\medialibrary.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\userpages\\medialibrary.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\windows\\listenermainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\windows\\listenermainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\models\\db models\\servicemethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\models\\db models\\servicemethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\albumsandplaylists\\createalbum.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\albumsandplaylists\\createalbum.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\songs\\songlist.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\songlist.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\songs\\songlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\songlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\albumsandplaylists\\openalbum.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\albumsandplaylists\\openalbum.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\windows\\artistmainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\windows\\artistmainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\windows\\artistmainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\windows\\artistmainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\windows\\listenermainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\windows\\listenermainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\windows\\listenermainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\albumsandplaylists\\createalbum.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\albumsandplaylists\\createalbum.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\windows\\artistmainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\windows\\artistmainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\albumsandplaylists\\openalbum.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\albumsandplaylists\\openalbum.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\pages\\albumsandplaylists\\albumslist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\albumsandplaylists\\albumslist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\windows\\artistmainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\windows\\artistmainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|c:\\users\\andro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\resources\\windows\\listenermainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\windows\\listenermainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\models\\service\\uielementsfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\models\\service\\uielementsfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\songs\\searchresult.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\searchresult.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\createalbum.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\createalbum.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\opencollection.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\opencollection.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\collectionslist.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\collectionslist.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\userpages\\homepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\userpages\\homepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\songs\\searchresult.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\searchresult.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\userpages\\homepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\userpages\\homepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\collectionslist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\collectionslist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\opencollection.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\opencollection.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\models\\service\\servicemethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\models\\service\\servicemethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\models\\databasecontext\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\models\\databasecontext\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 1,
+      "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 200,
-          "SelectedChildIndex": 7,
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 17,
+              "Title": "DBContext.cs",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\DatabaseContext\\DBContext.cs",
+              "RelativeDocumentMoniker": "pleer\\Models\\DatabaseContext\\DBContext.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\DatabaseContext\\DBContext.cs",
+              "RelativeToolTip": "pleer\\Models\\DatabaseContext\\DBContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T11:14:09.285Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ArtistMainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
               "RelativeToolTip": "pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-17T11:05:52.321Z",
+              "WhenOpened": "2025-10-30T11:09:02.209Z",
               "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ListenerMainWindow.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
+              "RelativeToolTip": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-30T11:09:05.171Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MediaLibrary.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-14T14:46:22.424Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "ListenerMainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
-              "RelativeToolTip": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
+              "Title": "SearchResult.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-07T12:41:14.763Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "SongList.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\Songs\\SongList.xaml",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Songs\\SongList.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\Songs\\SongList.xaml",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\Songs\\SongList.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-26T21:59:11.147Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MediaLibrary.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-23T11:38:29.053Z",
+              "WhenOpened": "2025-11-14T13:36:08.471Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "AlbumsList.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml",
+              "Title": "OpenCollection.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-23T08:33:04.243Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CreateAlbum.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-23T08:24:51.672Z",
+              "WhenOpened": "2025-11-14T13:16:05.368Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "OpenAlbum.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml",
+              "Title": "CollectionsList.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-19T14:54:14.524Z",
+              "WhenOpened": "2025-11-11T10:02:00.995Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 13,
+              "Title": "HomePage.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\HomePage.xaml",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\UserPages\\HomePage.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\HomePage.xaml",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\UserPages\\HomePage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-06T11:14:19.99Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "UIElementsFactory.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Models\\ModelsUI\\UIElementsFactory.cs",
-              "RelativeDocumentMoniker": "pleer\\Models\\ModelsUI\\UIElementsFactory.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Models\\ModelsUI\\UIElementsFactory.cs",
-              "RelativeToolTip": "pleer\\Models\\ModelsUI\\UIElementsFactory.cs",
-              "ViewState": "AgIAACMBAAAAAAAAAAAnwEQBAAAdAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\Service\\UIElementsFactory.cs",
+              "RelativeDocumentMoniker": "pleer\\Models\\Service\\UIElementsFactory.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\Service\\UIElementsFactory.cs",
+              "RelativeToolTip": "pleer\\Models\\Service\\UIElementsFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-15T17:22:18.773Z",
+              "WhenOpened": "2025-10-30T11:15:19.795Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "ServiceMethods.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Models\\DB Models\\ServiceMethods.cs",
-              "RelativeDocumentMoniker": "pleer\\Models\\DB Models\\ServiceMethods.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Models\\DB Models\\ServiceMethods.cs",
-              "RelativeToolTip": "pleer\\Models\\DB Models\\ServiceMethods.cs",
-              "ViewState": "AgIAAB8BAAAAAAAAAAAiwDEBAABNAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\Service\\ServiceMethods.cs",
+              "RelativeDocumentMoniker": "pleer\\Models\\Service\\ServiceMethods.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\Service\\ServiceMethods.cs",
+              "RelativeToolTip": "pleer\\Models\\Service\\ServiceMethods.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAmwIcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-26T13:45:51.164Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T11:15:38.715Z"
             }
           ]
         }
@@ -200,122 +216,123 @@
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "FloatingWindowState": {
-        "Id": "e17c9d5d-8552-49e5-adaa-6303ac248514",
+        "Id": "6d080bfb-a465-41bd-a13e-2a61dfda29f6",
         "Display": 1,
-        "X": 894,
-        "Y": 396,
+        "X": 1046,
+        "Y": 218,
         "Width": 1623,
-        "Height": 968,
+        "Height": 990,
         "WindowState": 2
       },
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\App.xaml",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\App.xaml",
               "RelativeDocumentMoniker": "pleer\\App.xaml",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\App.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\App.xaml",
               "RelativeToolTip": "pleer\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-19T14:16:08.801Z",
+              "WhenOpened": "2025-10-30T11:10:06.314Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 3,
               "Title": "ArtistMainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
               "RelativeToolTip": "pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAjwD4AAABDAAAAAAAAAA==",
+              "ViewState": "AgIAAAsBAAAAAAAAAAAYwCYBAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T11:52:03.93Z",
+              "WhenOpened": "2025-10-30T11:09:06.522Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 1,
               "Title": "ListenerMainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
               "RelativeToolTip": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAewIgAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAGUBAAAAAAAAAAAhwHUBAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T11:52:09.39Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AlbumsList.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml.cs",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml.cs",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\AlbumsList.xaml.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAArwEAAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T11:55:35.786Z",
+              "WhenOpened": "2025-10-30T11:09:13.402Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "CreateAlbum.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml.cs",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml.cs",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\CreateAlbum.xaml.cs",
-              "ViewState": "AgIAALMAAAAAAAAAAAAewNgAAAAVAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CreateAlbum.xaml.cs",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\CreateAlbum.xaml.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CreateAlbum.xaml.cs",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\CreateAlbum.xaml.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAgwFcAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T11:51:58.98Z",
+              "WhenOpened": "2025-11-14T12:17:13.277Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "SongList.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\Songs\\SongList.xaml.cs",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Songs\\SongList.xaml.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\Songs\\SongList.xaml.cs",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\Songs\\SongList.xaml.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACQAAAAUAAAAAAAAAA==",
+              "Title": "SearchResult.xaml.cs",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwCwAAABpAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-26T21:59:31.297Z",
+              "WhenOpened": "2025-11-05T12:46:32.145Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "OpenAlbum.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml.cs",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml.cs",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\AlbumsAndPlaylists\\OpenAlbum.xaml.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAArwCUAAAAPAAAAAAAAAA==",
+              "Title": "OpenCollection.xaml.cs",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAqwLgAAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T12:43:04.008Z",
+              "WhenOpened": "2025-10-30T13:37:05.849Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MediaLibrary.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml.cs",
-              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml.cs",
-              "ToolTip": "C:\\Users\\andro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml.cs",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAoAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "CollectionsList.xaml.cs",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml.cs",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml.cs",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAQwHoAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-26T22:06:16.237Z",
+              "WhenOpened": "2025-11-05T12:16:52.963Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "HomePage.xaml.cs",
+              "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\HomePage.xaml.cs",
+              "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\UserPages\\HomePage.xaml.cs",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\HomePage.xaml.cs",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\UserPages\\HomePage.xaml.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwCoAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T11:53:08.509Z",
               "EditorCaption": ""
             }
           ]

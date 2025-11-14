@@ -5158,11 +5158,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andro\\OneDrive\\Рабочий стол\\player\\app\\pleer\\pleer.csproj",
+      "projectUniqueName": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\pleer.csproj",
       "projectName": "pleer",
-      "projectPath": "C:\\Users\\andro\\OneDrive\\Рабочий стол\\player\\app\\pleer\\pleer.csproj",
+      "projectPath": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\pleer.csproj",
       "packagesPath": "C:\\Users\\andro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andro\\OneDrive\\Рабочий стол\\player\\app\\pleer\\obj\\",
+      "outputPath": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

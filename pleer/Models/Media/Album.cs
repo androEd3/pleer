@@ -9,13 +9,13 @@ namespace pleer.Models.Media
 
         [Required]
         [MaxLength(150)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         public int CoverId { get; set; } = 1;
-        public AlbumCover Cover { get; set; }
+        public AlbumCover? Cover { get; set; }
 
-        public int ArtistId { get; set; }
-        public Artist Artist { get; set; }
+        public int CreatorId { get; set; }
+        public Artist? Creator { get; set; }
 
         [Required]
         public DateOnly ReleaseDate { get; set; }

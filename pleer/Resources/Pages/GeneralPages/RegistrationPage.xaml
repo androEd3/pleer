@@ -34,7 +34,7 @@
     
                 <TextBlock Grid.Column="1"
                            Text="Регистрация" HorizontalAlignment="Left"
-                           Style="{StaticResource BigMainInfoPanel}"/>
+                           Style="{StaticResource MainInfoPanel}"/>
 
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Name="EmailPanel"
                             Margin="0 35 0 5" Orientation="Horizontal"

@@ -1,5 +1,5 @@
 ﻿using pleer.Models.Users;
-using pleer.Resources.Pages.AlbumsAndPlaylists;
+using pleer.Resources.Pages.Collections;
 using pleer.Resources.Windows;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,13 +8,13 @@ namespace pleer.Resources.Pages.UserPages
 {
     public partial class MediaLibrary : Page
     {
-        AlbumsList _albumsList;
+        CollectionsList _albumsList;
 
         public MediaLibrary(ListenerMainWindow main, Listener listener)
         {
             InitializeComponent();
 
-            _albumsList = new AlbumsList(main, listener);
+            _albumsList = new CollectionsList(main, listener);
 
             ShowAlbumsList();
         }

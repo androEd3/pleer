@@ -23,7 +23,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Профиль"
-                           Style="{StaticResource BigMainInfoPanel}"/>
+                           Style="{StaticResource MainInfoPanel}"/>
 
                 <TextBlock Grid.Column="1" 
                            HorizontalAlignment="Right" VerticalAlignment="Bottom"

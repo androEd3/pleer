@@ -23,7 +23,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Вход"
-                           Style="{StaticResource BigMainInfoPanel}"/>
+                           Style="{StaticResource MainInfoPanel}"/>
 
                 <TextBlock Grid.Column="1"
                            MouseLeftButtonUp="TurnToRegistration_Click"

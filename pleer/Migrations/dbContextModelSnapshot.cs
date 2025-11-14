@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using pleer.Models.CONTEXT;
+using pleer.Models.DatabaseContext;
 
 #nullable disable
 
@@ -30,10 +30,10 @@ namespace pleer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ArtistId")
+                    b.Property<int>("CoverId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CoverId")
+                    b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("ReleaseDate")
@@ -45,12 +45,14 @@ namespace pleer.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtistId");
+                    b.HasIndex("CoverId");
+
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Albums");
                 });
@@ -115,6 +117,8 @@ namespace pleer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CoverId");
+
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Playlists");
@@ -159,6 +163,9 @@ namespace pleer.Migrations
 
                     b.Property<TimeSpan>("TotalDuration")
                         .HasColumnType("time");
+
+                    b.Property<int>("TotalPlays")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -254,13 +261,21 @@ namespace pleer.Migrations
 
             modelBuilder.Entity("pleer.Models.Media.Album", b =>
                 {
-                    b.HasOne("pleer.Models.Users.Artist", "Artist")
-                        .WithMany("ArtistsAlbums")
-                        .HasForeignKey("ArtistId")
+                    b.HasOne("pleer.Models.Media.AlbumCover", "Cover")
+                        .WithMany()
+                        .HasForeignKey("CoverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Artist");
+                    b.HasOne("pleer.Models.Users.Artist", "Creator")
+                        .WithMany("ArtistsAlbums")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cover");
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("pleer.Models.Media.ListenerPlaylistsLink", b =>
@@ -284,11 +299,19 @@ namespace pleer.Migrations
 
             modelBuilder.Entity("pleer.Models.Media.Playlist", b =>
                 {
+                    b.HasOne("pleer.Models.Media.PlaylistCover", "Cover")
+                        .WithMany()
+                        .HasForeignKey("CoverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("pleer.Models.Users.Listener", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cover");
 
                     b.Navigation("Creator");
                 });

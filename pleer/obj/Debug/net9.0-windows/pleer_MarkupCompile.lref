@@ -1,14 +1,15 @@
 ﻿
 
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\AlbumsAndPlaylists\AlbumsList.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\AlbumsAndPlaylists\CreateAlbum.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\AlbumsAndPlaylists\OpenAlbum.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\ChangePasswordPage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\LoginPage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\ProfilePage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\RegistrationPage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\Songs\SongList.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Pages\UserPages\MediaLibrary.xaml;;
-FC:\Users\andro\OneDrive\Рабочий стол\player\app\pleer\Resources\Windows\ListenerMainWindow.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\Collections\CollectionsList.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\Collections\CreateAlbum.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\Collections\OpenCollection.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\GeneralPages\ChangePasswordPage.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\GeneralPages\LoginPage.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\GeneralPages\ProfilePage.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\GeneralPages\RegistrationPage.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\Songs\SearchResult.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\UserPages\HomePage.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Pages\UserPages\MediaLibrary.xaml;;
+FD:\VISUAL_STUDIO_PROJ\player\app\pleer\Resources\Windows\ListenerMainWindow.xaml;;
 

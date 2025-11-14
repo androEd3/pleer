@@ -1,6 +1,5 @@
-﻿using pleer.Models.CONTEXT;
-using pleer.Models.DB_Models;
-using pleer.Models.ModelsUI;
+﻿using pleer.Models.DatabaseContext;
+using pleer.Models.Service;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
 using System.Windows;
@@ -56,17 +55,17 @@ namespace pleer.Resources.Pages.GeneralPages
                     if (!CheckUserDataValid())
                         return;
 
-                    var isEmailValid = ServiceMethods.IsValidEmailOutput(UserEmail.Text);
-                    if (isEmailValid != UserEmail.Text)
+                    var isEmailValid = ServiceMethods.IsValidEmail(UserEmail.Text);
+                    if (!isEmailValid)
                     {
                         ErrorNoticePanel.Text = "Неправильный формат почты";
                         return;
                     }
 
                     var isPasswordSame = ServiceMethods.IsPasswordsSame(UserPassword.Text, RepeatedUserPassword.Text);
-                    if (isPasswordSame != UserPassword.Text)
+                    if (!isPasswordSame)
                     {
-                        ErrorNoticePanel.Text = isPasswordSame;
+                        ErrorNoticePanel.Text = "Пароли не совпадают";
                         return;
                     }
 
@@ -98,7 +97,7 @@ namespace pleer.Resources.Pages.GeneralPages
                     MessageBox.Show("Вы успешно зарегистрировались", Title = "Регистрация",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    NavigateMethods.OpenListenerLoginPage(_listenerMain);
+                    _listenerMain.FullWindow.Navigate(new LoginPage(_listenerMain));
                 }
 
                 if (_artistMain != null)
@@ -106,17 +105,17 @@ namespace pleer.Resources.Pages.GeneralPages
                     if (!CheckUserDataValid())
                         return;
 
-                    var isEmailValid = ServiceMethods.IsValidEmailOutput(UserEmail.Text);
-                    if (isEmailValid != UserEmail.Text)
+                    var isEmailValid = ServiceMethods.IsValidEmail(UserEmail.Text);
+                    if (!isEmailValid)
                     {
                         ErrorNoticePanel.Text = "Неправильный формат почты";
                         return;
                     }
 
                     var isPasswordSame = ServiceMethods.IsPasswordsSame(UserPassword.Text, RepeatedUserPassword.Text);
-                    if (isPasswordSame != UserPassword.Text)
+                    if (!isPasswordSame)
                     {
-                        ErrorNoticePanel.Text = isPasswordSame;
+                        ErrorNoticePanel.Text = "Пароли не совпадают";
                         return;
                     }
 
@@ -146,7 +145,7 @@ namespace pleer.Resources.Pages.GeneralPages
                     MessageBox.Show("Вы успешно зарегистрировались", Title = "Регистрация",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    NavigateMethods.OpenArtistLoginPage(_artistMain);
+                    _artistMain.FullWindow.Navigate(new LoginPage(_artistMain));
                 }
             }
             catch (Exception ex)
@@ -173,9 +172,9 @@ namespace pleer.Resources.Pages.GeneralPages
         private void TurnToLogin_Click(object sender, MouseButtonEventArgs e)
         {
             if (_listenerMain != null)
-                NavigateMethods.OpenListenerLoginPage(_listenerMain);
+                _listenerMain.FullWindow.Navigate(new LoginPage(_listenerMain));
             if (_artistMain != null)
-                NavigateMethods.OpenArtistLoginPage(_artistMain);
+                _artistMain.FullWindow.Navigate(new LoginPage(_artistMain));
         }
 
         private void CloseFullWindowFrameButton_Click(object sender, RoutedEventArgs e)

@@ -11,25 +11,25 @@
             Style="{StaticResource NonFunctionalField22}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
-                <RowDefinition/>
+                <RowDefinition />
             </Grid.RowDefinitions>
-
+            
             <TextBlock Text="Моя медиаетка" Margin="5 0"
                        HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Style="{StaticResource SmallInfoPanel}"/>
             <Button Grid.Column="1" Margin="5 0"
-                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
                     Click="CreatePlaylistButton_Click"
                     Style="{StaticResource BaseFunctionButtonWithBorder}">
-                <materialDesign:PackIcon Kind="Plus" Width="30" Height="30"/>
+                <materialDesign:PackIcon Kind="Plus" Width="35" Height="35"/>
             </Button>
 
-            <Frame Grid.ColumnSpan="2" Grid.Row="1"
+            <Frame Grid.Row="1" Grid.ColumnSpan="2"
                    Margin="0 5 0 0"
                    Name="MediaLibraryAlbumsList"
                    NavigationUIVisibility="Hidden"/>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using pleer.Models.CONTEXT;
-using pleer.Models.DB_Models;
+using pleer.Models.DatabaseContext;
+using pleer.Models.Service;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
 using System.Windows;
@@ -74,12 +74,14 @@ namespace pleer.Resources.Pages.GeneralPages
             if (!CheckUserDataValid())
                 return;
 
-            var email = ServiceMethods.IsValidEmailOutput(UserEmail.Text);
-            if (email != UserEmail.Text)
+            var isEmailValid = ServiceMethods.IsValidEmail(UserEmail.Text);
+            if (!isEmailValid)
             {
-                ErrorNoticePanel.Text = email;
+                ErrorNoticePanel.Text = "Неверный формат почты";
                 return;
             }
+            else ErrorNoticePanel.Text = string.Empty;
+
 
             var password = ServiceMethods.IsPasswordsValidOutput(UserPassword.Text);
             if (password != UserPassword.Text)
@@ -87,13 +89,14 @@ namespace pleer.Resources.Pages.GeneralPages
                 ErrorNoticePanel.Text = password;
                 return;
             }
+            else ErrorNoticePanel.Text = string.Empty;
 
             try
             {
                 if (_listenerMain != null)
                 {
-                    _listener = await _context.Listeners
-                        .FirstOrDefaultAsync(u => u.Email == email);
+                    _listener = _context.Listeners
+                        .FirstOrDefault(u => u.Email == UserEmail.Text);
 
                     if (_listener != null)
                     {
@@ -104,6 +107,7 @@ namespace pleer.Resources.Pages.GeneralPages
                             ErrorNoticePanel.Text = "Неверный пароль";
                             return;
                         }
+                        else ErrorNoticePanel.Text = string.Empty;
 
                         await OpenNewWindow(_listener, _artist);
                     }
@@ -116,8 +120,8 @@ namespace pleer.Resources.Pages.GeneralPages
 
                 if (_artistMain != null)
                 {
-                    _artist = await _context.Artists
-                        .FirstOrDefaultAsync(a => a.Email == email);
+                    _artist = _context.Artists
+                        .FirstOrDefault(a => a.Email == UserEmail.Text);
 
                     if (_artist != default)
                     {

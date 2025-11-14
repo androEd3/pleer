@@ -5,10 +5,10 @@
     <Compile Update="Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\AlbumsAndPlaylists\CreateAlbum.xaml.cs">
+    <Compile Update="Resources\Pages\Collections\CreateAlbum.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\AlbumsAndPlaylists\OpenAlbum.xaml.cs">
+    <Compile Update="Resources\Pages\Collections\OpenCollection.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Resources\Pages\GeneralPages\ChangePasswordPage.xaml.cs">
@@ -23,13 +23,16 @@
     <Compile Update="Resources\Pages\GeneralPages\RegistrationPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\AlbumsAndPlaylists\AlbumsList.xaml.cs">
+    <Compile Update="Resources\Pages\Collections\CollectionsList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\UserPages\HomePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Resources\Pages\UserPages\MediaLibrary.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\Pages\Songs\SongList.xaml.cs">
+    <Compile Update="Resources\Pages\Songs\SearchResult.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Resources\Windows\ArtistMainWindow.xaml.cs">

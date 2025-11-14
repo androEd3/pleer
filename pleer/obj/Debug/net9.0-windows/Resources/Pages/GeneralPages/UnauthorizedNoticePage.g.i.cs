@@ -61,8 +61,7 @@ namespace pleer.Resources.Pages.GeneralPages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/pleer;V1.0.0.0;component/resources/pages/generalpages/unauthorizednoticepage.xam" +
-                    "l", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/pleer;component/resources/pages/generalpages/unauthorizednoticepage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

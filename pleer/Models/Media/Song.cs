@@ -18,5 +18,8 @@ namespace pleer.Models.Media
 
         [Required]
         public TimeSpan TotalDuration { get; set; }
+
+        // kolichestvo poroslushivaniy
+        public int TotalPlays { get; set; }
     }
 }

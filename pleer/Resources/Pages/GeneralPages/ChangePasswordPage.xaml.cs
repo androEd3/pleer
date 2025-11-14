@@ -1,9 +1,7 @@
-﻿using pleer.Models.CONTEXT;
-using pleer.Models.DB_Models;
-using pleer.Models.ModelsUI;
+﻿using pleer.Models.DatabaseContext;
+using pleer.Models.Service;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -63,11 +61,11 @@ namespace pleer.Resources.Pages.GeneralPages
                 return;
             }
 
-            string isPasswordsSame = ServiceMethods.IsPasswordsSame(NewUserPassword.Text, RepeatedNewUserPassword.Text);
-            if (isPasswordsSame != NewUserPassword.Text)
+            var isPasswordsSame = ServiceMethods.IsPasswordsSame(NewUserPassword.Text, RepeatedNewUserPassword.Text);
+            if (!isPasswordsSame)
             {
                 ErrorNoticePanel.Style = Application.Current.TryFindResource("SmallErrorPanel") as Style;
-                ErrorNoticePanel.Text = isPasswordsSame;
+                ErrorNoticePanel.Text = "Пароли не совпадают";
                 return;
             }
 
@@ -126,7 +124,7 @@ namespace pleer.Resources.Pages.GeneralPages
             MessageBox.Show("Пароль успешно изменен", Title = "Профиль",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
-            NavigateMethods.OpenArtistProfile(_artistMain, _artist);
+            _artistMain.FullWindow.Navigate(new ProfilePage(_artistMain, artist));
         }
 
         async void ChangeListenerPassword(Listener listener, string newPassword)
@@ -139,15 +137,15 @@ namespace pleer.Resources.Pages.GeneralPages
             MessageBox.Show("Пароль успешно изменен", Title = "Профиль",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
-            NavigateMethods.OpenListenerProfile(_listenerMain, _listener);
+            _listenerMain.FullWindow.Navigate(new ProfilePage(_listenerMain, _listener));
         }
 
         private void TurnToLogin_Click(object sender, MouseButtonEventArgs e)
         {
             if (_listenerMain != null)
-                NavigateMethods.OpenListenerProfile(_listenerMain, _listener);
+                _listenerMain.FullWindow.Navigate(new ProfilePage(_listenerMain, _listener));
             if (_artistMain != null)
-                NavigateMethods.OpenArtistProfile(_artistMain, _artist);
+                _artistMain.FullWindow.Navigate(new ProfilePage(_artistMain, _artist));
         }
 
         private void CloseFullWindowFrameButton_Click(object sender, RoutedEventArgs e)

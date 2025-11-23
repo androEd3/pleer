@@ -17,7 +17,7 @@ namespace pleer.Models.Service
     {
         public static void AddPlaylistWithLink(Listener listener)
         {
-            var context = new DBContext();
+            using var context = new DBContext();
 
             try
             {
@@ -253,7 +253,7 @@ namespace pleer.Models.Service
             }
         }
 
-        public static AlbumCover SaveAlbumCover(string sourceImagePath, int albumId)
+        public static AlbumCover SaveAlbumCover(string sourceImagePath, int coverId)
         {
             try
             {
@@ -266,7 +266,7 @@ namespace pleer.Models.Service
                 Directory.CreateDirectory(projectAlbumCoversPath);
 
                 string extension = Path.GetExtension(sourceImagePath);
-                string fileName = $"album_{albumId}{extension}";
+                string fileName = $"albumCover_{coverId}{extension}";
                 string destinationPath = Path.Combine(projectAlbumCoversPath, fileName);
 
                 File.Copy(sourceImagePath, destinationPath, overwrite: true);
@@ -284,7 +284,7 @@ namespace pleer.Models.Service
             }
         }
 
-        public PlaylistCover SavePlaylistCover(string sourceImagePath, int playlistId)
+        public static PlaylistCover SavePlaylistCover(string sourceImagePath, int coverId)
         {
             try
             {
@@ -297,7 +297,7 @@ namespace pleer.Models.Service
                 Directory.CreateDirectory(projectPlaylistCoversPath);
 
                 string extension = Path.GetExtension(sourceImagePath);
-                string fileName = $"playlist_{playlistId}{extension}";
+                string fileName = $"playlistCover_{coverId}{extension}";
                 string destinationPath = Path.Combine(projectPlaylistCoversPath, fileName);
 
                 File.Copy(sourceImagePath, destinationPath, overwrite: true);

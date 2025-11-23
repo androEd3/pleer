@@ -50,7 +50,7 @@
                                     <StackPanel>
                                         <Button Content="Войти как исполнитель" 
                                                 Click="LoginAsArtistButton_Click"
-                                                Style="{StaticResource MenuButon}"/>
+                                                Style="{StaticResource MenuButton}"/>
                                     </StackPanel>
                                 </Border>
                             </Popup>
@@ -163,7 +163,7 @@
                                     <materialDesign:PackIcon Kind="SkipPrevious" Width="30" Height="30"/>
                                 </Button>
                                 <Button Height="35" Width="35" Margin="10 0"
-                                        Click="PlayMedia_Click" Style="{StaticResource BaseFunctionButtonWithBorder}">
+                                        Click="PlayMedia_Click" Style="{StaticResource BaseFunctionButton}">
                                     <materialDesign:PackIcon Name="PlayIcon" Kind="Play" Width="35" Height="35"/>
                                 </Button>
 
@@ -184,15 +184,16 @@
                                 <TextBlock Name="currentMediaTime" Style="{StaticResource SmallInfoPanel}" 
                                            Grid.Column="0" VerticalAlignment="Center" Text="--:--"/>
 
-                                <Slider x:Name="progressSlider" VerticalAlignment="Center"
-                                        Minimum="0" Margin="10 0"
-                                        Maximum="{Binding Duration.TotalSeconds}"
-                                        Value="{Binding CurrentPosition.TotalSeconds, Mode=OneWay}"
-                                        IsMoveToPointEnabled="True"
-                                        ValueChanged="ProgressSlider_ValueChanged"
-                                        PreviewMouseLeftButtonDown="ProgressSlider_PreviewMouseLeftButtonDown"
-                                        PreviewMouseLeftButtonUp="ProgressSlider_PreviewMouseLeftButtonUp"
-                                        Grid.Column="1"/>
+                                <Slider Grid.Column="1" x:Name="PositionSlider"
+                                        VerticalAlignment="Center" Margin="10 0"
+                                        Minimum="0"  Maximum="100" Value="0"
+                                        PreviewMouseLeftButtonDown="PositionSlider_PreviewMouseLeftButtonDown"
+                                        PreviewMouseLeftButtonUp="PositionSlider_PreviewMouseLeftButtonUp"
+                                        ValueChanged="PositionSlider_ValueChanged"
+                                        IsMoveToPointEnabled="True" IsSnapToTickEnabled="False"/>
+
+                                <!-- СЛАЙДЕР ГРОМКОСТИ -->
+                                
 
                                 <TextBlock Name="totalMediaTime" Style="{StaticResource SmallInfoPanel}" 
                                            Grid.Column="2" VerticalAlignment="Center" Text="--:--"/>
@@ -208,14 +209,13 @@
                                                          Width="30" Height="30"/>
                             </Button>
 
-                            <Slider x:Name="VolumeSlider"
-                                    Minimum="0" Maximum="0.1"
-                                    Value="0.05"
-                                    IsMoveToPointEnabled="True"
-                                    ValueChanged="VolumeSlider_ValueChanged"
+                            <Slider x:Name="VolumeSlider" Width="100"
+                                    VerticalAlignment="Center" Margin="10 0"
+                                    Minimum="0" Maximum="0.2" Value="0.1" TickFrequency="0.01"
                                     PreviewMouseLeftButtonDown="VolumeSlider_PreviewMouseLeftButtonDown"
                                     PreviewMouseLeftButtonUp="VolumeSlider_PreviewMouseLeftButtonUp"
-                                    Width="100" VerticalAlignment="Center"/>
+                                    ValueChanged="VolumeSlider_ValueChanged"
+                                    IsMoveToPointEnabled="True" IsSnapToTickEnabled="False"/>
                         </StackPanel>
                     </Grid>
                 </Border>

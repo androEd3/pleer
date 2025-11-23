@@ -29,6 +29,9 @@ namespace pleer.Resources.Pages.GeneralPages
 
             _listenerMain = main;
 
+            _listener = _context.Listeners.First();
+            OpenNewWindow(_listener, _artist);
+
             UserInactiveGrid();
         }
 
@@ -37,6 +40,9 @@ namespace pleer.Resources.Pages.GeneralPages
             InitializeComponent();
 
             _artistMain = main;
+
+            _artist = _context.Artists.First();
+            OpenNewWindow(_listener, _artist);
 
             ArtistInactiveGrid();
         }

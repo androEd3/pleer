@@ -41,5 +41,8 @@
     <Compile Update="Resources\Windows\ListenerMainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Resources\Windows\PlaylistEditWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

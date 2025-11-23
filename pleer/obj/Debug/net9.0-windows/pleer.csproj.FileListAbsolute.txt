@@ -350,3 +350,4 @@ D:\VISUAL_STUDIO_PROJ\player\app\pleer\obj\Debug\net9.0-windows\pleer.genruntime
 D:\VISUAL_STUDIO_PROJ\player\app\pleer\obj\Debug\net9.0-windows\ref\pleer.dll
 D:\VISUAL_STUDIO_PROJ\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\Songs\SearchResult.g.cs
 D:\VISUAL_STUDIO_PROJ\player\app\pleer\obj\Debug\net9.0-windows\Resources\Pages\Songs\SearchResult.baml
+D:\VISUAL_STUDIO_PROJ\player\app\pleer\obj\Debug\net9.0-windows\pleer_Content.g.cs

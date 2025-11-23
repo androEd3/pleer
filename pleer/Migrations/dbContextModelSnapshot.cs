@@ -48,6 +48,9 @@ namespace pleer.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<int>("TotalPlays")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CoverId");
@@ -105,6 +108,10 @@ namespace pleer.Migrations
 
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.PrimitiveCollection<string>("SongsId")
                         .IsRequired()

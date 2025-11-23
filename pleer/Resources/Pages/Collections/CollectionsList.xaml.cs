@@ -40,7 +40,7 @@ namespace pleer.Resources.Pages.Collections
             LoadMediaLibrary();
         }
 
-        void LoadReleases()
+        public void LoadReleases()
         {
             ListenerCollection.Visibility = Visibility.Collapsed;
 
@@ -68,7 +68,7 @@ namespace pleer.Resources.Pages.Collections
                             .CreateCollectionCard(album, AlbumCard_Click);
                     if (_listenerMain != null)
                         card = UIElementsFactory
-                            .CreateCollectionCard(album, _listenerMain.AlbumCard_Click);
+                            .CreateCollectionCard(album, AlbumCard_Click);
 
                     ReleasesList.Children.Add(card);
                 }
@@ -78,7 +78,7 @@ namespace pleer.Resources.Pages.Collections
             }
         }
 
-        void LoadMediaLibrary()
+        public void LoadMediaLibrary()
         {
             ArtistCollection.Visibility = Visibility.Collapsed;
 
@@ -98,7 +98,7 @@ namespace pleer.Resources.Pages.Collections
 
                 if (playlist != null)
                 {
-                    var card = UIElementsFactory.CreateCollectionCard(playlist, _listenerMain.PlaylistCard_Click);
+                    var card = UIElementsFactory.CreateCollectionCard(playlist, PlaylistCard_Click);
                     MediaLibraryList.Children.Add(card);
                 }
             }
@@ -111,16 +111,35 @@ namespace pleer.Resources.Pages.Collections
                 return;
             }
 
-            ServiceMethods.AddPlaylistWithLink(_listener);
+            var listener = _context.Listeners.Find(_listener.Id);
+            ServiceMethods.AddPlaylistWithLink(listener);
 
             LoadMediaLibrary();
         }
 
         public void AlbumCard_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Border border && border.Tag is Album album)
+            if (_artistMain != null)
             {
-                AlbumContent.Navigate(new OpenCollection(_artistMain, album));
+                if (sender is Border border && border.Tag is Album album)
+                {
+                    AlbumContent.Navigate(new OpenCollection(_artistMain, album));
+                }
+            }
+            else
+            {
+                if (sender is Border border && border.Tag is Album album)
+                {
+                    _listenerMain.CenterField.Navigate(new OpenCollection(this, _listenerMain, album, _listener));
+                }
+            }
+        }
+
+        public void PlaylistCard_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Border border && border.Tag is Playlist playlist)
+            {
+                _listenerMain.CenterField.Navigate(new OpenCollection(this, _listenerMain, playlist, _listener));
             }
         }
 

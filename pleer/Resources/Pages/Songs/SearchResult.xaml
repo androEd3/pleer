@@ -9,7 +9,7 @@
     <ScrollViewer VerticalAlignment="Top"
                   Style="{StaticResource ScrollViewer}">
         <StackPanel>
-            <TextBlock Text="Результаты поиска:" 
+            <TextBlock Text="Результаты поиска" 
                        HorizontalAlignment="Left" Margin="5"
                        Style="{StaticResource MainInfoPanel}"/>
             <StackPanel Name="SongsList"/>

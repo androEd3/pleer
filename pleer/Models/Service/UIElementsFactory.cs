@@ -6,6 +6,8 @@ using pleer.Resources.Pages.Collections;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,14 +27,11 @@ namespace pleer.Models.Service
 
             var songGrid = SongGrid(song);
 
-            if (listener != null)
+            var addButton = CreateAddSongButton(listener, song);
+            if (addButton != default)
             {
-                var addButton = CreateAddSongButton(listener, song);
-                if (addButton != null)
-                {
-                    Grid.SetColumn(addButton, 2);
-                    songGrid.Children.Add(addButton);
-                }
+                Grid.SetColumn(addButton, 3);
+                songGrid.Children.Add(addButton);
             }
 
             var border = new Border
@@ -44,6 +43,9 @@ namespace pleer.Models.Service
                 Tag = song
             };
             border.MouseLeftButtonUp += (sender, e) => clickHandler(sender, e);
+
+            border.MouseEnter += (s, e) => addButton.Visibility = Visibility.Visible;
+            border.MouseLeave += (s, e) => addButton.Visibility = Visibility.Collapsed;
 
             return border;
         }
@@ -83,7 +85,7 @@ namespace pleer.Models.Service
             var removeButton = CreateRemoveSongButton();
             if (removeButton != null)
             {
-                Grid.SetColumn(removeButton, 2);
+                Grid.SetColumn(removeButton, 3);
                 songGrid.Children.Add(removeButton);
 
                 removeButton.Click += (s, e) =>
@@ -118,13 +120,17 @@ namespace pleer.Models.Service
                 .Select(s => new
                 {
                     Song = s,
+                    s.TotalPlays,
+                    s.TotalDuration,
                     s.Album.Creator,
-                    s.Album.Cover
+                    s.Album.Cover,
                 })
                 .FirstOrDefault();
 
             var artist = songData?.Creator;
             var cover = songData?.Cover;
+            var duration = songData?.TotalDuration;
+            var plays = songData?.TotalPlays;
 
             string coverPath = cover != null ?
                 cover.FilePath
@@ -137,7 +143,9 @@ namespace pleer.Models.Service
                 {
                     new ColumnDefinition { Width = new GridLength(settings.Height) },
                     new ColumnDefinition(),
-                    new ColumnDefinition { Width = new GridLength(50) }
+                    new ColumnDefinition { Width = GridLength.Auto },
+                    new ColumnDefinition { Width = new GridLength(50) },
+                    new ColumnDefinition { Width = GridLength.Auto },
                 }
             };
 
@@ -149,31 +157,48 @@ namespace pleer.Models.Service
             Grid.SetColumn(infoPanel, 1);
             grid.Children.Add(infoPanel);
 
+            var totalPlays = new TextBlock()
+            {
+                Text = plays.ToString(),
+                TextAlignment = TextAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(25, 0, 10, 0),
+                Style = Application.Current.TryFindResource("SmallInfoPanel") as Style,
+            };
+            Grid.SetColumn(totalPlays, 2);
+            grid.Children.Add(totalPlays);
+
+            var totalDuration = new TextBlock()
+            {
+                Text = FormattingTotalTime(song),
+                TextAlignment = TextAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(10, 0, 15, 0),
+                Style = Application.Current.TryFindResource("SmallInfoPanel") as Style,
+            };
+            Grid.SetColumn(totalDuration, 4);
+            grid.Children.Add(totalDuration);
+
             return grid;
         }
 
         // SONG METADATA FILLING
-        static Grid CreateCollectionCover(string cover, CardSettings settings)
+        static Border CreateCollectionCover(string cover, CardSettings settings)
         {
             var imagePath = cover ?? InitializeData.GetDefaultCoverPath();
             var imageSource = DecodePhoto(imagePath, settings.ImageSize * 2);
 
-            var albumCover = new Image { Source = imageSource };
-
-            var clip = new RectangleGeometry
-            {
-                Rect = new Rect(0, 0, settings.ImageSize, settings.ImageSize),
-                RadiusX = 5,
-                RadiusY = 5
-            };
-
-            return new Grid
+            return new Border
             {
                 Width = settings.ImageSize,
                 Height = settings.ImageSize,
                 Margin = new Thickness(5),
-                Clip = clip,
-                Children = { albumCover }
+                CornerRadius = new CornerRadius(5),
+                Background = new ImageBrush
+                {
+                    ImageSource = imageSource,
+                    Stretch = Stretch.UniformToFill
+                }
             };
         }
 
@@ -182,84 +207,189 @@ namespace pleer.Models.Service
             var smallMainInfoStyle = Application.Current.TryFindResource("SmallMainInfoPanel") as Style;
             var smallInfoStyle = Application.Current.TryFindResource("SmallInfoPanel") as Style;
 
-            return new StackPanel
-            {
+            var panel = new StackPanel
+            {   
                 Margin = new Thickness(10, 0, 0, 0),
                 VerticalAlignment = VerticalAlignment.Center,
                 Children =
                 {
                     new TextBlock
                     {
+                        Name = "SongTitleTextBlock",
                         Text = title,
                         Style = smallMainInfoStyle
                     },
                     new TextBlock
                     {
-                       Text = artistName ?? "Unknown Artist",
-                       TextWrapping = TextWrapping.Wrap,
-                       Style = smallInfoStyle
+                        Text = artistName ?? "Unknown Artist",
+                        TextWrapping = TextWrapping.Wrap,
+                        Style = smallInfoStyle
                     }
                 }
             };
+
+            return panel;
         }
 
         // BUTTONS IN CARD
-        static Button CreateAddSongButton(
+        static Grid CreateAddSongButton(
             Listener listener,
             Song song)
         {
-            var context = new DBContext();
+            if (listener == default)
+                return default;
 
-            if (listener == null) 
-                return null;
-
-            var playlist = context.Playlists
-                .FirstOrDefault(p => p.CreatorId == listener.Id);
-            if (playlist == null) 
-                return null;
-
-            var isSongInPlaylist = playlist.SongsId.Contains(song.Id);
+            var grid = new Grid()
+            {
+                Visibility = Visibility.Collapsed,
+            };
 
             var icon = new PackIcon
             {
                 Width = 25,
                 Height = 25,
-                Kind = isSongInPlaylist ?
-                    PackIconKind.Minus :
-                    PackIconKind.Plus
+                Kind = PackIconKind.PlaylistPlus
             };
 
-            var buttonStyle = (Style)Application.Current.TryFindResource(
-                isSongInPlaylist ? "RemoveSongButton" : "AddSongButton");
-
-            var button = new Button
+            var toggleButton = new ToggleButton
             {
                 Height = 25,
                 Width = 25,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 0),
+                Margin = new Thickness(15, 0, 10, 0),
                 Content = icon,
-                Style = buttonStyle,
-                Visibility = isSongInPlaylist ? Visibility.Visible : Visibility.Collapsed
+                Style = Application.Current.TryFindResource("AddSongButton") as Style
             };
 
-            button.Click += (s, e) =>
+            var border = new Border
             {
-                if (!playlist.SongsId.Contains(song.Id))
-                {
-                    AddSongToPlaylist(playlist.Id, song.Id);
-                    icon.Kind = PackIconKind.Minus;
-                    button.Style = (Style)Application.Current.TryFindResource("RemoveSongButton");
-                }
-                else
-                {
-                    DeleteSongFromPlaylist(playlist.Id, song.Id);
-                    icon.Kind = PackIconKind.Plus;
-                    button.Style = (Style)Application.Current.TryFindResource("AddSongButton");
-                }
+                CornerRadius = new CornerRadius(5),
+                Padding = new Thickness(0, 5, 0, 5),
+                BorderThickness = new Thickness(1),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333")),
+                Style = Application.Current.TryFindResource("NonFunctionalField2c") as Style,
+                MaxHeight = 300
             };
 
-            return button;
+            var playlistsPanel = new StackPanel();
+
+            var scrollViewer = new ScrollViewer
+            {
+                Content = playlistsPanel,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                MaxHeight = 300
+            };
+
+            border.Child = scrollViewer;
+
+            var popup = new Popup
+            {
+                PlacementTarget = toggleButton,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Child = border
+            };
+
+            popup.Opened += (s, e) =>
+            {
+                RefreshPlaylistsPanel(playlistsPanel, listener, song);
+            };
+
+            var binding = new Binding("IsChecked")
+            {
+                Source = toggleButton,
+                Mode = BindingMode.TwoWay
+            };
+            popup.SetBinding(Popup.IsOpenProperty, binding);
+
+            grid.Children.Add(toggleButton);
+            grid.Children.Add(popup);
+
+            RefreshPlaylistsPanel(playlistsPanel, listener, song);
+
+            return grid;
+        }
+
+        static void RefreshPlaylistsPanel(StackPanel playlistsPanel, Listener listener, Song song)
+        {
+            playlistsPanel.Children.Clear();
+
+            using var context = new DBContext();
+
+            var playlists = context.Playlists
+                .Where(p => p.CreatorId == listener.Id)
+                .ToList();
+
+            foreach (var playlist in playlists)
+            {
+                var isSongInPlaylist = playlist.SongsId.Contains(song.Id);
+
+                var playlistIcon = new PackIcon
+                {
+                    Kind = isSongInPlaylist ? PackIconKind.Check : PackIconKind.Plus,
+                    Foreground = isSongInPlaylist ?
+                        new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90ee90")) :
+                        new SolidColorBrush((Color)ColorConverter.ConvertFromString("#eeeeee")),
+                    Width = 20,
+                    Height = 20,
+                    Margin = new Thickness(0, 0, 15, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                };
+
+                var playlistText = new TextBlock
+                {
+                    Text = playlist.Title,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Style = (Style)Application.Current.TryFindResource("SongNameLowerPanel")
+                };
+
+                var playlistContent = new Grid()
+                {
+                    ColumnDefinitions =
+                    {
+                        new ColumnDefinition { Width = GridLength.Auto },
+                        new ColumnDefinition(),
+                    }
+                };
+                playlistContent.Children.Add(playlistIcon);
+                Grid.SetColumn(playlistIcon, 0);
+                playlistContent.Children.Add(playlistText);
+                Grid.SetColumn(playlistText, 1);
+
+                var playlistButton = new Button
+                {
+                    Content = playlistContent,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    HorizontalContentAlignment = HorizontalAlignment.Left, 
+                    Padding = new Thickness(10, 5, 10, 5),
+                    Style = (Style)Application.Current.TryFindResource("MenuButton"),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333")),
+                    Tag = playlist.Id
+                };
+
+                playlistButton.Click += (s, e) =>
+                {
+                    var playlistId = (int)(s as Button).Tag;
+
+                    bool isCurrentlyInPlaylist = playlistIcon.Kind == PackIconKind.Check;
+
+                    if (isCurrentlyInPlaylist)
+                    {
+                        DeleteSongFromPlaylist(playlistId, song.Id);
+                        playlistIcon.Kind = PackIconKind.Plus;
+                        playlistIcon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#eeeeee"));
+                    }
+                    else
+                    {
+                        AddSongToPlaylist(playlistId, song.Id);
+                        playlistIcon.Kind = PackIconKind.Check;
+                        playlistIcon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90ee90"));
+                    }
+                };
+
+                playlistsPanel.Children.Add(playlistButton);
+            }
         }
 
         static Button CreateRemoveSongButton()
@@ -282,7 +412,6 @@ namespace pleer.Models.Service
                 Margin = new Thickness(0, 0, 10, 0),
                 Content = icon,
                 Style = buttonStyle,
-                Visibility =  Visibility.Visible,
             };
 
             return button;
@@ -499,6 +628,38 @@ namespace pleer.Models.Service
             bitmap.EndInit();
 
             return bitmap;
+        }
+
+        public static string FormattingTotalTime(List<Song> collection)
+        {
+            var summaryDuration = TimeSpan.Zero;
+
+            foreach (var song in collection)
+            {
+                if (song != default)
+                    summaryDuration += song.TotalDuration;
+            }
+
+            string formattedDuration;
+
+            if (summaryDuration.TotalHours >= 1)
+                formattedDuration = summaryDuration.ToString(@"hh\:mm\:ss");
+            else
+                formattedDuration = summaryDuration.ToString(@"mm\:ss");
+
+            return formattedDuration;
+        }
+
+        public static string FormattingTotalTime(Song song)
+        {
+            string formattedDuration;
+
+            if (song.TotalDuration.TotalHours >= 1)
+                formattedDuration = song.TotalDuration.ToString(@"hh\:mm\:ss");
+            else
+                formattedDuration = song.TotalDuration.ToString(@"mm\:ss");
+
+            return formattedDuration;
         }
 
         //assist METHODS

@@ -25,7 +25,7 @@
             <Button Grid.Column="1" Margin="5 0"
                     HorizontalAlignment="Right"
                     Click="CreatePlaylistButton_Click"
-                    Style="{StaticResource BaseFunctionButtonWithBorder}">
+                    Style="{StaticResource BaseFunctionButton}">
                 <materialDesign:PackIcon Kind="Plus" Width="35" Height="35"/>
             </Button>
 

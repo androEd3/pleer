@@ -22,5 +22,8 @@ namespace pleer.Models.Media
 
         public List<int> SongsId { get; set; } = [];
         public virtual ICollection<Song> Songs { get; set; } = [];
+
+        // kolichestvo poroslushivaniy
+        public int TotalPlays { get; set; }
     }
 }

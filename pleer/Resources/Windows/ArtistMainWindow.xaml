@@ -39,7 +39,7 @@
                             <StackPanel>
                                 <Button Content="Войти как слушатель" 
                                         Click="LoginAsListinerButton_Click"
-                                        Style="{StaticResource MenuButon}"/>
+                                        Style="{StaticResource MenuButton}"/>
                             </StackPanel>
                         </Border>
                     </Popup>
@@ -153,7 +153,7 @@
                                 </Button>
                                 
                                 <Button Height="35" Width="35" Grid.Column="1"
-                                        Click="PlayMedia_Click" Style="{StaticResource BaseFunctionButtonWithBorder}">
+                                        Click="PlayMedia_Click" Style="{StaticResource BaseFunctionButton}">
                                     <materialDesign:PackIcon Name="PlayIcon" Kind="Play" Width="35" Height="35"/>
                                 </Button>
                             </Grid>

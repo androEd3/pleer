@@ -1,5 +1,4 @@
-﻿using NAudio.Wave;
-using pleer.Models.DatabaseContext;
+﻿using pleer.Models.DatabaseContext;
 using pleer.Models.Media;
 using pleer.Models.Service;
 using pleer.Models.Users;
@@ -8,11 +7,12 @@ using pleer.Resources.Pages.GeneralPages;
 using pleer.Resources.Pages.Songs;
 using pleer.Resources.Pages.UserPages;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
+using NAudio.Wave;
 
 namespace pleer.Resources.Windows
 {
@@ -21,29 +21,36 @@ namespace pleer.Resources.Windows
         DBContext _context = new();
         Listener _listener;
 
-        MediaPlayer _mediaPlayer = new();
+        HomePage _homePage;
+
+        IWavePlayer _wavePlayer;
+        AudioFileReader _audioFile;
+
         Song _selectedSong;
 
-        List<Song> _listeningHistory = [];
+        List<int> _listeningHistory = [];
         int _songSerialNumber;
 
         bool _isDraggingMediaSlider = false;
-        bool _isDraggingVolumeSlider = false;
+        bool _isDraggingVolumeSlider;
         bool _isUnpressedMediaSlider = true;
 
-        DispatcherTimer _progressTimer;
+        bool _isListened;
+        TimeSpan _listenDuration;
+
+        double _timeTick = 0.016; // ~60 FPS
 
         PlayerState _playerState = PlayerState.Paused;
         private enum PlayerState
         {
-            Playing,    // Идет воспроизведение
-            Paused      // На паузе
+            Playing,
+            Paused
         }
 
         public ListenerMainWindow()
         {
             InitializeComponent();
-
+            InitializeNAudio();
             LoadNonUserWindow();
         }
 
@@ -53,22 +60,37 @@ namespace pleer.Resources.Windows
 
             _listener = listener;
 
+            InitializeNAudio();
             LoadListenerData();
+        }
+
+        // Инициализация NAudio
+        void InitializeNAudio()
+        {
+            _wavePlayer = new WaveOutEvent();
+
+            _wavePlayer.PlaybackStopped += WavePlayer_PlaybackStopped;
+
+            InitializeProgressUpdates();
         }
 
         void LoadNonUserWindow()
         {
             InitializeData.SeedData(_context);
 
+            _homePage = new HomePage(this, _listener);
+
             MediaLibrary.Navigate(new UnauthorizedNoticePage(this));
-            CenterField.Navigate(new HomePage(this, _listener));
+            CenterField.Navigate(_homePage);
         }
 
         void LoadListenerData()
         {
-            _mediaPlayer.Stop();
+            StopPlayback();
 
-            CenterField.Navigate(new HomePage(this, _listener));
+            _homePage = new HomePage(this, _listener);
+
+            CenterField.Navigate(_homePage);
 
             if (_listener != null)
             {
@@ -92,20 +114,12 @@ namespace pleer.Resources.Windows
             }
         }
 
-        // Таймер
-        void InitilizeTimer()
-        {
-            _progressTimer = new DispatcherTimer();
-            _progressTimer.Tick += OnCompositionRendering;
-            _progressTimer.Interval = TimeSpan.FromMilliseconds(33);
-            _progressTimer.Start();
-        }
-
-        // Прогресбар песни
+        // Плавный прогресс через CompositionTarget.Rendering (~60 FPS)
         void InitializeProgressUpdates()
         {
             CompositionTarget.Rendering += OnCompositionRendering;
         }
+
         void StopProgressUpdates()
         {
             CompositionTarget.Rendering -= OnCompositionRendering;
@@ -113,72 +127,112 @@ namespace pleer.Resources.Windows
 
         void OnCompositionRendering(object sender, EventArgs e)
         {
-            if (!_isDraggingMediaSlider && _mediaPlayer.Position.TotalSeconds >= 0)
+            if (_audioFile != null && !_isDraggingMediaSlider)
             {
-                var position = _mediaPlayer.Position;
+                var position = _audioFile.CurrentTime;
+
                 currentMediaTime.Text = position.ToString(@"mm\:ss");
-                progressSlider.Value = position.TotalSeconds;
+                PositionSlider.Value = position.TotalSeconds;
+
+                if (_playerState == PlayerState.Playing)
+                {
+                    _listenDuration += TimeSpan.FromSeconds(_timeTick);
+                    PlaysCount();
+                }
             }
+        }
+
+        void PlaysCount()
+        {
+            if (_isListened || _selectedSong == null)
+                return;
+
+            double songTotalDuration = _selectedSong.TotalDuration.TotalSeconds;
+
+            bool shouldCount;
+
+            if (songTotalDuration < 10)
+                shouldCount = _listenDuration.TotalSeconds >= songTotalDuration / 2;
             else
-                StopProgressUpdates();
+                shouldCount = _listenDuration.TotalSeconds >= 10;
+
+            if (shouldCount)
+            {
+                var song = _context.Songs.Find(_selectedSong.Id);
+                var album = _context.Albums.Find(_selectedSong.AlbumId);
+
+                album.TotalPlays++;
+                song.TotalPlays++;
+                _context.SaveChanges();
+
+                _isListened = true;
+                Debug.WriteLine($"Song played! Total plays: {song.TotalPlays}");
+            }
+        }
+
+        // Событие окончания воспроизведения
+        void WavePlayer_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+
         }
 
         // Воспроизведение песни
-        void MediaPlayer_MediaOpened(object sender, EventArgs e)
-        {
-            if (_mediaPlayer.NaturalDuration.HasTimeSpan && _mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds >= 0)
-            {
-                totalMediaTime.Text = _mediaPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss");
-                progressSlider.Maximum = _mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
-            }
-
-            LoadSongMetadata();
-        }
-
-        void AddSongToHistory(Song song)
-        {
-            _listeningHistory.Add(song);
-            _songSerialNumber = _listeningHistory.Count;
-        }
-
         void SelectSong(Song song)
         {
-            _mediaPlayer.Close();
-            _selectedSong = song;
+            try
+            {
+                StopPlayback();
 
-            _mediaPlayer.Open(new Uri(_selectedSong.FilePath));
-            _mediaPlayer.Volume = VolumeSlider.Value;
+                _selectedSong = song;
 
-            _mediaPlayer.Play();
-            _playerState = PlayerState.Playing;
+                _audioFile = new AudioFileReader(_selectedSong.FilePath);
 
-            InitilizeTimer();
-            InitializeProgressUpdates();
+                _audioFile.Volume = (float)VolumeSlider.Value;
 
-            if (_listeningHistory.Count == 0)
-                AddSongToHistory(song);
-            if (_listeningHistory[_songSerialNumber - 1].Id != song.Id)
-                AddSongToHistory(song);
+                _wavePlayer.Init(_audioFile);
 
-            _mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
+                _wavePlayer.Play();
+                _playerState = PlayerState.Playing;
+
+                LoadSongMetadata();
+
+                if (_listeningHistory.Count == 0)
+                    AddSongToHistory(song.Id);
+                else if (_listeningHistory[_songSerialNumber - 1] != song.Id)
+                    AddSongToHistory(song.Id);
+
+                _isListened = false;
+                _listenDuration = TimeSpan.Zero;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось загрузить файл: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void SongCard_Click(object sender, MouseButtonEventArgs e)
         {
             if (sender is Border border && border.Tag is Song song)
+            {
+                _homePage.CardPlaying(border);
                 SelectSong(song);
+            }
         }
 
         void LoadSongMetadata()
         {
+            if (_audioFile == null || _selectedSong == null)
+                return;
+
             PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
 
-            var album = _context.Albums
-                .Find(_selectedSong.AlbumId);
-            var artist = _context.Artists
-                .Find(album.CreatorId);
-            var cover = _context.AlbumCovers
-                .Find(album.CoverId);
+            totalMediaTime.Text = _audioFile.TotalTime.ToString(@"mm\:ss");
+            PositionSlider.Maximum = _audioFile.TotalTime.TotalSeconds;
+
+            var album = _context.Albums.Find(_selectedSong.AlbumId);
+            var artist = _context.Artists.Find(album.CreatorId);
+            var cover = _context.AlbumCovers.Find(album.CoverId);
 
             SongName.Text = _selectedSong.Title;
             SingerName.Text = artist.Name;
@@ -195,34 +249,26 @@ namespace pleer.Resources.Windows
 
         private void PlayMedia_Click(object sender, RoutedEventArgs e)
         {
-            if (_mediaPlayer == default)
+            if (_wavePlayer == null || _audioFile == null)
                 return;
 
             switch (_playerState)
             {
                 case PlayerState.Paused:
-                    _mediaPlayer.Play();
+                    _wavePlayer.Play();
                     _playerState = PlayerState.Playing;
                     PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
                     break;
 
                 case PlayerState.Playing:
-                    _mediaPlayer.Pause();
+                    _wavePlayer.Pause();
                     _playerState = PlayerState.Paused;
                     PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
                     break;
             }
         }
 
-        //Collection Click
-        public void PlaylistCard_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is Border border && border.Tag is Playlist playlist)
-            {
-                CenterField.Navigate(new OpenCollection(this, playlist, _listener));
-            }
-        }
-
+        //Collection card click
         public void AlbumCard_Click(object sender, MouseButtonEventArgs e)
         {
             if (sender is Border border && border.Tag is Album album)
@@ -231,7 +277,7 @@ namespace pleer.Resources.Windows
             }
         }
 
-        //ПОИСК
+        // ПОИСК
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string currentSearchText = SearchBar.Text;
@@ -247,68 +293,92 @@ namespace pleer.Resources.Windows
             CenterField.Navigate(new HomePage(this, _listener));
         }
 
-        //СКИП
+        // СКИП
         private void PreviousMedia_Click(object sender, RoutedEventArgs e)
         {
-            if (_mediaPlayer == default)
+            if (_audioFile == null)
                 return;
 
-            if (_mediaPlayer.Position < TimeSpan.FromSeconds(3) && _songSerialNumber - 1 > 0)
+            if (_audioFile.CurrentTime < TimeSpan.FromSeconds(3) && _songSerialNumber - 1 > 0)
             {
                 _songSerialNumber -= 1;
-                _selectedSong = _listeningHistory[_songSerialNumber - 1];
+
+                var song = _context.Songs
+                    .Find(_listeningHistory[_songSerialNumber - 1]);
+                if (song != default)
+                    _selectedSong = song;
+
                 SelectSong(_selectedSong);
             }
             else
-                ProgressSlider_ChangeValue(0);
+            {
+                _isListened = false;
+                _listenDuration = TimeSpan.Zero;
+                PositionSlider_ChangeValue(0);
+            }
         }
 
         private void NextMedia_Click(object sender, RoutedEventArgs e)
         {
-            if (_mediaPlayer == default)
+            if (_audioFile == null)
                 return;
 
             if (_songSerialNumber < _listeningHistory.Count)
             {
-                ProgressSlider_ChangeValue(0);
-
                 _songSerialNumber += 1;
 
-                _selectedSong = _listeningHistory[_songSerialNumber - 1];
+                var song = _context.Songs
+                    .Find(_listeningHistory[_songSerialNumber - 1]);
+                if (song != default)
+                    _selectedSong = song;
+
                 SelectSong(_selectedSong);
             }
-            // тут можно сделать скип на другие плейлисты потому что текущий все гг закончился
+            // тут можно сделать скип на другие плейлисты
+        }
+
+        void AddSongToHistory(int songId)
+        {
+            _listeningHistory.Add(songId);
+            _songSerialNumber = _listeningHistory.Count;
         }
 
         // Для перемотки песни
-        void ProgressSlider_ChangeValue(double value)
+        void PositionSlider_ChangeValue(double value)
         {
-            _mediaPlayer.Position = TimeSpan.FromSeconds(value);
-            currentMediaTime.Text = _mediaPlayer.Position.ToString(@"mm\:ss");
-        }
-
-        private void ProgressSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (_isDraggingMediaSlider && _isUnpressedMediaSlider && _mediaPlayer != null)
+            if (_audioFile != null)
             {
-                ProgressSlider_ChangeValue(e.NewValue);
+                _audioFile.CurrentTime = TimeSpan.FromSeconds(value);
+                currentMediaTime.Text = _audioFile.CurrentTime.ToString(@"mm\:ss");
             }
         }
 
-        private void ProgressSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void PositionSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (_isDraggingMediaSlider && _isUnpressedMediaSlider && _audioFile != null)
+            {
+                PositionSlider_ChangeValue(e.NewValue);
+            }
+        }
+
+        private void PositionSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _isDraggingMediaSlider = true;
             _isUnpressedMediaSlider = false;
         }
 
-        private void ProgressSlider_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void PositionSlider_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             _isDraggingMediaSlider = false;
             _isUnpressedMediaSlider = true;
-            _mediaPlayer.Position = TimeSpan.FromSeconds(progressSlider.Value);
+
+            if (_audioFile != null)
+            {
+                _audioFile.CurrentTime = TimeSpan.FromSeconds(PositionSlider.Value);
+            }
         }
 
-        //Изменение громкости
+        // Изменение громкости
         private void VolumeSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _isDraggingVolumeSlider = true;
@@ -316,48 +386,59 @@ namespace pleer.Resources.Windows
 
         private void VolumeSlider_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (_isDraggingVolumeSlider)
-            {
-                _isDraggingVolumeSlider = false;
-            }
+            _isDraggingVolumeSlider = false;
         }
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (_mediaPlayer != null && _isDraggingVolumeSlider)
+            if (_audioFile != null)
             {
-                _mediaPlayer.Volume = VolumeSlider.Value;
+                _audioFile.Volume = (float)e.NewValue;
+
+                UpdateVolumeIcon(e.NewValue);
             }
         }
 
         private void MutePlayerButton_Click(object sender, RoutedEventArgs e)
         {
             if (VolumeSlider.Value != 0)
-            {
-                VolumeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.VolumeMute;
                 VolumeSlider.Value = 0;
-                _mediaPlayer.Volume = VolumeSlider.Value;
-            }
             else
-            {
+                VolumeSlider.Value = (float)VolumeSlider.Maximum / 2;
+        }
+
+        private void UpdateVolumeIcon(double volume)
+        {
+            if (volume == 0)
+                VolumeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.VolumeMute;
+            else if (volume < 0.5)
+                VolumeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.VolumeLow;
+            else
                 VolumeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.VolumeHigh;
-                VolumeSlider.Value = VolumeSlider.Maximum / 2;
-                _mediaPlayer.Volume = VolumeSlider.Value;
-            }
+        }
+
+        // Остановка воспроизведения
+        void StopPlayback()
+        {
+            _wavePlayer?.Stop();
+            _audioFile?.Dispose();
+            _audioFile = null;
+
+            _playerState = PlayerState.Paused;
+            PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
         }
 
         // Войти как исполнитель
         private void LoginAsArtistButton_Click(object sender, RoutedEventArgs e)
         {
-            _mediaPlayer.Close();
-            new ArtistMainWindow().Show(); this.Close();
+            CleanupResources();
+            new ArtistMainWindow().Show(); Close();
         }
 
         // Открытие Профиля
         private void ProfileImage_Click(object sender, MouseButtonEventArgs e)
         {
             FullWindow.Navigate(new ProfilePage(this, _listener));
-
         }
 
         // Авторизация
@@ -368,7 +449,19 @@ namespace pleer.Resources.Windows
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            _mediaPlayer.Close();
+            CleanupResources();
+        }
+
+        // Освобождение ресурсов
+        void CleanupResources()
+        {
+            StopProgressUpdates();
+
+            _wavePlayer?.Stop();
+            _wavePlayer?.Dispose();
+            _audioFile?.Dispose();
+
+            _context?.Dispose();
         }
 
         // ПЕРЕМЕЩЕНИЕ СТРАНИЦ В ЦЕНТРАЛЬНОМ ОКНЕ

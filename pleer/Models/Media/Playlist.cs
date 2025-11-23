@@ -17,6 +17,9 @@ namespace pleer.Models.Media
         public int CreatorId { get; set; }
         public Listener? Creator { get; set; }
 
+        [MaxLength(300)]
+        public string? Description { get; set; }
+
         [Required]
         public DateOnly CreationDate { get; set; }
 

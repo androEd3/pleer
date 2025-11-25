@@ -96,7 +96,7 @@ namespace pleer.Resources.Windows
                     _coverPath = openFileDialog.FileName;
                     var bitmap = new BitmapImage(new Uri(_coverPath));
 
-                    if (bitmap.PixelWidth != 150 || bitmap.PixelHeight != 150)
+                    if (bitmap.PixelWidth != 300 || bitmap.PixelHeight != 300)
                     {
                         bitmap = UIElementsFactory.ResizeImageTo300x300(_coverPath);
                     }

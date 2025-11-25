@@ -1,0 +1,90 @@
+﻿<Page x:Class="pleer.Resources.Pages.UserPages.ArtistStatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:pleer.Resources.Pages.UserPages"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d">
+
+    <Grid Margin="5 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Padding="10 5" Style="{StaticResource NonFunctionalField22}">
+            <TextBlock Text="Статистика исполнителя за все время"
+                       Style="{StaticResource MainInfoPanel}"/>
+        </Border>
+
+        <TextBlock Grid.Row="1" Margin="20 15" TextWrapping="Wrap"
+                   Name="ArtistName"
+                   Style="{StaticResource SmallMainInfoPanel}"/>
+
+        <Button Grid.Row="1" Margin="20 0" Padding="10"
+                Content="Обновить" Click="UpdateArtistDataButton_Click"
+                VerticalAlignment="Center" HorizontalAlignment="Right"
+                Style="{StaticResource SimpleButton}"/>
+
+        <ScrollViewer Grid.Row="2" Style="{StaticResource ScrollViewer}">
+            <Grid Margin="5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Всего прослушиваний:"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Name="TotalAuditions" Margin="10"
+                           TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+
+                <TextBlock Grid.Row="1" Text="Всего альбомов:"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 5"
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Name="TotalAlbums" Margin="10 5"
+                           TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+
+                <TextBlock Grid.Row="2" Text="Всего песен:"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 5"
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Name="TotalSongs" Margin="10 5"
+                           TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+
+                <TextBlock Grid.Row="3" Text="Самая популярная песня:"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 10 10 5"
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Name="MostPopularSong" Margin="10 10 10 5"
+                           TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+
+                <TextBlock Grid.Row="4" Text="Самый популярный альбом:"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 5"
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Name="MostPopularAlbum" Margin="10 5"
+                           TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+
+                <TextBlock Grid.Row="5" Text="Дата создания аккаунта:"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Name="AccountCreatedAt" Margin="10"
+                           TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                           Style="{StaticResource SmallMainInfoPanel}"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

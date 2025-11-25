@@ -16,7 +16,6 @@ namespace pleer.Models.Media
         [Required]
         public string FilePath { get; set; }
 
-        [Required]
         public TimeSpan TotalDuration { get; set; }
 
         // kolichestvo poroslushivaniy

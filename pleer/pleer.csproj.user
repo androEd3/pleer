@@ -26,6 +26,15 @@
     <Compile Update="Resources\Pages\Collections\CollectionsList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Resources\Pages\Songs\ListenedHistoryPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\UserPages\ArtistProfilePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\Pages\UserPages\ArtistStatisticsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Resources\Pages\UserPages\HomePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

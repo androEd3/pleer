@@ -6,7 +6,7 @@ using pleer.Resources.Pages.UserPages;
 using pleer.Resources.Windows;
 using System.Windows;
 using System.Windows.Controls;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Windows.Input;
 
 namespace pleer.Resources.Pages.Collections
 {
@@ -38,19 +38,6 @@ namespace pleer.Resources.Pages.Collections
             LoadPlaylistData();
         }
 
-        public OpenCollection(ListenerMainWindow main, Album album, Listener listener)
-        {
-            InitializeComponent();
-
-            _listenerMain = main;
-            _listener = listener;
-            _album = album;
-
-            LoadAlbumMetadata();
-
-            PlaylistFunctionalPanel.Visibility = Visibility.Collapsed;
-        }
-
         public OpenCollection(CollectionsList collectionMain, ListenerMainWindow main, Album album, Listener listener)
         {
             InitializeComponent();
@@ -65,32 +52,48 @@ namespace pleer.Resources.Pages.Collections
             PlaylistFunctionalPanel.Visibility = Visibility.Collapsed;
         }
 
-        public OpenCollection(ArtistMainWindow artistMain, Album album)
+
+        public OpenCollection(ListenerMainWindow main, Album album, Listener listener)
+        {
+            InitializeComponent();
+
+            _listenerMain = main;
+            _listener = listener;
+            _album = album;
+
+            LoadAlbumMetadata();
+
+            Unloaded += OpenCollectionPage_Unloaded;
+
+            PlaylistFunctionalPanel.Visibility = Visibility.Collapsed;
+        }
+        
+        public OpenCollection(CollectionsList collectionMain, ArtistMainWindow artistMain, Album album)
         {
             InitializeComponent();
 
             _artistMain = artistMain;
+            _collectionMain = collectionMain;
             _album = album;
 
             LoadAlbumMetadata();
         }
 
-        public OpenCollection()
+        private void OpenCollectionPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-
-            LoadAlbumMetadata();
-
-            PlaylistFunctionalPanel.Visibility = Visibility.Collapsed;
+            _listenerMain._currentAlbum = null;
         }
 
         void LoadPlaylistData()
         {
+            if (_playlist == null)
+                return;
+
             var refreashedPlaylist = _context.Playlists
                 .FirstOrDefault(p => p.Id == _playlist.Id);
 
-            var listener = _context.Listeners
-                .FirstOrDefault(l => l.Id == _playlist.CreatorId);
+            // metadata
+            LoadPlaylistMetadata(refreashedPlaylist);
 
             //Tracks count
             TracksCount.Text = $"Треков: {refreashedPlaylist.SongsId.Count}";
@@ -106,9 +109,6 @@ namespace pleer.Resources.Pages.Collections
             //creation date
             CreatonDate.Text = refreashedPlaylist.CreationDate.ToString("d MMM yyyy");
 
-            // metadata
-            LoadPlaylistMetadata(refreashedPlaylist, listener);
-
             //Songs list
             LoadPlaylistSongs();
         }
@@ -123,17 +123,16 @@ namespace pleer.Resources.Pages.Collections
                 return;
             }
 
+            if (_artistMain != null)
+                AlbumContent.Margin = new Thickness(0, 0, 0, 90);
+
             var refreashedAlbum = _context.Albums
                 .FirstOrDefault(p => p.Id == _album.Id);
 
-            var artist = _context.Artists
-                .FirstOrDefault(l => l.Id == _album.CreatorId);
+            if (refreashedAlbum == null)
+                return;
 
-            //title & subtitle
-            if (refreashedAlbum != default)
-                AlbumName.Text = refreashedAlbum.Title ?? "Неизвестно";
-            if (artist != default)
-                ArtistName.Text = artist.Name ?? "Неизвестен";
+            LoadAlbumMetadata(refreashedAlbum);
 
             //Tracks count
             TracksCount.Text = $"Треков: {refreashedAlbum.SongsId.Count}";
@@ -149,19 +148,19 @@ namespace pleer.Resources.Pages.Collections
             //creation date
             CreatonDate.Text = refreashedAlbum.ReleaseDate.ToString("d MMM yyyy");
 
-            //cover
-            var cover = _context.AlbumCovers
-               .Find(refreashedAlbum.CoverId);
-            LoadCover(cover.FilePath);
-
             //Songs list
             LoadAlbumSongs();
         }
 
-        void LoadPlaylistMetadata(Playlist playlist, Listener listener)
+        void LoadPlaylistMetadata(Playlist playlist)
         {
+            if (playlist == null)
+                return;
+
             AlbumName.Text = playlist.Title ?? "Неизвестно";
-            ArtistName.Text = listener.Name ?? "Неизвестен";
+            ArtistName.Text = _context.Listeners.Find(playlist.CreatorId).Name ?? "Неизвестен";
+
+            CollectionType.Text = "Плейлист";
 
             if (!string.IsNullOrEmpty(playlist.Description))
             {
@@ -171,6 +170,26 @@ namespace pleer.Resources.Pages.Collections
 
             var cover = _context.PlaylistCovers
                .Find(playlist.CoverId);
+            LoadCover(cover.FilePath);
+        }
+
+        void LoadAlbumMetadata(Album album)
+        {
+            //title & subtitle & type
+            if (album == null)
+                return;
+
+            var artist = _context.Artists.Find(album.CreatorId);
+
+            ArtistName.Tag = artist;
+
+            AlbumName.Text = album.Title ?? "Неизвестно";
+            ArtistName.Text = artist.Name ?? "Неизвестен";
+
+            CollectionType.Text = "Альбом";
+
+            var cover = _context.AlbumCovers
+               .Find(album.CoverId);
             LoadCover(cover.FilePath);
         }
 
@@ -194,16 +213,18 @@ namespace pleer.Resources.Pages.Collections
                 if (refreshedPlaylist != null)
                     songs = refreshedPlaylist.SongsId.ToList();
 
-                foreach (var id in songs)
+                int songIndex = 1;
+                foreach (var songId in songs)
                 {
-                    var song = _context.Songs.Find(id);
+                    var song = _context.Songs.Find(songId);
 
                     if (song != null)
                     {
                         var card = _listener != null
-                            ? UIElementsFactory.CreateSongCard(song, _listener, _listenerMain.SongCard_Click)
-                            : UIElementsFactory.CreateSongCard(song, _listenerMain.SongCard_Click);
+                            ? UIElementsFactory.CreateSongCard(song, songIndex, _listener, _listenerMain.SongCard_Click)
+                            : UIElementsFactory.CreateSongCard(song, songIndex, _listenerMain.SongCard_Click);
 
+                        songIndex++;
                         SongsList.Children.Add(card);
                     }
                 }
@@ -226,16 +247,19 @@ namespace pleer.Resources.Pages.Collections
 
                     if (song != null)
                     {
-                        UIElement card;
+                        int songIndex = songs.IndexOf(song.Id);
+
+                        Border card;
 
                         if (_artistMain != null)
-                            card = UIElementsFactory.CreateSongCard(song, _artistMain.SongCard_Click);
+                            card = UIElementsFactory.CreateSongCard(song, songIndex, _artistMain.SongCard_Click);
                         else if (_listener != null)
-                            card = UIElementsFactory.CreateSongCard(song, _listener, _listenerMain.SongCard_Click);
+                            card = UIElementsFactory.CreateSongCard(song, songIndex, _listener, _listenerMain.SongCard_Click);
                         else
-                            card = UIElementsFactory.CreateSongCard(song, _listenerMain.SongCard_Click);
+                            card = UIElementsFactory.CreateSongCard(song, songIndex, _listenerMain.SongCard_Click);
 
-                        SongsList.Children.Add(card);
+                        if (card != null)
+                            SongsList.Children.Add(card);
                     }
                 }
             }
@@ -244,62 +268,86 @@ namespace pleer.Resources.Pages.Collections
         private void EditPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             if (_playlist != null)
-            {
-                var playlist = _context.Playlists.Find(_playlist.Id);
+                EditPlaylist();
 
-                new PlaylistEditWindow(playlist).ShowDialog();
-                _collectionMain.LoadMediaLibrary();
-                LoadPlaylistMetadata(playlist, _listener);
-            }
-            if (_album != null)
-            {
-                var album = _context.Albums.Find(_album.Id);
+            else if (_album != null)
+                EditAlbum();
+        }
 
-                new PlaylistEditWindow(album).ShowDialog();
-                _collectionMain.LoadReleases();
-                LoadAlbumMetadata();
-            }
+        void EditAlbum()
+        {
+            var album = _context.Albums.Find(_album.Id);
+
+            new PlaylistEditWindow(album).ShowDialog();
+            _collectionMain.LoadReleases();
+        }
+
+        void EditPlaylist()
+        {
+            var playlist = _context.Playlists.Find(_playlist.Id);
+
+            new PlaylistEditWindow(playlist).ShowDialog();
+            _collectionMain.LoadMediaLibrary();
         }
 
         private void DeletePlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                         "Вы уверены, что хотите удалить плейлист?",
+                         $"Вы уверены, что хотите удалить {(_album != null ? _album.Title : _playlist.Title)}?",
                          "Подтверждение удаления",
                          MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
                 if (_playlist != null)
+                    DeletePlaylist();
+
+                else if (_album != null)
+                    DeleteAlbum();
+            }
+        }
+
+        void DeleteAlbum()
+        {
+            var album = _context.Albums.Find(_album.Id);
+
+            _context.Albums.Remove(album);
+            _context.SaveChanges();
+
+            _collectionMain.LoadReleases();
+        }
+
+        void DeletePlaylist()
+        {
+            var listener = _context.Listeners.Find(_listener.Id);
+            var playlist = _context.Playlists.Find(_playlist.Id);
+
+            var link = new ListenerPlaylistsLink()
+            {
+                ListenerId = listener.Id,
+                PlaylistId = playlist.Id
+            };
+            _context.ListenerPlaylistsLinks.Remove(link);
+
+            _context.Playlists.Remove(playlist);
+            _context.SaveChanges();
+
+            _collectionMain.LoadMediaLibrary();
+            _listenerMain.CenterField.Navigate(new HomePage(_listenerMain, listener));
+        }
+
+        private void ArtistName_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBlock textBlock && textBlock.Tag is Artist artist)
+            {
+                if (_listenerMain != null)
                 {
-                    var listener = _context.Listeners.Find(_listener.Id);
-                    var playlist = _context.Playlists.Find(_playlist.Id);
-
-                    var link = new ListenerPlaylistsLink()
-                    {
-                        ListenerId = listener.Id,
-                        PlaylistId = playlist.Id
-                    };
-                    _context.ListenerPlaylistsLinks.Remove(link);
-
-                    _context.Playlists.Remove(playlist);
-                    _context.SaveChanges();
-
-                    _collectionMain.LoadMediaLibrary();
-                    _listenerMain.CenterField.Navigate(new HomePage(_listenerMain, listener));
-                }
-
-                if (_album != null)
-                {
-                    var album = _context.Albums.Find(_album.Id);
-
-                    _context.Albums.Remove(album);
-                    _context.SaveChanges();
-
-                    _collectionMain.LoadReleases();
+                    if (_listener != null)
+                        _listenerMain.CenterField.Navigate(new ArtistProfilePage(_listenerMain, artist, _listener));
+                    else
+                        _listenerMain.CenterField.Navigate(new ArtistProfilePage(_listenerMain, artist));
                 }
             }
-            else return;
         }
     }
 }

@@ -4,6 +4,7 @@ using pleer.Models.Users;
 using pleer.Resources.Windows;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace pleer.Resources.Pages.Songs
 {
@@ -31,33 +32,118 @@ namespace pleer.Resources.Pages.Songs
         {
             SongsList.Children.Clear();
 
+            SearchSongsButton.Background = ColorConvert("#eee");
+            SearchSongsButton.Foreground = ColorConvert("#333");
+
+            SearchPlaylistsButton.Background = ColorConvert("#333");
+            SearchPlaylistsButton.Foreground = ColorConvert("#eee");
+
+            SearchArtistsButton.Background = ColorConvert("#333");
+            SearchArtistsButton.Foreground = ColorConvert("#eee");
+
             var songs = _context.Songs
                 .Where(s => s.Title.Contains(_searchBarContent))
-                .ToArray();
+                .ToList();
 
-            if (songs.Length == 0)
+            if (!songs.Any())
             {
-                NoContent(); return;
+                string message = "По запросу ничего не найдено";
+                UIElementsFactory.NoContent(message, SongsList);
+                return;
             }
 
             foreach (var song in songs)
             {
-                var card = UIElementsFactory.CreateSongCard(song, _listener, _listenerMain.SongCard_Click);
+                int songId = songs.IndexOf(song);
+
+                var card = UIElementsFactory.CreateSongCard(song, songId, _listener, _listenerMain.SongCard_Click);
+                SongsList.Children.Add(card);
+            }
+        }
+        
+        public void LoadPlaylistsList()
+        {
+            SongsList.Children.Clear();
+
+            SearchSongsButton.Background = ColorConvert("#333");
+            SearchSongsButton.Foreground = ColorConvert("#eee");
+
+            SearchPlaylistsButton.Background = ColorConvert("#eee");
+            SearchPlaylistsButton.Foreground = ColorConvert("#333");
+
+            SearchArtistsButton.Background = ColorConvert("#333");
+            SearchArtistsButton.Foreground = ColorConvert("#eee");
+
+            var albums = _context.Albums
+                .Where(s => s.Title.Contains(_searchBarContent))
+                .ToArray();
+
+            if (albums.Length == 0)
+            {
+                string message = "По запросу ничего не найдено";
+                UIElementsFactory.NoContent(message, SongsList);
+                return;
+            }
+
+            foreach (var album in albums)
+            {
+                var card = UIElementsFactory.CreateCollectionCard(album, _listenerMain.AlbumCard_Click);
                 SongsList.Children.Add(card);
             }
         }
 
-        void NoContent()
+        public void LoadArtistsList()
         {
-            var infoPanel = new TextBlock()
+            SongsList.Children.Clear();
+
+            SearchSongsButton.Background = ColorConvert("#333");
+            SearchSongsButton.Foreground = ColorConvert("#eee");
+
+            SearchPlaylistsButton.Background = ColorConvert("#333");
+            SearchPlaylistsButton.Foreground = ColorConvert("#eee");
+
+            SearchArtistsButton.Background = ColorConvert("#eee");
+            SearchArtistsButton.Foreground = ColorConvert("#333");
+
+            var artists = _context.Artists
+                .Where(a => a.Name.Contains(_searchBarContent))
+                .ToList();
+
+            if (!artists.Any())
             {
-                Text = "По запросу ничего не найдено",
-                TextWrapping = TextWrapping.Wrap,
-                Margin = new Thickness(0, 15, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Style = TryFindResource("SmallInfoPanel") as Style,
-            };
-            SongsList.Children.Add(infoPanel);
+                string message = "По запросу ничего не найдено";
+                UIElementsFactory.NoContent(message, SongsList);
+                return;
+            }
+
+            foreach (var artist in artists)
+            {
+                int artistId = artists.IndexOf(artist);
+
+                var card = UIElementsFactory.CreateArtistCard(artist, _listenerMain.ArtistCard_Click);
+                SongsList.Children.Add(card);
+            }
+        }
+
+
+        SolidColorBrush ColorConvert(string hex)
+        {
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex));
+        }
+
+        private void SearchSongsButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadSongsList();
+        }
+
+        private void SearchPlaylistsButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPlaylistsList();
+        }
+
+        private void SearchArtistsButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadArtistsList();
         }
     }
 }

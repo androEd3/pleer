@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace pleer.Models.Service
 {
@@ -19,13 +20,14 @@ namespace pleer.Models.Service
         // SONG CARDS
         public static Border CreateSongCard(
             Song song,
+            int id,
             Listener listener,
             Action<object, MouseButtonEventArgs> clickHandler,
             CardSize cardSize = CardSize.Small)
         {
             var settings = GetCardSettings(cardSize);
 
-            var songGrid = SongGrid(song);
+            var songGrid = SongGrid(song, id);
 
             var addButton = CreateAddSongButton(listener, song);
             if (addButton != default)
@@ -44,20 +46,24 @@ namespace pleer.Models.Service
             };
             border.MouseLeftButtonUp += (sender, e) => clickHandler(sender, e);
 
-            border.MouseEnter += (s, e) => addButton.Visibility = Visibility.Visible;
-            border.MouseLeave += (s, e) => addButton.Visibility = Visibility.Collapsed;
+            if (addButton != null)
+            {
+                border.MouseEnter += (s, e) => addButton.Visibility = Visibility.Visible;
+                border.MouseLeave += (s, e) => addButton.Visibility = Visibility.Collapsed;
+            }
 
             return border;
         }
 
         public static Border CreateSongCard(
             Song song,
+            int id,
             Action<object, MouseButtonEventArgs> clickHandler,
             CardSize cardSize = CardSize.Small)
         {
             var settings = GetCardSettings(cardSize);
 
-            var songGrid = SongGrid(song);
+            var songGrid = SongGrid(song, id);
 
             var border = new Border
             {
@@ -74,25 +80,14 @@ namespace pleer.Models.Service
 
         public static Border CreateSongCard(
             Song song,
+            int id,
             CreateAlbum main,
             Action<object, MouseButtonEventArgs> clickHandler,
             CardSize cardSize = CardSize.Small)
         {
             var settings = GetCardSettings(cardSize);
 
-            var songGrid = SongGrid(song);
-
-            var removeButton = CreateRemoveSongButton();
-            if (removeButton != null)
-            {
-                Grid.SetColumn(removeButton, 3);
-                songGrid.Children.Add(removeButton);
-
-                removeButton.Click += (s, e) =>
-                {
-                    main.RemoveSongFromAlbum(song);
-                };
-            }
+            var songGrid = SongGrid(song, id, main);
 
             var border = new Border
             {
@@ -109,6 +104,8 @@ namespace pleer.Models.Service
 
         public static Grid SongGrid(
             Song song,
+            int id,
+            CreateAlbum main,
             CardSize cardSize = CardSize.Small)
         {
             var settings = GetCardSettings(cardSize);
@@ -120,20 +117,84 @@ namespace pleer.Models.Service
                 .Select(s => new
                 {
                     Song = s,
-                    s.TotalPlays,
+                    s.Title,
                     s.TotalDuration,
-                    s.Album.Creator,
-                    s.Album.Cover,
                 })
                 .FirstOrDefault();
 
-            var artist = songData?.Creator;
-            var cover = songData?.Cover;
-            var duration = songData?.TotalDuration;
-            var plays = songData?.TotalPlays;
+            var grid = new Grid
+            {
+                Height = settings.Height,
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition { Width = GridLength.Auto},
+                    new ColumnDefinition(),
+                    new ColumnDefinition { Width = GridLength.Auto },
+                    new ColumnDefinition { Width = GridLength.Auto },
+                }
+            };
 
-            string coverPath = cover != null ?
-                cover.FilePath
+            var idSong = new TextBlock()
+            {
+                Text = (id + 1).ToString(),
+                Margin = new Thickness(15, 0, 15, 0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Style = (Style)Application.Current.TryFindResource("SmallInfoPanel"),
+            };
+            Grid.SetColumn(idSong, 0);
+            grid.Children.Add(idSong);
+
+            var infoPanel = CreateInfoPanel(song.Title);
+            Grid.SetColumn(infoPanel, 1);
+            grid.Children.Add(infoPanel);
+
+            var removeButton = CreateRemoveSongButton();
+            Grid.SetColumn(removeButton, 2);
+            grid.Children.Add(removeButton);
+
+            removeButton.Click += (s, e) =>
+            {
+                main.RemoveSongFromAlbum(song);
+            };
+
+            var totalDuration = new TextBlock()
+            {
+                Text = FormattingTotalTime(song),
+                TextAlignment = TextAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(10, 0, 15, 0),
+                Style = Application.Current.TryFindResource("SmallInfoPanel") as Style,
+            };
+            Grid.SetColumn(totalDuration, 3);
+            grid.Children.Add(totalDuration);
+
+            return grid;
+        }
+
+        public static Grid SongGrid(
+            Song song,
+            int id,
+            CardSize cardSize = CardSize.Small)
+        {
+            var settings = GetCardSettings(cardSize);
+
+            using var context = new DBContext();
+
+            var songData = context.Songs
+                .Where(s => s.Id == song.Id)
+                .Select(s => new
+                {
+                    Song = s,
+                    s.Title,
+                    s.Album.Creator,
+                    s.Album.Cover,
+                    s.TotalPlays,
+                })
+                .FirstOrDefault();
+
+            string coverPath = songData?.Cover != null ?
+                songData.Cover.FilePath
                 : InitializeData.GetDefaultCoverPath();
 
             var grid = new Grid
@@ -141,31 +202,43 @@ namespace pleer.Models.Service
                 Height = settings.Height,
                 ColumnDefinitions =
                 {
+                    new ColumnDefinition { Width = GridLength.Auto},
                     new ColumnDefinition { Width = new GridLength(settings.Height) },
                     new ColumnDefinition(),
                     new ColumnDefinition { Width = GridLength.Auto },
-                    new ColumnDefinition { Width = new GridLength(50) },
+                    new ColumnDefinition { Width = GridLength.Auto },
                     new ColumnDefinition { Width = GridLength.Auto },
                 }
             };
 
+            var idSong = new TextBlock()
+            {
+                Text = (id+1).ToString(),
+                Margin = new Thickness(15, 0, 15, 0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Style = (Style)Application.Current.TryFindResource("SmallInfoPanel"),
+            };
+            Grid.SetColumn(idSong, 0);
+            grid.Children.Add(idSong);
+
             var imageGrid = CreateCollectionCover(coverPath, settings);
-            Grid.SetColumn(imageGrid, 0);
+            Grid.SetColumn(imageGrid, 1);
             grid.Children.Add(imageGrid);
 
-            var infoPanel = CreateInfoPanel(song.Title, artist.Name);
-            Grid.SetColumn(infoPanel, 1);
+            var infoPanel = CreateInfoPanel(songData?.Title, songData?.Creator.Name);
+            Grid.SetColumn(infoPanel, 2);
             grid.Children.Add(infoPanel);
 
             var totalPlays = new TextBlock()
             {
-                Text = plays.ToString(),
+                Text = songData?.TotalPlays.ToString(),
                 TextAlignment = TextAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(25, 0, 10, 0),
                 Style = Application.Current.TryFindResource("SmallInfoPanel") as Style,
             };
-            Grid.SetColumn(totalPlays, 2);
+            Grid.SetColumn(totalPlays, 4);
             grid.Children.Add(totalPlays);
 
             var totalDuration = new TextBlock()
@@ -176,7 +249,7 @@ namespace pleer.Models.Service
                 Margin = new Thickness(10, 0, 15, 0),
                 Style = Application.Current.TryFindResource("SmallInfoPanel") as Style,
             };
-            Grid.SetColumn(totalDuration, 4);
+            Grid.SetColumn(totalDuration, 5);
             grid.Children.Add(totalDuration);
 
             return grid;
@@ -186,6 +259,12 @@ namespace pleer.Models.Service
         static Border CreateCollectionCover(string cover, CardSettings settings)
         {
             var imagePath = cover ?? InitializeData.GetDefaultCoverPath();
+
+            if (string.IsNullOrEmpty(cover) || !File.Exists(cover))
+                imagePath = InitializeData.GetDefaultCoverPath();
+            else
+                imagePath = cover;
+
             var imageSource = DecodePhoto(imagePath, settings.ImageSize * 2);
 
             return new Border
@@ -204,9 +283,6 @@ namespace pleer.Models.Service
 
         static StackPanel CreateInfoPanel(string title, string artistName)
         {
-            var smallMainInfoStyle = Application.Current.TryFindResource("SmallMainInfoPanel") as Style;
-            var smallInfoStyle = Application.Current.TryFindResource("SmallInfoPanel") as Style;
-
             var panel = new StackPanel
             {   
                 Margin = new Thickness(10, 0, 0, 0),
@@ -217,24 +293,43 @@ namespace pleer.Models.Service
                     {
                         Name = "SongTitleTextBlock",
                         Text = title,
-                        Style = smallMainInfoStyle
+                        Style = Application.Current.TryFindResource("SmallMainInfoPanel") as Style
                     },
                     new TextBlock
                     {
                         Text = artistName ?? "Unknown Artist",
                         TextWrapping = TextWrapping.Wrap,
-                        Style = smallInfoStyle
+                        Style = Application.Current.TryFindResource("SmallInfoPanel") as Style
                     }
                 }
             };
+            return panel;
+        }
 
+        static StackPanel CreateInfoPanel(string title)
+        {
+            var panel = new StackPanel
+            {
+                Margin = new Thickness(10, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Name = "SongTitleTextBlock",
+                        Text = title,
+                        Style = Application.Current.TryFindResource("SmallMainInfoPanel") as Style
+                    },
+                }
+            };
             return panel;
         }
 
         // BUTTONS IN CARD
-        static Grid CreateAddSongButton(
+        public static Grid CreateAddSongButton(
             Listener listener,
-            Song song)
+            Song song,
+            PlacementMode Placement = PlacementMode.Bottom)
         {
             if (listener == default)
                 return default;
@@ -277,7 +372,7 @@ namespace pleer.Models.Service
             {
                 Content = playlistsPanel,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                MaxHeight = 300
+                MaxHeight = 350
             };
 
             border.Child = scrollViewer;
@@ -285,15 +380,18 @@ namespace pleer.Models.Service
             var popup = new Popup
             {
                 PlacementTarget = toggleButton,
-                Placement = PlacementMode.Bottom,
+                Placement = Placement,
                 StaysOpen = false,
+                AllowsTransparency = true,
                 Child = border
             };
 
             popup.Opened += (s, e) =>
             {
+                grid.Visibility = Visibility.Visible;
                 RefreshPlaylistsPanel(playlistsPanel, listener, song);
             };
+            popup.Closed += (s, e) => grid.Visibility = Visibility.Collapsed;
 
             var binding = new Binding("IsChecked")
             {
@@ -398,16 +496,16 @@ namespace pleer.Models.Service
             {
                 Width = 25,
                 Height = 25,
-                Kind = PackIconKind.Minus,
+                Kind = PackIconKind.MinusCircleOutline,
             };
 
             var buttonStyle = Application.Current.TryFindResource(
-                "RemoveSongButton") as Style;
+                "BaseFunctionButton") as Style;
 
             var button = new Button
             {
-                Height = 25,
-                Width = 25,
+                Height = 30,
+                Width = 30,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 0),
                 Content = icon,
@@ -468,7 +566,7 @@ namespace pleer.Models.Service
             return border;
         }
 
-        public static UIElement CreateCollectionCard(
+        public static Border CreateCollectionCard(
             Album album,
             Action<object, MouseButtonEventArgs> clickHandler,
             CardSize cardSize = CardSize.Large)
@@ -578,7 +676,93 @@ namespace pleer.Models.Service
             return albumGrid;
         }
 
+        //Artist card
+        public static Border CreateArtistCard(
+            Artist artist,
+            Action<object, MouseButtonEventArgs> clickHandler,
+            CardSize cardSize = CardSize.Large)
+        {
+            var settings = GetCardSettings(cardSize);
 
+            var playlistGrid = ArtistGrid(artist);
+
+            var border = new Border
+            {
+                Style = (Style)Application.Current.TryFindResource("SimpleFunctionalCard"),
+                Margin = new Thickness(5, 0, 5, 5),
+                Cursor = Cursors.Hand,
+                Child = playlistGrid,
+                Tag = artist
+            };
+            border.MouseLeftButtonUp += (sender, e) => clickHandler(sender, e);
+
+            return border;
+        }
+
+        public static Grid ArtistGrid(
+            Artist artist,
+            CardSize cardSize = CardSize.Large)
+        {
+            var settings = GetCardSettings(cardSize);
+
+            using var context = new DBContext();
+
+            var artistData = context.Artists
+                .Where(a => a.Id == artist.Id)
+                .Select(a => new
+                {
+                    Artist = a,
+                    a.Name,
+                    a.ProfilePicture
+                })
+                .FirstOrDefault();
+
+            var albumGrid = new Grid
+            {
+                Height = settings.Height,
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition { Width = GridLength.Auto },
+                    new ColumnDefinition()
+                }
+            };
+
+            var imageGrid = CreateArtistProfilePicture(artistData?.ProfilePicture.FilePath, settings);
+            Grid.SetColumn(imageGrid, 0);
+            albumGrid.Children.Add(imageGrid);
+
+            var infoPanel = CreateInfoPanel(artistData?.Name);
+            Grid.SetColumn(infoPanel, 1);
+            albumGrid.Children.Add(infoPanel);
+
+            return albumGrid;
+        }
+
+        static Ellipse CreateArtistProfilePicture(string cover, CardSettings settings)
+        {
+            var imagePath = cover ?? InitializeData.GetDefaultProfilePicturePath();
+
+            if (string.IsNullOrEmpty(cover) || !File.Exists(cover))
+                imagePath = InitializeData.GetDefaultCoverPath();
+            else
+                imagePath = cover;
+
+            var imageSource = DecodePhoto(imagePath, settings.ImageSize * 2);
+
+            return new Ellipse
+            {
+                Width = settings.ImageSize,
+                Height = settings.ImageSize,
+                Margin = new Thickness(10, 5, 10, 5),
+                Fill = new ImageBrush
+                {
+                    ImageSource = imageSource,
+                    Stretch = Stretch.UniformToFill
+                }
+            };
+        }
+
+        //Other методы
         public static BitmapImage ResizeImageTo300x300(string filePath)
         {
             var originalBitmap = new BitmapImage();
@@ -661,6 +845,35 @@ namespace pleer.Models.Service
 
             return formattedDuration;
         }
+
+        public static void SetCardTitleColor(Border card, string hexColor)
+        {
+            if (card?.Child is not Grid songGrid) return;
+
+            var infoPanel = songGrid.Children.OfType<StackPanel>().FirstOrDefault();
+
+            if (infoPanel?.Children.Count > 0 && infoPanel.Children[0] is TextBlock titleTextBlock)
+            {
+                var color = (Color)ColorConverter.ConvertFromString(hexColor);
+                titleTextBlock.Foreground = new SolidColorBrush(color);
+            }
+        }
+
+        public static void NoContent(string message, UIElement parent)
+        {
+            var infoPanel = new TextBlock()
+            {
+                Text = message,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 15, 0, 10),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Style = Application.Current.TryFindResource("SmallInfoPanel") as Style,
+            };
+
+            if (parent is StackPanel stackPanel)
+                stackPanel.Children.Add(infoPanel);
+        }
+
 
         //assist METHODS
         public enum CardSize

@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\opencollection.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\opencollection.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\songs\\searchresult.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\searchresult.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\songs\\searchresult.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\searchresult.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\opencollection.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\opencollection.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\opencollection.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\opencollection.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\generalpages\\changepasswordpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -47,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\collections\\collectionslist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\songs\\searchresult.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\searchresult.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\userpages\\medialibrary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\userpages\\medialibrary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -61,10 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\songs\\searchresult.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|solutionrelative:pleer\\resources\\pages\\songs\\searchresult.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2485E69F-C83D-4B9E-8873-52430DB53D33}|pleer\\pleer.csproj|d:\\visual_studio_proj\\player\\app\\pleer\\resources\\pages\\collections\\createalbum.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -86,7 +86,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
@@ -103,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "ArtistMainWindow.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
@@ -111,12 +111,11 @@
               "RelativeToolTip": "pleer\\Resources\\Windows\\ArtistMainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-10-30T11:09:02.209Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "ListenerMainWindow.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
@@ -124,48 +123,45 @@
               "RelativeToolTip": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-10-30T11:09:05.171Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ChangePasswordPage.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\GeneralPages\\ChangePasswordPage.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\GeneralPages\\ChangePasswordPage.xaml",
               "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\GeneralPages\\ChangePasswordPage.xaml",
               "RelativeToolTip": "pleer\\Resources\\Pages\\GeneralPages\\ChangePasswordPage.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-18T12:27:04.46Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-18T12:27:04.46Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MediaLibrary.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
               "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
               "RelativeToolTip": "pleer\\Resources\\Pages\\UserPages\\MediaLibrary.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-14T14:46:22.424Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T14:46:22.424Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 0,
               "Title": "SearchResult.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
-              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
-              "RelativeToolTip": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml",
+              "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml*",
+              "RelativeToolTip": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-11-14T13:36:08.471Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "OpenCollection.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml",
@@ -177,15 +173,14 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "CollectionsList.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
               "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
               "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-11T10:02:00.995Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-11T10:02:00.995Z"
             },
             {
               "$type": "Document",
@@ -200,7 +195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "UIElementsFactory.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\Service\\UIElementsFactory.cs",
               "RelativeDocumentMoniker": "pleer\\Models\\Service\\UIElementsFactory.cs",
@@ -208,12 +203,11 @@
               "RelativeToolTip": "pleer\\Models\\Service\\UIElementsFactory.cs",
               "ViewState": "AgIAAOEAAAAAAAAAAAAowO0AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T11:15:19.795Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T11:15:19.795Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "ServiceMethods.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Models\\Service\\ServiceMethods.cs",
               "RelativeDocumentMoniker": "pleer\\Models\\Service\\ServiceMethods.cs",
@@ -221,8 +215,7 @@
               "RelativeToolTip": "pleer\\Models\\Service\\ServiceMethods.cs",
               "ViewState": "AgIAAPsAAAAAAAAAAAAiwIcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T11:15:38.715Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T11:15:38.715Z"
             }
           ]
         }
@@ -243,11 +236,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "App.xaml",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\App.xaml",
               "RelativeDocumentMoniker": "pleer\\App.xaml",
@@ -260,7 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "ArtistMainWindow.xaml.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ArtistMainWindow.xaml.cs",
@@ -273,7 +266,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "ListenerMainWindow.xaml.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Windows\\ListenerMainWindow.xaml.cs",
@@ -282,8 +275,7 @@
               "ViewState": "AgIAAJAAAAAAAAAAAAAEwKIAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-30T11:09:13.402Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -299,32 +291,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 1,
               "Title": "SearchResult.xaml.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
               "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
               "RelativeToolTip": "pleer\\Resources\\Pages\\Songs\\SearchResult.xaml.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwCwAAABpAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAAgwCwAAABpAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T12:46:32.145Z"
+              "WhenOpened": "2025-11-05T12:46:32.145Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "OpenCollection.xaml.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
               "ToolTip": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
               "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\OpenCollection.xaml.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAowMoAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAADoAAAAAAAAAAAAqwMoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-30T13:37:05.849Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "CollectionsList.xaml.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml.cs",
@@ -332,12 +325,11 @@
               "RelativeToolTip": "pleer\\Resources\\Pages\\Collections\\CollectionsList.xaml.cs",
               "ViewState": "AgIAAGcAAAAAAAAAAAAQwHoAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T12:16:52.963Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T12:16:52.963Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "HomePage.xaml.cs",
               "DocumentMoniker": "D:\\VISUAL_STUDIO_PROJ\\player\\app\\pleer\\Resources\\Pages\\UserPages\\HomePage.xaml.cs",
               "RelativeDocumentMoniker": "pleer\\Resources\\Pages\\UserPages\\HomePage.xaml.cs",
@@ -345,8 +337,7 @@
               "RelativeToolTip": "pleer\\Resources\\Pages\\UserPages\\HomePage.xaml.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAQwCoAAABeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T11:53:08.509Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-06T11:53:08.509Z"
             }
           ]
         }

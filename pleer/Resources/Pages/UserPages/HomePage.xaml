@@ -21,7 +21,9 @@
                            HorizontalAlignment="Left" Margin="5"
                            Style="{StaticResource MainInfoPanel}"/>
 
-                <ItemsControl x:Name="PopularAlbumsControl" >
+                <StackPanel Name="NotFoundAlbumsPanel"/>
+
+                <ItemsControl x:Name="PopularAlbumsControl">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="2" VerticalAlignment="Top"/>

@@ -4,6 +4,7 @@ using pleer.Models.Service;
 using pleer.Models.Users;
 using pleer.Resources.Pages.Collections;
 using pleer.Resources.Pages.GeneralPages;
+using pleer.Resources.Pages.UserPages;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,10 +17,13 @@ namespace pleer.Resources.Windows
     {
         DBContext _context = new();
 
+        public CollectionsList _collectionMain;
+
         Artist _artist;
 
         MediaPlayer _mediaPlayer = new();
         Song _selectedSong;
+        public Album _currentAlbum;
 
         bool _isDraggingMediaSlider = false;
         bool _isDraggingVolumeSlider = false;
@@ -54,6 +58,8 @@ namespace pleer.Resources.Windows
         {
             ArtistFunctionsList.IsEnabled = false;
             OperationField.Navigate(new UnauthorizedNoticePage(this));
+
+            _collectionMain = new CollectionsList(this, _artist);
         }
 
         void LoadArtistData()
@@ -62,6 +68,8 @@ namespace pleer.Resources.Windows
 
             if (_artist != null)
             {
+                _collectionMain = new CollectionsList(this, _artist);
+
                 LoginButton.Visibility = Visibility.Collapsed;
                 ProfilePictureEllipse.Visibility = Visibility.Visible;
 
@@ -126,6 +134,8 @@ namespace pleer.Resources.Windows
         {
             _mediaPlayer.Close();
             _selectedSong = song;
+
+            MetadataPanel.Children.Remove(VisualBorder);
 
             _mediaPlayer.Open(new Uri(_selectedSong.FilePath));
             _mediaPlayer.Volume = VolumeSlider.Value;
@@ -196,8 +206,7 @@ namespace pleer.Resources.Windows
             if (_mediaPlayer == default)
                 return;
 
-            if (_mediaPlayer.Position < TimeSpan.FromSeconds(3))
-                ProgressSlider_ChangeValue(0);
+            ProgressSlider_ChangeValue(0);
         }
 
         void ProgressSlider_ChangeValue(double value)
@@ -265,30 +274,43 @@ namespace pleer.Resources.Windows
             }
         }
 
+        // collection card
+        public void AlbumCard_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Border border && border.Tag is Album album)
+            {
+                if (_currentAlbum != album)
+                    OperationField.Navigate(new OpenCollection(_collectionMain, this, album));
+
+                _currentAlbum = album;
+            }
+
+            if (sender is TextBlock textBlock && textBlock.Tag is Album songAlbum)
+            {
+                if (_currentAlbum != songAlbum)
+                    OperationField.Navigate(new OpenCollection(_collectionMain, this, songAlbum));
+
+                _currentAlbum = songAlbum;
+            }
+        }
+
         // КНОПКИ МЕНЮ ИСПОЛНИТЕЛЯ
         private void ArtistReleasesButton_Click(object sender, RoutedEventArgs e)
         {
-            OperationField.Navigate(new CollectionsList(this, _artist));
-        }
-
-        private void LoadAlbumButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (_artist != null)
+                OperationField.Navigate(new CollectionsList(this, _artist));
         }
 
         private void ArtistProfileButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_artist != null)
+                OperationField.Navigate(new ArtistProfilePage(this, _artist));
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void CooperationButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (_artist != null)
+                OperationField.Navigate(new ArtistStatisticsPage(_artist));
         }
 
         // ОБЩИЕ ФУНКЦИОНАЛЬНЫЕ КНОПКИ

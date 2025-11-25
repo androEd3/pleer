@@ -169,7 +169,7 @@ namespace pleer.Resources.Pages.GeneralPages
         }
         void SuccessPanelContent(string errorMessage)
         {
-            ErrorNoticePanel.Style = Application.Current.TryFindResource("SmallErrorPanel") as Style;
+            ErrorNoticePanel.Style = Application.Current.TryFindResource("SmallSuccessPanel") as Style;
             ErrorNoticePanel.Text = errorMessage;
         }
 
@@ -217,8 +217,8 @@ namespace pleer.Resources.Pages.GeneralPages
 
             try
             {
-                var listener = await _context.Artists
-                    .FindAsync(_artist.Id);
+                var listener = await _context.Listeners
+                    .FindAsync(_listener.Id);
 
                 if (listener != null)
                 {

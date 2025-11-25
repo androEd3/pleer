@@ -37,50 +37,41 @@
                         <TextBlock Text="Название альбома:"
                                    Style="{StaticResource SmallMainInfoPanel}"/>
                         <TextBox Name="AlbumTitle"
-                                 Margin="5 0 5 5"
+                                 Margin="5 0 5 15"
                                  Style="{StaticResource MainIngutField}"/>
 
                         <TextBlock Text="Обложка альбома:"
                                    Style="{StaticResource SmallMainInfoPanel}"/>
 
-                        <Grid Margin="0 10 0 25"
-                              HorizontalAlignment="Center"
-                              Name="AlbumCoverGrid">
-                            <Grid.Clip>
-                                <RectangleGeometry Rect="0 0 300 300"
-                                                   RadiusX="5" RadiusY="5"/>
-                            </Grid.Clip>
 
-                            <Image Width="300"
-                                   RenderOptions.BitmapScalingMode="HighQuality"
-                                   SnapsToDevicePixels="False"
-                                   Name="AlbumCoverDemonstrate"
-                                   Source="/Resources/ServiceImages/DefaultCover.png"/>
+                        <Grid Name="AlbumCoverGrid" Margin="0 10"
+                              Width="200" Height="200">
+                            <Border CornerRadius="5">
+                                <Border.Background>
+                                    <ImageBrush x:Name="AlbumCoverDemonstrate"
+                                                ImageSource="/Resources/ServiceImages/DefaultCover.png"
+                                                Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
 
-                            <Grid Visibility="Collapsed"
-                                  Name="ChangeAlbumCoverGrid"
-                                  MouseDown="ChangeAlbumCoverGrid_Click">
-                                <Rectangle Opacity="0.8">
-                                    <Rectangle.Fill>
-                                        <SolidColorBrush Color="Black"/>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <materialDesign:PackIcon Kind="Edit"
-                                                         HorizontalAlignment="Center"
-                                                         VerticalAlignment="Center"
-                                                         Foreground="#eee"
-                                                         Width="300" Height="300"/>
-                            </Grid>
+                            <Border Visibility="Collapsed" CornerRadius="5"
+                                    Name="ChangeAlbumCoverGrid"
+                                    MouseLeftButtonDown="ChangeAlbumCoverGrid_Click"
+                                    Background="#CC000000" Cursor="Hand">
+                                <materialDesign:PackIcon Kind="ImageEditOutline" Foreground="#eee"
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 Width="75" Height="75"/>
+                            </Border>
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>
 
-                <StackPanel Grid.Row="2" Margin="10" >
+                <StackPanel Grid.Row="2" Margin="10 5" >
                     <TextBlock Name="ErrorNoticePanel" Margin="0 0 0 15"
                                HorizontalAlignment="Center"
                                Style="{StaticResource SmallErrorPanel}"/>
 
-                    <Button HorizontalAlignment="Left" 
+                    <Button HorizontalAlignment="Left" Padding="10"
                             Content="Выпустить альбом" Click="ReleaseNewAlbumButton_Click"
                             Style="{StaticResource SimpleButton}"/>
                 </StackPanel>
@@ -91,6 +82,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0"
@@ -105,8 +97,35 @@
                           Margin="0 10 0 0"
                           VerticalScrollBarVisibility="Auto"
                           Style="{StaticResource ScrollViewer}">
-                <StackPanel Name="SongsList"/>
+                <StackPanel Name="SongsList">
+                    <Button Name="AddSongButton"/>
+                </StackPanel>
             </ScrollViewer>
+
+            <Border Grid.Row="2" Name="RenameSongBorder"
+                    Style="{StaticResource NonFunctionalField22}">
+                <Grid Margin="10 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Название песни:" Style="{StaticResource SmallInfoPanel}"/>
+                    <TextBox Grid.Row="1" Name="SongRenameTextBox"
+                             VerticalAlignment="Center"
+                             Style="{StaticResource MainIngutField}"/>
+
+                    <Button Grid.Column="1" Grid.Row="1" Content="Изменить" 
+                            Margin="10 5" Padding="10" IsEnabled="False"
+                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                            Name="RenameSongButton" Click="RenameSongButton_Click"
+                            Style="{StaticResource SimpleButton}"/>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>

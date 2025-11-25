@@ -19,6 +19,8 @@ namespace pleer.Resources.Pages.Collections
         Artist _artist = new(); 
         Listener _listener = new();
 
+        public Album _album;
+        Playlist _playlist;
 
         public CollectionsList(ArtistMainWindow main, Artist artist)
         {
@@ -44,7 +46,7 @@ namespace pleer.Resources.Pages.Collections
         {
             ListenerCollection.Visibility = Visibility.Collapsed;
 
-            AlbumContent.Navigate(new OpenCollection());
+            AlbumContent.Navigate(new OpenCollection(this, _artistMain, _album));
 
             ReleasesList.Children.Clear();
 
@@ -81,6 +83,8 @@ namespace pleer.Resources.Pages.Collections
         public void LoadMediaLibrary()
         {
             ArtistCollection.Visibility = Visibility.Collapsed;
+
+            AlbumContent.Navigate(new OpenCollection(this, _listenerMain, _playlist, _listener));
 
             MediaLibraryList.Children.Clear();
 
@@ -123,7 +127,8 @@ namespace pleer.Resources.Pages.Collections
             {
                 if (sender is Border border && border.Tag is Album album)
                 {
-                    AlbumContent.Navigate(new OpenCollection(_artistMain, album));
+                    _album = album;
+                    AlbumContent.Navigate(new OpenCollection(this, _artistMain, _album));
                 }
             }
             else
@@ -139,7 +144,8 @@ namespace pleer.Resources.Pages.Collections
         {
             if (sender is Border border && border.Tag is Playlist playlist)
             {
-                _listenerMain.CenterField.Navigate(new OpenCollection(this, _listenerMain, playlist, _listener));
+                _playlist = playlist;
+                _listenerMain.CenterField.Navigate(new OpenCollection(this, _listenerMain, _playlist, _listener));
             }
         }
 

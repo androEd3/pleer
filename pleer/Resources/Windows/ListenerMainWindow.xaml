@@ -85,6 +85,7 @@
                         <TextBox Grid.Column="1"
                                  Name="SearchBar"
                                  TextChanged="SearchBar_TextChanged"
+                                 KeyDown="Enter_KeyDown"
                                  Style="{StaticResource MainIngutField}"/>
                     </Grid>
 
@@ -106,17 +107,17 @@
                         </Ellipse>
 
                         <Button HorizontalAlignment="Right" VerticalAlignment="Center"
-                                Content="Войти" Name="LoginButton"
-                                Click="LoginButton_Click"
+                                Content="Войти" Padding="10"
+                                Name="LoginButton" Click="LoginButton_Click"
                                 Style="{StaticResource SimpleButton}"/>
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Name="MainFields">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="250" MaxWidth="400"/>
-                        <ColumnDefinition MinWidth="375" Width="1.75*"/>
-                        <ColumnDefinition MinWidth="250" MaxWidth="400" Width="1.1 *"/>
+                        <ColumnDefinition MinWidth="250" MaxWidth="400" Width="0.5*"/>
+                        <ColumnDefinition MinWidth="375" Width="*"/>
+                        <ColumnDefinition MaxWidth="400" Width="0.5*"/>
                     </Grid.ColumnDefinitions>
 
                     <Frame Name="MediaLibrary" NavigationUIVisibility="Hidden"/>
@@ -124,6 +125,9 @@
                     <Frame Grid.Column="1"
                            Name="CenterField" NavigationUIVisibility="Hidden"
                            Navigated="CenterField_Navigated"/>
+
+                    <Frame Grid.Column="2"
+                           Name="ListenedHistoryField" NavigationUIVisibility="Hidden"/>
                 </Grid>
 
                 <Border Grid.Row="2"
@@ -137,16 +141,38 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Song Info -->
-                        <StackPanel Orientation="Horizontal" Margin="15 0"
+                        <Grid Name="MetadataPanel" Margin="15 0"
                                     VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <Image Name="AlbumCover" Height="55" Width="55"
-                                   Style="{StaticResource AlbumCoverLowerPanel}"/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
 
-                            <StackPanel Margin="5">
-                                <TextBlock Name="SongName" Style="{StaticResource SongNameLowerPanel}"/>
-                                <TextBlock Name="SingerName" Style="{StaticResource ArtistNameLowerPanel}"/>
+                            <Border CornerRadius="5" Height="55" Width="55" Background="#333">
+                                <Image Name="AlbumCover"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1" Margin="10 5" Name="VisualBorder"
+                                        VerticalAlignment="Bottom">
+                                <Border CornerRadius="5" Height="15" Width="150"
+                                        HorizontalAlignment="Left"
+                                        Background="#333"/>
+                                <Border CornerRadius="5" Margin="0 5"
+                                        HorizontalAlignment="Left"
+                                        Height="15" Width="100" Background="#333"/>
                             </StackPanel>
-                        </StackPanel>
+
+                            <StackPanel Grid.Column="1" Margin="10 5" 
+                                        VerticalAlignment="Bottom">
+                                <TextBlock Name="SongName" MouseLeftButtonUp="AlbumCard_Click"
+                                           Style="{StaticResource SongNameLowerPanel}"/>
+                                <TextBlock Name="ArtistName" MouseLeftButtonUp="ArtistCard_Click"
+                                           Style="{StaticResource ArtistNameLowerPanel}"/>
+                            </StackPanel>
+
+                            <Grid Name="AddButton"/>
+                        </Grid>
 
                         <!-- Song Main Functions -->
                         <Grid Grid.Column="1"
@@ -159,16 +185,19 @@
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
                                         Orientation="Horizontal" Grid.Row="0">
                                 <Button Height="30" Width="30"
-                                        Click="PreviousMedia_Click" Style="{StaticResource BaseFunctionButton}">
+                                        Click="PreviousMedia_Click" Name="PreviousMediaButton"
+                                        Style="{StaticResource BaseFunctionButton}">
                                     <materialDesign:PackIcon Kind="SkipPrevious" Width="30" Height="30"/>
                                 </Button>
-                                <Button Height="35" Width="35" Margin="10 0"
-                                        Click="PlayMedia_Click" Style="{StaticResource BaseFunctionButton}">
+                                <Button Height="35" Width="35" Margin="10 0" 
+                                        Name="PlayMediaButton" Click="PlayMedia_Click"
+                                        Style="{StaticResource BaseFunctionButton}">
                                     <materialDesign:PackIcon Name="PlayIcon" Kind="Play" Width="35" Height="35"/>
                                 </Button>
 
                                 <Button Height="30" Width="30"
-                                        Click="NextMedia_Click" Style="{StaticResource BaseFunctionButton}">
+                                        Click="NextMedia_Click" Name="NextMediaButton"
+                                        Style="{StaticResource BaseFunctionButton}">
                                     <materialDesign:PackIcon Kind="SkipNext" Width="30" Height="30"/>
                                 </Button>
                             </StackPanel>
@@ -203,7 +232,7 @@
                         <!-- Song Operations -->
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="15 10"
                                     VerticalAlignment="Center" HorizontalAlignment="Right">
-                            <Button Click="MutePlayerButton_Click" 
+                            <Button Click="MutePlayerButton_Click"
                                     Style="{StaticResource BaseFunctionButton}">
                                 <materialDesign:PackIcon Name="VolumeIcon" Kind="VolumeHigh" 
                                                          Width="30" Height="30"/>

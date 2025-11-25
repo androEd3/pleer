@@ -9,6 +9,7 @@
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="#eee"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#aaa"/>
@@ -20,6 +21,7 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Foreground" Value="#bbb"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#888"/>
@@ -38,6 +40,7 @@
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Foreground" Value="#bbb"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
 
         <!-- InfoPanels -->
@@ -70,6 +73,7 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Foreground" Value="#f55"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#a22"/>
@@ -87,6 +91,7 @@
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Foreground" Value="#bbb"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#eee"/>
@@ -139,6 +144,7 @@
             <Setter Property="Foreground" Value="#07f"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -166,7 +172,7 @@
             <Setter Property="Background" Value="#333"/>
             <Setter Property="Foreground" Value="#ccc"/>
             <Setter Property="BorderBrush" Value="#666"/>
-            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -174,25 +180,24 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5" Padding="5">
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="5">
                             <ContentPresenter HorizontalAlignment="Center" 
                                               VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="Background" Value="#444"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#444"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Foreground" Value="#444"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#444"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
+        
         <Style x:Key="SimpleButtonV2" TargetType="Button">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -207,7 +212,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5" Padding="10">
+                                CornerRadius="5" Padding="20">
                             <ContentPresenter HorizontalAlignment="Center" 
                                               VerticalAlignment="Center"/>
                         </Border>
@@ -219,6 +224,31 @@
                                 <Setter Property="Foreground" Value="#333"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SimpleButtonV3" TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#333"/>
+            <Setter Property="Foreground" Value="#ccc"/>
+            <Setter Property="BorderBrush" Value="#666"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -254,8 +284,7 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" Value="#a33"/>
             <Setter Property="Foreground" Value="#ccc"/>
-            <Setter Property="BorderBrush" Value="#611"/>
-            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -355,12 +384,6 @@
             </Setter>
         </Style>
         
-        <!-- Images -->
-        <Style x:Key="AlbumCoverLowerPanel" TargetType="Image">
-            <Setter Property="Width" Value="55"/>
-            <Setter Property="Height" Value="55"/>
-        </Style>
-
         <!-- Card -->
         <Style x:Key="SimpleFunctionalCard" TargetType="Border">
             <Setter Property="Background" Value="#282828"/>

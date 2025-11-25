@@ -1,4 +1,5 @@
-﻿using pleer.Models.DatabaseContext;
+﻿using NAudio.Wave;
+using pleer.Models.DatabaseContext;
 using pleer.Models.Media;
 using pleer.Models.Service;
 using pleer.Models.Users;
@@ -10,9 +11,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using NAudio.Wave;
 
 namespace pleer.Resources.Windows
 {
@@ -22,13 +23,18 @@ namespace pleer.Resources.Windows
         Listener _listener;
 
         HomePage _homePage;
+        ListenedHistoryPage _listenedHistoryPage;
 
         IWavePlayer _wavePlayer;
         AudioFileReader _audioFile;
 
         Song _selectedSong;
+        Border _selectedCard;
+        Playlist _currentPlaylist;
+        public Album _currentAlbum;
+        Artist _currentArtist;
 
-        List<int> _listeningHistory = [];
+        public List<int> _listeningHistory = [];
         int _songSerialNumber;
 
         bool _isDraggingMediaSlider = false;
@@ -38,7 +44,7 @@ namespace pleer.Resources.Windows
         bool _isListened;
         TimeSpan _listenDuration;
 
-        double _timeTick = 0.016; // ~60 FPS
+        double _timeTick = 0.03; // ~30 FPS
 
         PlayerState _playerState = PlayerState.Paused;
         private enum PlayerState
@@ -79,9 +85,12 @@ namespace pleer.Resources.Windows
             InitializeData.SeedData(_context);
 
             _homePage = new HomePage(this, _listener);
+            _listenedHistoryPage = new ListenedHistoryPage(this);
 
             MediaLibrary.Navigate(new UnauthorizedNoticePage(this));
+
             CenterField.Navigate(_homePage);
+            ListenedHistoryField.Navigate(_listenedHistoryPage);
         }
 
         void LoadListenerData()
@@ -89,8 +98,10 @@ namespace pleer.Resources.Windows
             StopPlayback();
 
             _homePage = new HomePage(this, _listener);
+            _listenedHistoryPage = new ListenedHistoryPage(this);
 
             CenterField.Navigate(_homePage);
+            ListenedHistoryField.Navigate(_listenedHistoryPage);
 
             if (_listener != null)
             {
@@ -166,14 +177,13 @@ namespace pleer.Resources.Windows
                 _context.SaveChanges();
 
                 _isListened = true;
-                Debug.WriteLine($"Song played! Total plays: {song.TotalPlays}");
             }
         }
 
         // Событие окончания воспроизведения
         void WavePlayer_PlaybackStopped(object sender, StoppedEventArgs e)
         {
-
+            PlayNextSong();
         }
 
         // Воспроизведение песни
@@ -194,12 +204,28 @@ namespace pleer.Resources.Windows
                 _wavePlayer.Play();
                 _playerState = PlayerState.Playing;
 
+                SongName.Tag = _context.Albums.Find(song.AlbumId);
+                ArtistName.Tag = _context.Artists.Find(_context.Albums.Find(song.AlbumId).CreatorId);
+
+                MetadataPanel.Children.Remove(VisualBorder);
+
                 LoadSongMetadata();
 
                 if (_listeningHistory.Count == 0)
                     AddSongToHistory(song.Id);
                 else if (_listeningHistory[_songSerialNumber - 1] != song.Id)
                     AddSongToHistory(song.Id);
+
+                if (_listener != null)
+                {
+                    MetadataPanel.Children.Remove(AddButton);
+
+                    AddButton = UIElementsFactory.CreateAddSongButton(_listener, song, PlacementMode.Top);
+                    AddButton.Visibility = Visibility.Visible;
+
+                    Grid.SetColumn(AddButton, 2);
+                    MetadataPanel.Children.Add(AddButton);
+                }
 
                 _isListened = false;
                 _listenDuration = TimeSpan.Zero;
@@ -213,11 +239,33 @@ namespace pleer.Resources.Windows
 
         public void SongCard_Click(object sender, MouseButtonEventArgs e)
         {
-            if (sender is Border border && border.Tag is Song song)
+            if (sender is Border card && card.Tag is Song song)
             {
-                _homePage.CardPlaying(border);
+                DetectCollectionType(card);
+
+                CardPlaying(card);
                 SelectSong(song);
             }
+        }
+
+        void DetectCollectionType(Border card)
+        {
+            if (card?.Child is not Grid songGrid) return;
+
+            if (songGrid.Tag is Playlist playlist)
+                _currentPlaylist = playlist;
+            else if (songGrid.Tag is Album album)
+                _currentAlbum = album;
+        }
+
+        void CardPlaying(Border card)
+        {
+            if (_selectedCard != null)
+                UIElementsFactory.SetCardTitleColor(_selectedCard, "#eeeeee");
+
+            UIElementsFactory.SetCardTitleColor(card, "#90ee90");
+
+            _selectedCard = card;
         }
 
         void LoadSongMetadata()
@@ -235,7 +283,7 @@ namespace pleer.Resources.Windows
             var cover = _context.AlbumCovers.Find(album.CoverId);
 
             SongName.Text = _selectedSong.Title;
-            SingerName.Text = artist.Name;
+            ArtistName.Text = artist.Name;
 
             if (cover != null)
                 AlbumCover.Source = UIElementsFactory.DecodePhoto(cover.FilePath, (int)AlbumCover.ActualWidth);
@@ -273,12 +321,63 @@ namespace pleer.Resources.Windows
         {
             if (sender is Border border && border.Tag is Album album)
             {
-                CenterField.Navigate(new OpenCollection(this, album, _listener));
+                if (_currentAlbum != album)
+                    CenterField.Navigate(new OpenCollection(this, album, _listener));
+
+                _currentAlbum = album;
+            }
+
+            if (sender is TextBlock textBlock && textBlock.Tag is Album songAlbum)
+            {
+                if (_currentAlbum != songAlbum)
+                    CenterField.Navigate(new OpenCollection(this, songAlbum, _listener));
+
+                _currentAlbum = songAlbum;
+            }
+        }
+
+        public void ArtistCard_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBlock textBlock && textBlock.Tag is Artist artistName)
+            {
+                if (_currentArtist != artistName)
+                {
+                    if (_listener != null)
+                        CenterField.Navigate(new ArtistProfilePage(this, artistName, _listener));
+                    else
+                        CenterField.Navigate(new ArtistProfilePage(this, artistName));
+                }
+
+                _currentArtist = artistName;
+            }
+
+            else if (sender is Border card && card.Tag is Artist artist)
+            {
+                if (_currentArtist != artist)
+                {
+                    if (_listener != null)
+                        CenterField.Navigate(new ArtistProfilePage(this, artist, _listener));
+                    else
+                        CenterField.Navigate(new ArtistProfilePage(this, artist));
+                }
+
+                _currentArtist = artist;
             }
         }
 
         // ПОИСК
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchContent();
+        }
+
+        private void Enter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                SearchContent();
+        }
+
+        void SearchContent()
         {
             string currentSearchText = SearchBar.Text;
 
@@ -334,13 +433,44 @@ namespace pleer.Resources.Windows
 
                 SelectSong(_selectedSong);
             }
-            // тут можно сделать скип на другие плейлисты
+            PlayNextSong();
+        }
+
+        void PlayNextSong()
+        {
+            if (_currentAlbum != null)
+            {
+                int songIndex = _currentAlbum.SongsId.IndexOf(_selectedSong.Id);
+
+                if (songIndex == _currentAlbum.SongsId.Max())
+                    StopPlayback();
+                else
+                {
+                    var nextSong = _context.Songs.Find(_currentAlbum.SongsId[songIndex + 1]);
+                    SelectSong(nextSong);
+                }
+            }
+
+            if (_currentPlaylist != null)
+            {
+                int songIndex = _currentPlaylist.SongsId.IndexOf(_selectedSong.Id);
+
+                if (songIndex == _currentPlaylist.SongsId.Max())
+                    StopPlayback();
+                else
+                {
+                    var nextSong = _context.Songs.Find(_currentPlaylist.SongsId[songIndex + 1]);
+                    SelectSong(nextSong);
+                }
+            }
         }
 
         void AddSongToHistory(int songId)
         {
             _listeningHistory.Add(songId);
             _songSerialNumber = _listeningHistory.Count;
+
+            _listenedHistoryPage.LoadListenedHistory();
         }
 
         // Для перемотки песни
@@ -423,6 +553,9 @@ namespace pleer.Resources.Windows
             _wavePlayer?.Stop();
             _audioFile?.Dispose();
             _audioFile = null;
+
+            _currentPlaylist = null;
+            _currentAlbum = null;
 
             _playerState = PlayerState.Paused;
             PlayIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;

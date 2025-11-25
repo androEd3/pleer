@@ -76,8 +76,8 @@
                 </Ellipse>
 
                 <Button VerticalAlignment="Center"
-                        Content="Войти" Name="LoginButton"
-                        Click="LoginButton_Click"
+                        Content="Войти" Padding="10"
+                        Name="LoginButton" Click="LoginButton_Click"
                         Style="{StaticResource SimpleButton}"/>
             </StackPanel>
 
@@ -91,7 +91,7 @@
                 <Border Style="{StaticResource NonFunctionalField22}">
                     <StackPanel Name="ArtistFunctionsList"
                                 Margin="5 0">
-                        <Button Margin="0 5"
+                        <Button Margin="0 5" 
                                 Content="Выпуски" Click="ArtistReleasesButton_Click"
                                 Style="{StaticResource SimpleButtonV2}"/>
 
@@ -102,10 +102,6 @@
                         <Button Margin="0 5"
                                 Content="Статистика" Click="StatisticsButton_Click"
                                 Style="{StaticResource SimpleButtonV2}"/>
-
-                        <Button Margin="0 5"
-                                Content="Сотрудничество" Click="CooperationButton_Click"
-                        Style="{StaticResource SimpleButtonV2}"/>
                     </StackPanel>
                 </Border>
 
@@ -121,12 +117,24 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Song Info -->
-                        <StackPanel Orientation="Horizontal" Margin="15 0"
-                    VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <Image Name="AlbumCover" Height="55" Width="55"
-                   Style="{StaticResource AlbumCoverLowerPanel}"/>
+                        <StackPanel Orientation="Horizontal" Margin="15 0" Name="MetadataPanel"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left">
 
-                            <StackPanel Margin="5">
+                            <Border CornerRadius="5" Height="55" Width="55" Background="#333">
+                                <Image Name="AlbumCover"/>
+                            </Border>
+                            
+                            <StackPanel Grid.Column="1" Margin="10 5" Name="VisualBorder"
+                                        VerticalAlignment="Bottom">
+                                <Border CornerRadius="5" Height="15" Width="150"
+                                        HorizontalAlignment="Left"
+                                        Background="#333"/>
+                                <Border CornerRadius="5" Margin="0 5"
+                                        HorizontalAlignment="Left"
+                                        Height="15" Width="100" Background="#333"/>
+                            </StackPanel>
+                           
+                            <StackPanel Margin="10 5">
                                 <TextBlock Name="SongName" Style="{StaticResource SongNameLowerPanel}"/>
                                 <TextBlock Name="SingerName" Style="{StaticResource ArtistNameLowerPanel}"/>
                             </StackPanel>
@@ -186,21 +194,20 @@
 
                         <!-- Song Operations -->
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="15 10"
-                    VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    VerticalAlignment="Center" HorizontalAlignment="Right">
                             <Button Click="MutePlayerButton_Click" 
-                    Style="{StaticResource BaseFunctionButton}">
+                                    Style="{StaticResource BaseFunctionButton}">
                                 <materialDesign:PackIcon Name="VolumeIcon" Kind="VolumeHigh" 
-                                         Width="30" Height="30"/>
+                                                         Width="30" Height="30"/>
                             </Button>
 
                             <Slider x:Name="VolumeSlider"
-                    Minimum="0" Maximum="0.1"
-                    Value="0.05"
-                    IsMoveToPointEnabled="True"
-                    ValueChanged="VolumeSlider_ValueChanged"
-                    PreviewMouseLeftButtonDown="VolumeSlider_PreviewMouseLeftButtonDown"
-                    PreviewMouseLeftButtonUp="VolumeSlider_PreviewMouseLeftButtonUp"
-                    Width="100" VerticalAlignment="Center"/>
+                                    Minimum="0" Maximum="0.1" Value="0.05"
+                                    IsMoveToPointEnabled="True"
+                                    ValueChanged="VolumeSlider_ValueChanged"
+                                    PreviewMouseLeftButtonDown="VolumeSlider_PreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="VolumeSlider_PreviewMouseLeftButtonUp"
+                                    Width="100" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Border>

@@ -16,11 +16,14 @@ namespace pleer.Models.Users
         [MaxLength(255)]
         public string Email { get; set; }
 
+        //ban status
+        public bool Status { get; set; }
+
         public int ProfilePictureId { get; set; }
         public ProfilePicture ProfilePicture { get; set; }
 
         [Required]
-        [MaxLength(64)] // Для хэша пароля (например, SHA256)
+        [MaxLength(64)] // Для хэша пароля xthtpfd pfsdf kjsDFLK SDL:KF SHA256!!!
         public string PasswordHash { get; set; }
 
         [Column(TypeName = "date")]

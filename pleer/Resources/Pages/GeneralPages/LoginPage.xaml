@@ -7,25 +7,22 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d">
 
-    <StackPanel Height="405"
-                Orientation="Horizontal">
-        <Border Padding="30 50 30 30"
-                Style="{StaticResource NonFunctionalField2c}">
+    <StackPanel MinHeight="405" Height="auto" Orientation="Horizontal">
+        <Border Padding="30 50 30 30" Style="{StaticResource NonFunctionalField2c}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"/>
                     <RowDefinition />
-                    <RowDefinition Height="110"/>
+                    <RowDefinition MinHeight="110" Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="175"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Вход"
-                           Style="{StaticResource MainInfoPanel}"/>
+                <TextBlock Text="Вход" Style="{StaticResource MainInfoPanel}"/>
 
-                <TextBlock Grid.Column="1"
+                <TextBlock Grid.Column="1" Name="TurnToRegistration"
                            MouseLeftButtonUp="TurnToRegistration_Click"
                            VerticalAlignment="Bottom" HorizontalAlignment="Right"
                            Style="{StaticResource FunctionalSmallInfoPanel}">
@@ -37,7 +34,7 @@
                 </TextBlock>
 
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0 35 0 5">
-                    <TextBlock Text="Почта" Margin="5 0"
+                    <TextBlock Text="Почта" Name="EmailTextBlock" Margin="5 0"
                                Style="{StaticResource SmallInfoPanel}"/>
                     <TextBox Name="UserEmail"
                              Style="{StaticResource MainIngutField}"/>
@@ -48,14 +45,14 @@
                              Style="{StaticResource MainIngutField}"/>
                 </StackPanel>
 
-                <TextBlock Name="ErrorNoticePanel" TextWrapping="Wrap"
-                           Grid.Row="2" Grid.ColumnSpan="2"
-                           Style="{StaticResource SmallErrorPanel}"/>
-                <Button Grid.Row="2" Grid.ColumnSpan="2"
-                        Content="Войти" Margin="0 60 0 10"
-                        HorizontalAlignment="Center"
-                        Click="LoginButton_Click"
-                        Style="{StaticResource SimpleButton}"/>
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                    <TextBlock Name="ErrorNoticePanel" TextWrapping="Wrap"
+                               Style="{StaticResource SmallErrorPanel}"/>
+                    <Button Margin="0 15 0 10" Padding="10"
+                            HorizontalAlignment="Center"
+                            Click="LoginButton_Click" Content="Войти"
+                            Style="{StaticResource SimpleButton}"/>
+                </StackPanel>
             </Grid>
 
             <Border.Effect>

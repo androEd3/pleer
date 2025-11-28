@@ -49,6 +49,8 @@ namespace pleer.Resources.Pages.Collections
 
             LoadAlbumMetadata();
 
+            Unloaded += OpenCollectionPage_Unloaded;
+
             PlaylistFunctionalPanel.Visibility = Visibility.Collapsed;
         }
 
@@ -107,7 +109,7 @@ namespace pleer.Resources.Pages.Collections
             SummaryDuration.Text = " | Длительность: " + UIElementsFactory.FormattingTotalTime(songs);
 
             //creation date
-            CreatonDate.Text = refreashedPlaylist.CreationDate.ToString("d MMM yyyy");
+            CreatonDate.Text = refreashedPlaylist.CreatedAt.ToString("d MMM yyyy");
 
             //Songs list
             LoadPlaylistSongs();

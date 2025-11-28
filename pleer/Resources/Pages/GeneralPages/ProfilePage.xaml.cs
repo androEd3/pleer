@@ -5,6 +5,7 @@ using pleer.Resources.Windows;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
@@ -106,14 +107,14 @@ namespace pleer.Resources.Pages.GeneralPages
             UserPictureMouseEvents(); LoadListenerData();
 
             _listenerMain.FullWindow.Visibility = Visibility.Visible;
-            _listenerMain.WindowBlurEffect.Radius = 15;
+            _listenerMain.MainGrid.Effect = new BlurEffect { Radius = 15, KernelType = KernelType.Gaussian };
             _listenerMain.MainGrid.IsEnabled = false;
         }
 
         void UserActiveGrid()
         {
             _listenerMain.FullWindow.Visibility = Visibility.Collapsed;
-            _listenerMain.WindowBlurEffect.Radius = 0;
+            _listenerMain.MainGrid.Effect = null;
             _listenerMain.MainGrid.IsEnabled = true;
         }
 
@@ -122,14 +123,14 @@ namespace pleer.Resources.Pages.GeneralPages
             UserPictureMouseEvents(); LoadArtistData();
 
             _artistMain.FullWindow.Visibility = Visibility.Visible;
-            _artistMain.WindowBlurEffect.Radius = 15;
+            _artistMain.MainGrid.Effect = new BlurEffect { Radius = 15, KernelType = KernelType.Gaussian };
             _artistMain.MainGrid.IsEnabled = false;
         }
 
         void ArtistActiveGrid()
         {
             _artistMain.FullWindow.Visibility = Visibility.Collapsed;
-            _artistMain.WindowBlurEffect.Radius = 0;
+            _artistMain.MainGrid.Effect = null;
             _artistMain.MainGrid.IsEnabled = true;
         }
 

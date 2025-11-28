@@ -103,7 +103,7 @@ namespace pleer.Migrations
                     b.Property<int>("CoverId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("CreationDate")
+                    b.Property<DateOnly>("CreatedAt")
                         .HasColumnType("date");
 
                     b.Property<int>("CreatorId")
@@ -163,6 +163,9 @@ namespace pleer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -179,6 +182,27 @@ namespace pleer.Migrations
                     b.HasIndex("AlbumId");
 
                     b.ToTable("Songs");
+                });
+
+            modelBuilder.Entity("pleer.Models.Users.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("pleer.Models.Users.Artist", b =>
@@ -210,7 +234,12 @@ namespace pleer.Migrations
                     b.Property<int>("ProfilePictureId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProfilePictureId");
 
                     b.ToTable("Artists");
                 });
@@ -244,7 +273,12 @@ namespace pleer.Migrations
                     b.Property<int>("ProfilePictureId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProfilePictureId");
 
                     b.ToTable("Listeners");
                 });
@@ -332,6 +366,28 @@ namespace pleer.Migrations
                         .IsRequired();
 
                     b.Navigation("Album");
+                });
+
+            modelBuilder.Entity("pleer.Models.Users.Artist", b =>
+                {
+                    b.HasOne("pleer.Models.Users.ProfilePicture", "ProfilePicture")
+                        .WithMany()
+                        .HasForeignKey("ProfilePictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProfilePicture");
+                });
+
+            modelBuilder.Entity("pleer.Models.Users.Listener", b =>
+                {
+                    b.HasOne("pleer.Models.Users.ProfilePicture", "ProfilePicture")
+                        .WithMany()
+                        .HasForeignKey("ProfilePictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProfilePicture");
                 });
 
             modelBuilder.Entity("pleer.Models.Media.Album", b =>

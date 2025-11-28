@@ -9,10 +9,6 @@
 
     <Grid>
         <Grid Name="MainGrid">
-            <UIElement.Effect>
-                <BlurEffect x:Name="WindowBlurEffect" Radius="0" KernelType="Gaussian"/>
-            </UIElement.Effect>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
@@ -39,6 +35,9 @@
                             <StackPanel>
                                 <Button Content="Войти как слушатель" 
                                         Click="LoginAsListinerButton_Click"
+                                        Style="{StaticResource MenuButton}"/>
+                                <Button Content="Войти как администратор" 
+                                        Click="LoginAsAdminButton_Click"
                                         Style="{StaticResource MenuButton}"/>
                             </StackPanel>
                         </Border>
@@ -89,8 +88,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Border Style="{StaticResource NonFunctionalField22}">
-                    <StackPanel Name="ArtistFunctionsList"
-                                Margin="5 0">
+                    <StackPanel Name="ArtistFunctionsList" Margin="5 0">
                         <Button Margin="0 5" 
                                 Content="Выпуски" Click="ArtistReleasesButton_Click"
                                 Style="{StaticResource SimpleButtonV2}"/>
@@ -120,10 +118,15 @@
                         <StackPanel Orientation="Horizontal" Margin="15 0" Name="MetadataPanel"
                                     VerticalAlignment="Center" HorizontalAlignment="Left">
 
-                            <Border CornerRadius="5" Height="55" Width="55" Background="#333">
-                                <Image Name="AlbumCover"/>
+                            <Border CornerRadius="5" Height="55" Width="55"
+                                    Background="#333"/>
+
+                            <Border CornerRadius="5" Height="55" Width="55" Name="AlbumCoverBorder">
+                                <Border.Background>
+                                    <ImageBrush Stretch="UniformToFill" x:Name="AlbumCover"/>
+                                </Border.Background>
                             </Border>
-                            
+
                             <StackPanel Grid.Column="1" Margin="10 5" Name="VisualBorder"
                                         VerticalAlignment="Bottom">
                                 <Border CornerRadius="5" Height="15" Width="150"
@@ -218,8 +221,7 @@
             </Grid>
         </Grid>
 
-        <Frame 
-               NavigationUIVisibility="Hidden"
+        <Frame NavigationUIVisibility="Hidden"
                VerticalAlignment="Center" HorizontalAlignment="Center"
                Name="FullWindow"/>
     </Grid>

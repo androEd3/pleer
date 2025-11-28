@@ -5,6 +5,7 @@ using pleer.Models.Users;
 using pleer.Resources.Pages.Collections;
 using pleer.Resources.Pages.GeneralPages;
 using pleer.Resources.Pages.UserPages;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -163,13 +164,17 @@ namespace pleer.Resources.Windows
             SongName.Text = _selectedSong.Title;
             SingerName.Text = artist.Name;
 
-            if (cover != null)
-                AlbumCover.Source = UIElementsFactory.DecodePhoto(cover.FilePath, (int)AlbumCover.ActualWidth);
-            else
+            try
             {
-                var defaultCover = _context.AlbumCovers
-                    .FirstOrDefault(a => a.FilePath == InitializeData.GetDefaultCoverPath());
-                AlbumCover.Source = UIElementsFactory.DecodePhoto(defaultCover.FilePath, (int)AlbumCover.ActualWidth);
+                AlbumCover.ImageSource =
+                    UIElementsFactory
+                        .DecodePhoto(cover.FilePath, (int)AlbumCoverBorder.ActualWidth) ??
+                    UIElementsFactory
+                        .DecodePhoto(InitializeData.GetDefaultCoverPath(), (int)AlbumCoverBorder.ActualWidth);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write($"Oшибка загрузки фото: {ex.Message}");
             }
         }
 
@@ -316,12 +321,17 @@ namespace pleer.Resources.Windows
         // ОБЩИЕ ФУНКЦИОНАЛЬНЫЕ КНОПКИ
         private void LoginAsListinerButton_Click(object sender, RoutedEventArgs e)
         {
-            new ListenerMainWindow().Show(); this.Close();
+            new ListenerMainWindow().Show(); Close();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             FullWindow.Navigate(new LoginPage(this));
+        }
+
+        private void LoginAsAdminButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AdminMainWindow().Show(); Close();
         }
 
         private void ProfileImage_Click(object sender, MouseButtonEventArgs e)

@@ -32,7 +32,7 @@ namespace pleer.Resources.Windows
         Border _selectedCard;
         Playlist _currentPlaylist;
         public Album _currentAlbum;
-        Artist _currentArtist;
+        public Artist _currentArtist;
 
         public List<int> _listeningHistory = [];
         int _songSerialNumber;
@@ -285,13 +285,17 @@ namespace pleer.Resources.Windows
             SongName.Text = _selectedSong.Title;
             ArtistName.Text = artist.Name;
 
-            if (cover != null)
-                AlbumCover.Source = UIElementsFactory.DecodePhoto(cover.FilePath, (int)AlbumCover.ActualWidth);
-            else
+            try
             {
-                var defaultCover = _context.AlbumCovers
-                    .FirstOrDefault(a => a.FilePath == InitializeData.GetDefaultCoverPath());
-                AlbumCover.Source = UIElementsFactory.DecodePhoto(defaultCover.FilePath, (int)AlbumCover.ActualWidth);
+                AlbumCover.ImageSource =
+                    UIElementsFactory
+                        .DecodePhoto(cover.FilePath, (int)AlbumCoverBorder.ActualWidth) ??
+                    UIElementsFactory
+                        .DecodePhoto(InitializeData.GetDefaultCoverPath(), (int)AlbumCoverBorder.ActualWidth);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write($"Oшибка загрузки фото: {ex.Message}");
             }
         }
 
@@ -578,6 +582,11 @@ namespace pleer.Resources.Windows
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             FullWindow.Navigate(new LoginPage(this));
+        }
+
+        private void LoginAsAdminButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AdminMainWindow().Show(); Close();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

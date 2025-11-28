@@ -12,6 +12,7 @@ namespace pleer.Models.DatabaseContext
         //Users
         public DbSet<Listener> Listeners { get; set; }
         public DbSet<Artist> Artists { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<ProfilePicture> ProfilePictures { get; set; }
 
         //Media

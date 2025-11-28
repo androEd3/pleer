@@ -1,4 +1,5 @@
-﻿using pleer.Models.DatabaseContext;
+﻿using Microsoft.EntityFrameworkCore;
+using pleer.Models.DatabaseContext;
 using pleer.Models.Media;
 using pleer.Models.Users;
 using System.Diagnostics;
@@ -52,7 +53,7 @@ namespace pleer.Models.Service
                 var playlist = new Playlist()
                 {
                     Title = playlistTitle,
-                    CreationDate = DateOnly.FromDateTime(DateTime.Now),
+                    CreatedAt = DateOnly.FromDateTime(DateTime.Now),
                     CoverId = cover.Id,
                     CreatorId = listener.Id
                 };
@@ -171,6 +172,201 @@ namespace pleer.Models.Service
                 context.AddRange(pPictures);
                 context.SaveChanges();
             }
+        }
+
+        public static void CreateAdmin(DBContext context)
+        {
+            if (!context.Admins.Any())
+            {
+                var admins = new List<Admin>()
+                {
+                    { new() { Login = "Admin", PasswordHash = ServiceMethods.GetSha256Hash("Admin") } },
+                };
+                context.AddRange(admins);
+                context.SaveChanges();
+            }
+        }
+
+        public static void CreateListeners(DBContext context)
+        {
+            var listeners = new List<Listener>
+            {
+                new Listener
+                {
+                    Name = "Михаил Смирнов",
+                    Email = "misha.smirnov@gmail.com",
+                    Status = false,
+                    ProfilePictureId = 10,
+                    PasswordHash = "ab12cd34ef56789012345678901234567890123456789012345678901234aaaa",
+                    CreatedAt = new DateOnly(2024, 1, 10)
+                },
+                new Listener
+                {
+                    Name = "Ольга Новикова",
+                    Email = "olga.novikova@yandex.ru",
+                    Status = false,
+                    ProfilePictureId = 11,
+                    PasswordHash = "bc23de45fg67890123456789012345678901234567890123456789012345bbbb",
+                    CreatedAt = new DateOnly(2024, 2, 14)
+                },
+                new Listener
+                {
+                    Name = "Артём Морозов",
+                    Email = "artem.moroz@mail.ru",
+                    Status = false,
+                    ProfilePictureId = 12,
+                    PasswordHash = "cd34ef56gh78901234567890123456789012345678901234567890123456cccc",
+                    CreatedAt = new DateOnly(2024, 3, 22)
+                },
+                new Listener
+                {
+                    Name = "Елена Соколова",
+                    Email = "elena.sok@outlook.com",
+                    Status = true, // Заблокирован
+                    ProfilePictureId = 13,
+                    PasswordHash = "de45fg67hi89012345678901234567890123456789012345678901234567dddd",
+                    CreatedAt = new DateOnly(2024, 4, 8)
+                },
+                new Listener
+                {
+                    Name = "Никита Лебедев",
+                    Email = "nikita.lebedev@gmail.com",
+                    Status = false,
+                    ProfilePictureId = 14,
+                    PasswordHash = "ef56gh78ij90123456789012345678901234567890123456789012345678eeee",
+                    CreatedAt = new DateOnly(2024, 5, 30)
+                },
+                new Listener
+                {
+                    Name = "Дарья Кузнецова",
+                    Email = "dasha.kuz@proton.me",
+                    Status = false,
+                    ProfilePictureId = 15,
+                    PasswordHash = "fg67hi89jk01234567890123456789012345678901234567890123456789ffff",
+                    CreatedAt = new DateOnly(2024, 7, 12)
+                },
+                new Listener
+                {
+                    Name = "Сергей Попов",
+                    Email = "sergey.popov@yandex.ru",
+                    Status = true, // Заблокирован
+                    ProfilePictureId = 16,
+                    PasswordHash = "gh78ij90kl12345678901234567890123456789012345678901234567890gggg",
+                    CreatedAt = new DateOnly(2024, 9, 5)
+                },
+                new Listener
+                {
+                    Name = "Анастасия Волкова",
+                    Email = "nastya.volkova@mail.ru",
+                    Status = false,
+                    ProfilePictureId = 17,
+                    PasswordHash = "hi89jk01lm23456789012345678901234567890123456789012345678901hhhh",
+                    CreatedAt = new DateOnly(2024, 11, 18)
+                },
+                new Listener
+                {
+                    Name = "Иван Федоров",
+                    Email = "ivan.fedorov@gmail.com",
+                    Status = false,
+                    ProfilePictureId = 18,
+                    PasswordHash = "ij90kl12mn34567890123456789012345678901234567890123456789012iiii",
+                    CreatedAt = new DateOnly(2025, 2, 25)
+                }
+            };
+
+            context.Listeners.AddRange(listeners);
+            context.SaveChanges();
+        }
+
+        public static void CreateArtists(DBContext context)
+        {
+            var artists = new List<Artist>
+            {
+                new Artist
+                {
+                    Name = "Максим Белов",
+                    Email = "max.belov@music.ru",
+                    Status = false,
+                    ProfilePictureId = 1,
+                    PasswordHash = "1a2b3c4d5e6f7890abcdef1234567890abcdef1234567890abcdef12345678",
+                    CreatedAt = new DateOnly(2024, 1, 8)
+                },
+                new Artist
+                {
+                    Name = "Crystal Voice",
+                    Email = "crystal.voice@gmail.com",
+                    Status = false,
+                    ProfilePictureId = 2,
+                    PasswordHash = "2b3c4d5e6f7890abcdef1234567890abcdef1234567890abcdef123456789a",
+                    CreatedAt = new DateOnly(2024, 2, 17)
+                },
+                new Artist
+                {
+                    Name = "Игорь Васильев",
+                    Email = "igor.vasilev@yandex.ru",
+                    Status = false,
+                    ProfilePictureId = 3,
+                    PasswordHash = "3c4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890ab",
+                    CreatedAt = new DateOnly(2024, 3, 25)
+                },
+                new Artist
+                {
+                    Name = "Midnight Sun",
+                    Email = "midnight.sun@outlook.com",
+                    Status = true, // Заблокирован
+                    ProfilePictureId = 4,
+                    PasswordHash = "4d5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890abcd",
+                    CreatedAt = new DateOnly(2024, 4, 12)
+                },
+                new Artist
+                {
+                    Name = "Татьяна Орлова",
+                    Email = "tanya.orlova@mail.ru",
+                    Status = false,
+                    ProfilePictureId = 5,
+                    PasswordHash = "5e6f7890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+                    CreatedAt = new DateOnly(2025, 6, 3)
+                },
+                new Artist
+                {
+                    Name = "Deep Wave",
+                    Email = "deep.wave@proton.me",
+                    Status = false,
+                    ProfilePictureId = 6,
+                    PasswordHash = "6f7890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12",
+                    CreatedAt = new DateOnly(2025, 7, 19)
+                },
+                new Artist
+                {
+                    Name = "Павел Громов",
+                    Email = "pavel.gromov@gmail.com",
+                    Status = false,
+                    ProfilePictureId = 7,
+                    PasswordHash = "7890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234",
+                    CreatedAt = new DateOnly(2025, 9, 28)
+                },
+                new Artist
+                {
+                    Name = "Silver Echo",
+                    Email = "silver.echo@music.com",
+                    Status = true, // Заблокирован
+                    ProfilePictureId = 8,
+                    PasswordHash = "890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345",
+                    CreatedAt = new DateOnly(2025, 10, 15)
+                },
+                new Artist
+                {
+                    Name = "Юлия Романова",
+                    Email = "julia.romanova@yandex.ru",
+                    Status = false,
+                    ProfilePictureId = 9,
+                    PasswordHash = "90abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456",
+                    CreatedAt = new DateOnly(2025, 3, 2)
+                }
+            };
+
+            context.Artists.AddRange(artists);
+            context.SaveChanges();
         }
 
         public static string GetDefaultCoverPath()

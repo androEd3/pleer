@@ -16,7 +16,11 @@ namespace pleer.Models.Users
         [MaxLength(255)]
         public string Email { get; set; }
 
+        //ban status
+        public bool Status { get; set; }
+
         public int ProfilePictureId { get; set; }
+        public ProfilePicture ProfilePicture { get; set; }
 
         [Required]
         [MaxLength(64)]

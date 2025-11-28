@@ -32,14 +32,14 @@ namespace pleer.Resources.Pages.Songs
         {
             SongsList.Children.Clear();
 
-            SearchSongsButton.Background = ColorConvert("#eee");
-            SearchSongsButton.Foreground = ColorConvert("#333");
+            SearchSongsButton.Background = UIElementsFactory.ColorConvert("#eee");
+            SearchSongsButton.Foreground = UIElementsFactory.ColorConvert("#333");
 
-            SearchPlaylistsButton.Background = ColorConvert("#333");
-            SearchPlaylistsButton.Foreground = ColorConvert("#eee");
+            SearchPlaylistsButton.Background = UIElementsFactory.ColorConvert("#333");
+            SearchPlaylistsButton.Foreground = UIElementsFactory.ColorConvert("#eee");
 
-            SearchArtistsButton.Background = ColorConvert("#333");
-            SearchArtistsButton.Foreground = ColorConvert("#eee");
+            SearchArtistsButton.Background = UIElementsFactory.ColorConvert("#333");
+            SearchArtistsButton.Foreground = UIElementsFactory.ColorConvert("#eee");
 
             var songs = _context.Songs
                 .Where(s => s.Title.Contains(_searchBarContent))
@@ -65,14 +65,14 @@ namespace pleer.Resources.Pages.Songs
         {
             SongsList.Children.Clear();
 
-            SearchSongsButton.Background = ColorConvert("#333");
-            SearchSongsButton.Foreground = ColorConvert("#eee");
+            SearchSongsButton.Background = UIElementsFactory.ColorConvert("#333");
+            SearchSongsButton.Foreground = UIElementsFactory.ColorConvert("#eee");
 
-            SearchPlaylistsButton.Background = ColorConvert("#eee");
-            SearchPlaylistsButton.Foreground = ColorConvert("#333");
+            SearchPlaylistsButton.Background = UIElementsFactory.ColorConvert("#eee");
+            SearchPlaylistsButton.Foreground = UIElementsFactory.ColorConvert("#333");
 
-            SearchArtistsButton.Background = ColorConvert("#333");
-            SearchArtistsButton.Foreground = ColorConvert("#eee");
+            SearchArtistsButton.Background = UIElementsFactory.ColorConvert("#333");
+            SearchArtistsButton.Foreground = UIElementsFactory.ColorConvert("#eee");
 
             var albums = _context.Albums
                 .Where(s => s.Title.Contains(_searchBarContent))
@@ -96,14 +96,14 @@ namespace pleer.Resources.Pages.Songs
         {
             SongsList.Children.Clear();
 
-            SearchSongsButton.Background = ColorConvert("#333");
-            SearchSongsButton.Foreground = ColorConvert("#eee");
+            SearchSongsButton.Background = UIElementsFactory.ColorConvert("#333");
+            SearchSongsButton.Foreground = UIElementsFactory.ColorConvert("#eee");
 
-            SearchPlaylistsButton.Background = ColorConvert("#333");
-            SearchPlaylistsButton.Foreground = ColorConvert("#eee");
+            SearchPlaylistsButton.Background = UIElementsFactory.ColorConvert("#333");
+            SearchPlaylistsButton.Foreground = UIElementsFactory.ColorConvert("#eee");
 
-            SearchArtistsButton.Background = ColorConvert("#eee");
-            SearchArtistsButton.Foreground = ColorConvert("#333");
+            SearchArtistsButton.Background = UIElementsFactory.ColorConvert("#eee");
+            SearchArtistsButton.Foreground = UIElementsFactory.ColorConvert("#333");
 
             var artists = _context.Artists
                 .Where(a => a.Name.Contains(_searchBarContent))
@@ -123,12 +123,6 @@ namespace pleer.Resources.Pages.Songs
                 var card = UIElementsFactory.CreateArtistCard(artist, _listenerMain.ArtistCard_Click);
                 SongsList.Children.Add(card);
             }
-        }
-
-
-        SolidColorBrush ColorConvert(string hex)
-        {
-            return new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex));
         }
 
         private void SearchSongsButton_Click(object sender, RoutedEventArgs e)

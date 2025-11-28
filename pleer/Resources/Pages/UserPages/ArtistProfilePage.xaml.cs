@@ -43,6 +43,8 @@ namespace pleer.Resources.Pages.UserPages
             _listenerMain = listenerMain;
             _artist = artist;
 
+            Unloaded += ArtistProfilePage_Unloaded;
+
             LoadArtistsData();
         }
 
@@ -54,7 +56,14 @@ namespace pleer.Resources.Pages.UserPages
             _artist = artist;
             _listener = listener;
 
+            Unloaded += ArtistProfilePage_Unloaded;
+
             LoadArtistsData();
+        }
+
+        private void ArtistProfilePage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _listenerMain._currentArtist = null;
         }
 
         void UserPictureMouseEvents()

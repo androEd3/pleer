@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\VISUAL_STUDIO_PROJ\player\app\pleer\App.xaml
-17-462047305
+211774762833
 221792493339
-49713810443
+60-770375378
 247-1105006022
-Resources\Pages\Collections\CollectionsList.xaml;Resources\Pages\Collections\CreateAlbum.xaml;Resources\Pages\Collections\OpenCollection.xaml;Resources\Pages\GeneralPages\ChangePasswordPage.xaml;Resources\Pages\GeneralPages\LoginPage.xaml;Resources\Pages\GeneralPages\ProfilePage.xaml;Resources\Pages\GeneralPages\RegistrationPage.xaml;Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml;Resources\Pages\Songs\ListenedHistoryPage.xaml;Resources\Pages\Songs\SearchResult.xaml;Resources\Pages\UserPages\ArtistProfilePage.xaml;Resources\Pages\UserPages\ArtistStatisticsPage.xaml;Resources\Pages\UserPages\HomePage.xaml;Resources\Pages\UserPages\MediaLibrary.xaml;Resources\Windows\ArtistMainWindow.xaml;Resources\Windows\ListenerMainWindow.xaml;Resources\Windows\PlaylistEditWindow.xaml;
+Resources\Pages\AdminPages\ReportPage.xaml;Resources\Pages\AdminPages\SongsBanListPage.xaml;Resources\Pages\AdminPages\UsersBanListPage.xaml;Resources\Pages\Collections\CollectionsList.xaml;Resources\Pages\Collections\CreateAlbum.xaml;Resources\Pages\Collections\OpenCollection.xaml;Resources\Pages\GeneralPages\ChangePasswordPage.xaml;Resources\Pages\GeneralPages\LoginPage.xaml;Resources\Pages\GeneralPages\ProfilePage.xaml;Resources\Pages\GeneralPages\RegistrationPage.xaml;Resources\Pages\GeneralPages\UnauthorizedNoticePage.xaml;Resources\Pages\Songs\ListenedHistoryPage.xaml;Resources\Pages\Songs\SearchResult.xaml;Resources\Pages\UserPages\ArtistProfilePage.xaml;Resources\Pages\UserPages\ArtistStatisticsPage.xaml;Resources\Pages\UserPages\HomePage.xaml;Resources\Pages\UserPages\MediaLibrary.xaml;Resources\Windows\AdminMainWindow.xaml;Resources\Windows\ArtistMainWindow.xaml;Resources\Windows\ListenerMainWindow.xaml;Resources\Windows\PlaylistEditWindow.xaml;
 
 True
 

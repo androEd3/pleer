@@ -40,14 +40,14 @@ namespace pleer.Resources.Pages.GeneralPages
         void UserActiveGrid()
         {
             _listenerMain.FullWindow.Visibility = Visibility.Collapsed;
-            _listenerMain.WindowBlurEffect.Radius = 0;
+            _listenerMain.MainGrid.Effect = null;
             _listenerMain.MainGrid.IsEnabled = true;
         }
 
         void ArtistActiveGrid()
         {
             _artistMain.FullWindow.Visibility = Visibility.Collapsed;
-            _artistMain.WindowBlurEffect.Radius = 0;
+            _artistMain.MainGrid.Effect = null;
             _artistMain.MainGrid.IsEnabled = true;
         }
 

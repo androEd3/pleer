@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using pleer.Models.DatabaseContext;
+﻿using pleer.Models.DatabaseContext;
 using pleer.Models.Service;
 using pleer.Models.Users;
 using pleer.Resources.Windows;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Effects;
 using System.Windows.Threading;
 
 namespace pleer.Resources.Pages.GeneralPages
@@ -19,9 +19,11 @@ namespace pleer.Resources.Pages.GeneralPages
 
         ListenerMainWindow _listenerMain;
         ArtistMainWindow _artistMain;
+        AdminMainWindow _adminMain;
 
         Listener _listener;
         Artist _artist;
+        Admin _admin;
 
         public LoginPage(ListenerMainWindow main)
         {
@@ -30,7 +32,7 @@ namespace pleer.Resources.Pages.GeneralPages
             _listenerMain = main;
 
             _listener = _context.Listeners.First();
-            OpenNewWindow(_listener, _artist);
+            OpenNewWindow(_listener);
 
             UserInactiveGrid();
         }
@@ -42,37 +44,61 @@ namespace pleer.Resources.Pages.GeneralPages
             _artistMain = main;
 
             _artist = _context.Artists.First();
-            OpenNewWindow(_listener, _artist);
+            OpenNewWindow(_artist);
 
             ArtistInactiveGrid();
+        }
+
+        public LoginPage(AdminMainWindow main)
+        {
+            InitializeComponent();
+
+            _adminMain = main;
+
+            _admin = _context.Admins.First();
+            OpenNewWindow(_admin);
+
+            CloseFullWindowFrameButton.Visibility = Visibility.Collapsed;
+            TurnToRegistration.Visibility = Visibility.Collapsed;
+
+            EmailTextBlock.Text = "Логин";
+
+            AdminInactiveGrid();
         }
 
         void UserInactiveGrid()
         {
             _listenerMain.FullWindow.Visibility = Visibility.Visible;
-            _listenerMain.WindowBlurEffect.Radius = 15;
+            _listenerMain.MainGrid.Effect = new BlurEffect { Radius = 15, KernelType = KernelType.Gaussian };
             _listenerMain.MainGrid.IsEnabled = false;
         }
 
         void UserActiveGrid()
         {
             _listenerMain.FullWindow.Visibility = Visibility.Collapsed;
-            _listenerMain.WindowBlurEffect.Radius = 0;
+            _listenerMain.MainGrid.Effect = null;
             _listenerMain.MainGrid.IsEnabled = true;
         }
 
         void ArtistInactiveGrid()
         {
             _artistMain.FullWindow.Visibility = Visibility.Visible;
-            _artistMain.WindowBlurEffect.Radius = 15;
+            _artistMain.MainGrid.Effect = new BlurEffect { Radius = 15, KernelType = KernelType.Gaussian };
             _artistMain.MainGrid.IsEnabled = false;
         }
 
         void ArtistActiveGrid()
         {
-            _artistMain.FullWindow.Visibility = Visibility.Collapsed;
-            _artistMain.WindowBlurEffect.Radius = 0;
+            _artistMain.OperationField.Visibility = Visibility.Collapsed;
+            _artistMain.MainGrid.Effect = null;
             _artistMain.MainGrid.IsEnabled = true;
+        }
+
+        void AdminInactiveGrid()
+        {
+            _adminMain.MainGrid.Effect = new BlurEffect { Radius = 15, KernelType = KernelType.Gaussian };
+            _adminMain.MainGrid.IsEnabled = false;
+            _adminMain.BackButton.IsEnabled = false; _adminMain.ForwardButton.IsEnabled = false;
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -80,22 +106,26 @@ namespace pleer.Resources.Pages.GeneralPages
             if (!CheckUserDataValid())
                 return;
 
-            var isEmailValid = ServiceMethods.IsValidEmail(UserEmail.Text);
-            if (!isEmailValid)
-            {
-                ErrorNoticePanel.Text = "Неверный формат почты";
-                return;
-            }
-            else ErrorNoticePanel.Text = string.Empty;
+            string password = string.Empty;
 
-
-            var password = ServiceMethods.IsPasswordsValidOutput(UserPassword.Text);
-            if (password != UserPassword.Text)
+            if (_adminMain == null)
             {
-                ErrorNoticePanel.Text = password;
-                return;
+                var isEmailValid = ServiceMethods.IsValidEmail(UserEmail.Text);
+                if (!isEmailValid)
+                {
+                    ErrorNoticePanel.Text = "Неверный формат почты";
+                    return;
+                }
+                else ErrorNoticePanel.Text = string.Empty;
+
+                password = ServiceMethods.IsPasswordsValidOutput(UserPassword.Text);
+                if (password != UserPassword.Text)
+                {
+                    ErrorNoticePanel.Text = password;
+                    return;
+                }
+                else ErrorNoticePanel.Text = string.Empty;
             }
-            else ErrorNoticePanel.Text = string.Empty;
 
             try
             {
@@ -103,6 +133,12 @@ namespace pleer.Resources.Pages.GeneralPages
                 {
                     _listener = _context.Listeners
                         .FirstOrDefault(u => u.Email == UserEmail.Text);
+
+                    if (_listener.Status)
+                    {
+                        ErrorNoticePanel.Text = "Ваш аккаунт был временно заблокирован, дождитесь разблокировки или обратитесь в поддержку (ее кстати нет))";
+                        return;
+                    }
 
                     if (_listener != null)
                     {
@@ -115,7 +151,7 @@ namespace pleer.Resources.Pages.GeneralPages
                         }
                         else ErrorNoticePanel.Text = string.Empty;
 
-                        await OpenNewWindow(_listener, _artist);
+                        await OpenNewWindow(_listener);
                     }
                     else
                     {
@@ -129,6 +165,12 @@ namespace pleer.Resources.Pages.GeneralPages
                     _artist = _context.Artists
                         .FirstOrDefault(a => a.Email == UserEmail.Text);
 
+                    if (_artist.Status)
+                    {
+                        ErrorNoticePanel.Text = "Ваш аккаунт был временно заблокирован, дождитесь разблокировки или обратитесь в поддержку (ее кстати нет))";
+                        return;
+                    }
+
                     if (_artist != default)
                     {
                         var passwordHash = ServiceMethods.GetSha256Hash(password);
@@ -139,47 +181,79 @@ namespace pleer.Resources.Pages.GeneralPages
                             return;
                         }
 
-                        await OpenNewWindow(_listener, _artist);
+                        await OpenNewWindow(_artist);
                     }
                     else
                     {
                         ErrorNoticePanel.Text = "Исполнитель не найден";
                         return;
                     }
+                }
 
+                if (_adminMain != null)
+                {
+                    _admin = _context.Admins
+                        .FirstOrDefault(a => a.Login == UserEmail.Text);
+
+                    if (_admin != default)
+                    {
+                        var passwordHash = ServiceMethods.GetSha256Hash(password);
+
+                        if (_admin.PasswordHash != passwordHash)
+                        {
+                            ErrorNoticePanel.Text = "Неверный пароль";
+                            return;
+                        }
+
+                        await OpenNewWindow(_admin);
+                    }
+                    else
+                    {
+                        ErrorNoticePanel.Text = "Администратор не найден";
+                        return;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex}");
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
 
-        async Task OpenNewWindow(Listener listener, Artist artist)
+        async Task OpenNewWindow(Listener listener)
         {
-            if (artist != null)
+            await Dispatcher.BeginInvoke(new Action(() =>
             {
-                await Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    var newWindow = new ArtistMainWindow(artist);
-                    Application.Current.MainWindow = newWindow;
+                var newWindow = new ListenerMainWindow(listener);
+                Application.Current.MainWindow = newWindow;
 
-                    newWindow.Show();
-                    _artistMain.Close();
-                }), DispatcherPriority.Background);
-            }
+                newWindow.Show();
+                _listenerMain.Close();
+            }), DispatcherPriority.Background);
+        }
 
-            if (listener != null)
+        async Task OpenNewWindow(Artist artist)
+        {
+            await Dispatcher.BeginInvoke(new Action(() =>
             {
-                await Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    var newWindow = new ListenerMainWindow(listener);
-                    Application.Current.MainWindow = newWindow;
+                var newWindow = new ArtistMainWindow(artist);
+                Application.Current.MainWindow = newWindow;
 
-                    newWindow.Show();
-                    _listenerMain.Close();
-                }), DispatcherPriority.Background);
-            }
+                newWindow.Show();
+                _artistMain.Close();
+            }), DispatcherPriority.Background);
+        }
+
+        async Task OpenNewWindow(Admin admin)
+        {
+            await Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var newWindow = new AdminMainWindow(admin);
+                Application.Current.MainWindow = newWindow;
+
+                newWindow.Show();
+                _adminMain.Close();
+            }), DispatcherPriority.Background);
         }
 
         bool CheckUserDataValid()

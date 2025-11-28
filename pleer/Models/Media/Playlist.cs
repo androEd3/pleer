@@ -21,7 +21,7 @@ namespace pleer.Models.Media
         public string? Description { get; set; }
 
         [Required]
-        public DateOnly CreationDate { get; set; }
+        public DateOnly CreatedAt { get; set; }
 
         public List<int> SongsId { get; set; } = [];
         public virtual ICollection<Song> Songs { get; set; } = [];

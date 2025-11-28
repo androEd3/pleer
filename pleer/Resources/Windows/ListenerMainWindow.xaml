@@ -10,10 +10,6 @@
 
     <Grid>
         <Grid Name="MainGrid">
-            <UIElement.Effect>
-                <BlurEffect x:Name="WindowBlurEffect" Radius="0" KernelType="Gaussian"/>
-            </UIElement.Effect>
-
             <Grid Margin="2.5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="75"/>
@@ -51,6 +47,9 @@
                                         <Button Content="Войти как исполнитель" 
                                                 Click="LoginAsArtistButton_Click"
                                                 Style="{StaticResource MenuButton}"/>
+                                        <Button Content="Войти как администратор" 
+                                                Click="LoginAsAdminButton_Click"
+                                                Style="{StaticResource MenuButton}"/>
                                     </StackPanel>
                                 </Border>
                             </Popup>
@@ -82,10 +81,8 @@
                                                      Width="50" Height="50"/>
                         </Button>
                         
-                        <TextBox Grid.Column="1"
-                                 Name="SearchBar"
-                                 TextChanged="SearchBar_TextChanged"
-                                 KeyDown="Enter_KeyDown"
+                        <TextBox Grid.Column="1" Name="SearchBar"
+                                 TextChanged="SearchBar_TextChanged" KeyDown="Enter_KeyDown"
                                  Style="{StaticResource MainIngutField}"/>
                     </Grid>
 
@@ -98,8 +95,7 @@
                                    Style="{StaticResource SongNameLowerPanel}"/>
                         
                         <Ellipse HorizontalAlignment="Right" Visibility="Collapsed"
-                                 Width="45" Height="45"
-                                 Name="ProfilePictureEllipse" 
+                                 Name="ProfilePictureEllipse" Width="45" Height="45"
                                  Cursor="Hand" MouseLeftButtonUp="ProfileImage_Click">
                             <Ellipse.Fill>
                                 <ImageBrush x:Name="ProfilePictureImage"/>
@@ -149,8 +145,13 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border CornerRadius="5" Height="55" Width="55" Background="#333">
-                                <Image Name="AlbumCover"/>
+                            <Border CornerRadius="5" Height="55" Width="55"
+                                    Background="#333"/>
+
+                            <Border CornerRadius="5" Height="55" Width="55" Name="AlbumCoverBorder">
+                                <Border.Background>
+                                    <ImageBrush Stretch="UniformToFill" x:Name="AlbumCover"/>
+                                </Border.Background>
                             </Border>
 
                             <StackPanel Grid.Column="1" Margin="10 5" Name="VisualBorder"

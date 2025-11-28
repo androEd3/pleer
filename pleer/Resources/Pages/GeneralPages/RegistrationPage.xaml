@@ -95,7 +95,7 @@
                            Style="{StaticResource SmallErrorPanel}"/>
                 <Button Grid.Row="2" Grid.ColumnSpan="2"
                         Content="Регистрация" Margin="0 60 0 10"
-                        HorizontalAlignment="Center"
+                        HorizontalAlignment="Center" Padding="10"
                         Click="RegistrationButton_Click"
                         Style="{StaticResource SimpleButton}"/>
             </Grid>
